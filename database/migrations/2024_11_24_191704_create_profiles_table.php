@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('Profiles_usersId')->references('users_id')->on('users');
             $table->unsignedBigInteger('Profiles_rolesId');
             $table->foreign('Profiles_rolesId')->references('roles_id')->on('roles');
+            $table->boolean('profiles_state', 1); //cada perfil tiene un estado de activo o inactivo
             $table->timestamps();
         });
     }

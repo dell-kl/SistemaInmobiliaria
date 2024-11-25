@@ -1,0 +1,30 @@
+html {
+    box-sizing: border-box;
+    margin:0;
+}
+
+*::before, *::after {
+    box-sizing: inherit;
+}
+
+body { 
+    height: 100vh;
+    margin:0;
+}
+
+.logo, .inicial {
+    color: #E64D00;
+}
+
+.mensaje { 
+    color: #FF8B51;
+    text-decoration: underline;
+}
+
+.logo-perfil { 
+    background-color: #e64d003b;
+}
+
+.btn-buscar,.btn-gestionar {
+    background-color: #E64D00;
+}

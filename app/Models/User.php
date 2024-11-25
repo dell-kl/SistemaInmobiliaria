@@ -12,6 +12,8 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    protected $primaryKey = 'users_id';
+
     //con este atributo definimos con que tabla va a estar relacionado este atributo . 
     // protected $table = "Usuarios";
     
@@ -24,7 +26,8 @@ class User extends Authenticatable
         'users_name',
         'users_email',
         'users_cedula',
-        'users_phone'
+        'users_phone',
+        'users_password',
     ];
 
     /**

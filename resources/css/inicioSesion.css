@@ -1,0 +1,13 @@
+.inicioSesion { 
+    background-image: url('/public/image/FondoSesion.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: inherit;
+}
+
+.seccionFormulario {
+    background-color: #1c1818a8;
+    width: 40%;
+    margin: auto;
+}
