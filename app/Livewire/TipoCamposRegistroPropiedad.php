@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class TipoCamposRegistroPropiedad extends Component
 {
-    public $typeProjects = 0;
+    public $typeProjects = 1;
 
     public function render()
     {

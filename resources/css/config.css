@@ -25,6 +25,11 @@ body {
     background-color: #e64d003b;
 }
 
-.btn-buscar,.btn-gestionar {
+.btn-buscar,.btn-gestionar, .btn-registrar {
     background-color: #E64D00;
+}
+
+.btn-buscar:hover, .btn-gestionar:hover, .btn-registrar:hover{
+    color:#E64D00 !important;
+    border-color: #E64D00 !important;
 }

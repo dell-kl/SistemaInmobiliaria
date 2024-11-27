@@ -42,9 +42,16 @@
         class="btn-gestionar block w-full select-none rounded-lg py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         type="button"
         data-ripple-light="true"
+        data-bs-toggle="modal" data-bs-target="#administrarPropiedad-{{ $property->properties_id }}"
       >
         Administrar
       </button>
     </div>
+    
+    {{-- El componente va a tener un componente adicional que mostrar de manera mas desglosada
+    la informacion de la propiedad (Terreno, Casa, Departamento) 
+    --}}
+
+    @livewire('edicion-propiedad', ['identificadorPropiedad' => $property->properties_id])
   </div>
   
