@@ -19,7 +19,9 @@ class DatabaseSeeder extends Seeder
             RolesSeeder::class,
             UsersSeeder::class,
             ProfilesSeeder::class,
-            TypePropertiesSeeder::class
+            TypePropertiesSeeder::class,
+            CantonSeeder::class,
+            ParroquiaSeeder::class
         ]);
 
     }
