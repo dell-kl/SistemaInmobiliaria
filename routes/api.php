@@ -24,3 +24,5 @@ Route::post('/propiedades/registrar', [PropiedadesController::class, 'registrar'
  */
 
 
+
+
