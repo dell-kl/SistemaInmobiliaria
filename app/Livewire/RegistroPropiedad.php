@@ -13,4 +13,14 @@ class RegistroPropiedad extends Component
         return view('livewire.registro-propiedad');
     }
 
+    //vamos a mostrar un mensaje de carga general.
+    public function placeholder()
+    {
+        return <<<'HTML'
+        <div>
+            <!-- Loading spinner... -->
+            <p>Cargando Contenido ...</p>
+        </div>
+        HTML;
+    }
 }

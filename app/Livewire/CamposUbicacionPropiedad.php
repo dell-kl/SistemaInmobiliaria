@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Canton;
 use App\Models\Parroquia;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class CamposUbicacionPropiedad extends Component
@@ -14,12 +15,14 @@ class CamposUbicacionPropiedad extends Component
 
     public int $idCanton = 0;
 
+    public bool $mostrarMapa = false;
+
     public function render() : View
     {
         //pasar la infromacion de todos los cantones.
         $Listadocantones = Canton::all();
-        
-        //vamos a revisar si podemos filtrar por medio del canton que selecciono. 
+
+        //vamos a revisar si podemos filtrar por medio del canton que selecciono.
         $ListadoParroquias = ($this->idCanton===0) ? []
             : Parroquia::Where('Parroquias_cantonsId', $this->idCanton)->get()->toArray();
 
@@ -34,6 +37,13 @@ class CamposUbicacionPropiedad extends Component
     {
         $canton = Canton::Where('cantons_id', $this->idCanton)->first();
         $ListadoParroquias = $canton->obtenerParroquias();
-        
+    }
+
+    #[On('post-created')]
+    public function mostrarMapa() : void
+    {
+        //<button type="button" @click="$dispatch('post-created')" class="btn btn-warning ms-2">Carga Mapa </button>
+
+        $this->mostrarMapa = !$this->mostrarMapa;
     }
 }

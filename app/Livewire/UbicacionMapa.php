@@ -10,4 +10,5 @@ class UbicacionMapa extends Component
     {
         return view('livewire.ubicacion-mapa');
     }
+
 }

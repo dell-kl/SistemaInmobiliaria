@@ -6,6 +6,7 @@ use Livewire\Component;
 
 class SubidaArchivo extends Component
 {
+    public $identificador;
     public $tipoSubidaArchivo;
     public $widthProperty;
     public $heightProperty;

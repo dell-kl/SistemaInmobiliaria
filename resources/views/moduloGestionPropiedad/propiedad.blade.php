@@ -1,4 +1,4 @@
-@php use App\Models\Property; @endphp 
+@php use App\Models\Property; @endphp
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,8 +10,12 @@
     <link rel="stylesheet" href="{{ Vite::asset('resources/css/config.css') }}">
     <link rel="stylesheet" href="{{ Vite::asset('resources/css/propiedades.css') }}">
     <link rel="stylesheet" href="{{ Vite::asset('resources/css/tailwaind.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.css" rel="stylesheet" />
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.umd.js"></script>
+    <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
 
     <title>Lista Propiedades</title>
 </head>
@@ -28,7 +32,7 @@
 
             <li class="nav-item dropdown list-none">
                 <a class="nav-link dropdown-toggle text-3xl" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    
+
                 </a>
                 <ul class="dropdown-menu list-none">
                   <li><a class="dropdown-item" href="#">Perfil</a></li>
@@ -40,11 +44,11 @@
 
     <div class="w-full propiedades" style="background-color: #F2F2F2;">
         <div class="m-auto pt-5" style="width:85.5%;">
-            <button class="btn btn-warning flex flex-row items-center gap-2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <button id="btnRegistrarPropiedad" class="btn btn-warning flex flex-row items-center gap-2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 <img src="/icons/home.png" width="50"/>
                 Agregar Propiedad
             </button>
-    
+
             <div class="filtro pt-4">
                 <div class="bg-white w-3/12 text-center fw-bold rounded-t-lg p-2 text-xl">Filtrar Propiedades</div>
                 <div class="bg-white p-3 rounded-r-lg">
@@ -68,7 +72,7 @@
                         <div class="col">
                             <input type="text" class="form-control border-2 border-black" placeholder="Escribe lo que deseas buscar"/>
                         </div>
-    
+
                         <div class="col">
                             <input type="submit" class="btn btn-buscar text-white w-50"/>
                         </div>
@@ -77,20 +81,20 @@
             </div>
         </div>
         <div class="m-auto propiedades-listado pt-4 flex flex-row flex-wrap gap-4 items-center pb-2" style="width:85.5%;">
-          @php $propiedad = new Property(); @endphp  
-          @php $propiedad->properties_id = 1; @endphp  
+          @php $propiedad = new Property(); @endphp
+          @php $propiedad->properties_id = 1; @endphp
           @livewire('propiedad', ['property' => $propiedad])
-          @php $propiedad->properties_id = 2; @endphp  
+          @php $propiedad->properties_id = 2; @endphp
           @livewire('propiedad', ['property' => $propiedad])
-          @php $propiedad->properties_id = 3; @endphp  
+          @php $propiedad->properties_id = 3; @endphp
           @livewire('propiedad', ['property' => $propiedad])
-          @php $propiedad->properties_id = 4; @endphp  
+          @php $propiedad->properties_id = 4; @endphp
           @livewire('propiedad', ['property' => $propiedad])
-          @php $propiedad->properties_id = 5; @endphp  
+          @php $propiedad->properties_id = 5; @endphp
           @livewire('propiedad', ['property' => $propiedad])
-          @php $propiedad->properties_id = 6; @endphp  
+          @php $propiedad->properties_id = 6; @endphp
           @livewire('propiedad', ['property' => $propiedad])
-          @php $propiedad->properties_id = 7; @endphp  
+          @php $propiedad->properties_id = 7; @endphp
           @livewire('propiedad', ['property' => $propiedad])
         </div>
 
@@ -100,20 +104,22 @@
                   <span class="text-green-700 font-medium group-hover:text-slate-200">◀️ Retroceder</span>
                 </li>
               </a>
-    
+
               <a href="#" class="group">
                 <li class="w-100 px-2 h-10 text-gray-800 grid place-items-center rounded-md border lg:border-2 border-red-700 group-hover:bg-red-700">
                   <span class="text-red-700 font-medium group-hover:text-slate-200">Continuar ▶️</span>
                 </li>
               </a>
-        </div>  
+        </div>
     </div>
+{{--
+    <x-registroPropiedad>
+    </x-registroPropiedad> --}}
 
-    {{-- componente general que nos permitira hacer un registro nuevo de una propiedad --}}
     @livewire('registro-propiedad')
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-    
-  </body>
+
+    </body>
 </html>
