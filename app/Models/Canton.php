@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Canton extends Model
 {
+
     //configuracion de las relaciones correspondientes.
     public function obtenerParroquias() : HasMany
     {
