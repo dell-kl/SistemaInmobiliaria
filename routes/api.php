@@ -4,10 +4,13 @@
  * como para la parte web.
  */
 
+use App\Http\Controllers\ApiRestControllers\CoordenadasController;
 use App\Http\Controllers\ApiRestControllers\ImagenesController;
+use App\Http\Controllers\ApiRestControllers\PlanosController;
 use App\Http\Controllers\ApiRestControllers\PropiedadesController;
 use App\Http\Controllers\ApiRestControllers\SesionController;
 use App\Http\Controllers\ApiRestControllers\UbicacionesController;
+use App\Http\Controllers\ApiRestControllers\VideosController;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -44,3 +47,30 @@ Route::get('/ubicacion/listado', [UbicacionesController::class, 'obtenerUbicacio
  * ===========================================================================
  */
 Route::post('/imagenes/cargar', [ImagenesController::class, 'cargarImagen']);
+
+
+/**
+ * ============================================================================
+ * Planos
+ * ===========================================================================
+ */
+Route::post('/planos/cargar', [PlanosController::class, 'cargarPlanos']);
+
+
+/**
+ * ===========================================================================
+ * Videos
+ * ===========================================================================
+ */
+
+Route::post('/videos/cargar', [VideosController::class, 'cargarVideo']);
+Route::get('/videos/codigos/{id}', [VideosController::class, 'obtenerCodigos']);
+
+
+/**
+ * ============================================================================
+ * Coordenadas
+ * ===========================================================================
+ */
+Route::post('/coordenadas/registrar', [CoordenadasController::class, 'registrarCoordenadas']);
+Route::get('/coordenadas/propiedad/{id}', [CoordenadasController::class, 'obtenerCoordenadas']);

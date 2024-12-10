@@ -1,34 +1,31 @@
 <?php
 
 namespace App\Http\Controllers\ApiRestControllers;
-
 use App\Http\Controllers\Controller;
-use App\Models\Picture;
+use App\Models\Plan;
 use App\Models\Property;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-
-class ImagenesController extends Controller{
-
+use Illuminate\Support\Facades\Validator;
+class PlanosController extends Controller
+{
     public function __construct(){}
 
-    public function cargarImagen(Request $request): JsonResponse
-    {
-        $imagenes = $request->file('FileIMG');
+    public function cargarPlanos(Request $request): JsonResponse {
+
+        $imagenes = $request->file('PlanIMG');
 
         if ( isset( $imagenes ) && isset($request->PropertyId) ) {
 
-            if(!empty( $imagenes ))
+            if( !empty( $imagenes ) )
             {
                 $validator = Validator::make($request->all(), [
-                'FileIMG.*' => 'required|image|mimes:jpeg,png,jpg|max:4080'
+                    'PlanIMG.*' => 'required|image|mimes:jpeg,png,jpg,webp|max:4080'
                 ]);
 
                 if ($validator->fails())
                 {
-                    return response()->json(['mensaje' => 'Archivo incompatible'], 400);
+                    return response()->json(['mensaje' => 'Formato no soportado'], 400);
                 }
 
                 //verificar si existe la propiedad primero, para despues guardar los datos.
@@ -38,23 +35,23 @@ class ImagenesController extends Controller{
                 }
 
                 $rutaImagenes = array_map(function($imagen) {
-                    return $imagen->store('imagenes', 'public');
+                    return $imagen->store('imagenes_planos', 'public');
                 }, $imagenes);
 
                 //luego de haber guardado a nivel del proyecto las imagenes... vamos a guardar su ruta.
                 foreach($rutaImagenes as $ruta)
                 {
-                    $picture = new Picture();
-                    $picture->pictures_route = $ruta;
-                    $picture->Pictures_propertiesId = $request->PropertyId;
-                    $picture->save();
+                    $plano = new Plan();
+                    $plano->plans_route = $ruta;
+                    $plano->plans_propertiesId = $request->PropertyId;
+                    $plano->save();
                 }
 
                 return response()->json(['mensaje' => "Guardado correctamente"], 200);
             }
         }
+
         return response()->json(['mensaje' => 'Parametro indefinido o vacio'], 500);
     }
 }
-
 ?>

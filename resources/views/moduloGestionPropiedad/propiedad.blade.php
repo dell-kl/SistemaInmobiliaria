@@ -42,6 +42,7 @@
         </div>
     </header>
 
+
     <div class="w-full propiedades" style="background-color: #F2F2F2;">
         <div class="m-auto pt-5" style="width:85.5%;">
             <button id="btnRegistrarPropiedad" class="btn btn-warning flex flex-row items-center gap-2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
