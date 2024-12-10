@@ -74,3 +74,4 @@ Route::get('/videos/codigos/{id}', [VideosController::class, 'obtenerCodigos']);
  */
 Route::post('/coordenadas/registrar', [CoordenadasController::class, 'registrarCoordenadas']);
 Route::get('/coordenadas/propiedad/{id}', [CoordenadasController::class, 'obtenerCoordenadas']);
+
