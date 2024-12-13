@@ -1,12 +1,22 @@
 <?php
-
+use App\Http\Controllers\GestionPropiedadController;
+use App\Http\Controllers\InicioSesionController;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('moduloSeguridad/login');
-});
+/**
+ * =============================================================================
+ * Inicio Sesion.
+ * =============================================================================
+ */
+Route::get('/', [InicioSesionController::class, 'index']);
 
-Route::get('/propiedades', function() {
-    return View('moduloGestionPropiedad/propiedad');
+/**
+ * =============================================================================
+ * Gestion Propiedades.
+ * =============================================================================
+ */
+Route::controller(GestionPropiedadController::class)->group(function () {
+    Route::get('/propiedades', 'propiedad');
+    Route::post('/propiedades/registrar', 'registrarPropiedad');
 });

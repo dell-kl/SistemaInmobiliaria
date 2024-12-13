@@ -7,7 +7,8 @@ use Livewire\Component;
 
 class Propiedad extends Component
 {
-    public Property $property;
+    public $property;
+    public $rutaImagen;
 
     public function render()
     {

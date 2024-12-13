@@ -27,7 +27,7 @@ Route::post('/sesion/inicio', [SesionController::class, 'inicioSesion']);
  * ===========================================================================
  */
 
-Route::get('/propiedades/listar', [PropiedadesController::class, 'index']);
+Route::get('/propiedades/listar', [PropiedadesController::class, 'index'])->middleware('solicitudes');
 Route::post('/propiedades/registrar', [PropiedadesController::class, 'registrar']);
 
 

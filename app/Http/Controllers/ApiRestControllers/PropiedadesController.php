@@ -16,8 +16,9 @@ class PropiedadesController extends Controller
         $this->propiedadService = $propiedadesServices;
     }
 
-    public function index(): string{
-        return "probando";
+    public function index(): JsonResponse{
+        $listadoPropiedades = Property::with('images', 'videos', 'planos', 'obtenerTipoPropiedad', 'obtenerUbicacion')->get();
+        return response()->json($listadoPropiedades, 200);
     }
 
     public function registrar(Request $request): JsonResponse {

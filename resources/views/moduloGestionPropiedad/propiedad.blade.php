@@ -1,4 +1,7 @@
-@php use App\Models\Property; @endphp
+@php
+use App\Models\Property;
+
+@endphp
 
 <!DOCTYPE html>
 <html lang="en">
@@ -82,21 +85,17 @@
             </div>
         </div>
         <div class="m-auto propiedades-listado pt-4 flex flex-row flex-wrap gap-4 items-center pb-2" style="width:85.5%;">
-          @php $propiedad = new Property(); @endphp
-          @php $propiedad->properties_id = 1; @endphp
-          @livewire('propiedad', ['property' => $propiedad])
-          @php $propiedad->properties_id = 2; @endphp
-          @livewire('propiedad', ['property' => $propiedad])
-          @php $propiedad->properties_id = 3; @endphp
-          @livewire('propiedad', ['property' => $propiedad])
-          @php $propiedad->properties_id = 4; @endphp
-          @livewire('propiedad', ['property' => $propiedad])
-          @php $propiedad->properties_id = 5; @endphp
-          @livewire('propiedad', ['property' => $propiedad])
-          @php $propiedad->properties_id = 6; @endphp
-          @livewire('propiedad', ['property' => $propiedad])
-          @php $propiedad->properties_id = 7; @endphp
-          @livewire('propiedad', ['property' => $propiedad])
+
+            @if ( !empty($propiedades) )
+
+                @foreach ($propiedades as $propiedad)
+                    @php
+                        $rutaImagen = config('app.url') . '/storage/' . $propiedad["images"][0]["pictures_route"];
+                    @endphp
+                    @livewire('propiedad', ['property' => $propiedad, 'rutaImagen' => $rutaImagen]);
+                @endforeach
+
+            @endif
         </div>
 
         <div class="w-11/12 m-auto flex flex-row items-center justify-center gap-2 paginador py-4">
@@ -113,9 +112,6 @@
               </a>
         </div>
     </div>
-{{--
-    <x-registroPropiedad>
-    </x-registroPropiedad> --}}
 
     @livewire('registro-propiedad')
 
