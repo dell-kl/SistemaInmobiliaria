@@ -37,4 +37,9 @@ class Property extends Model
         return $this->belongsTo(Parroquia::class, 'Properties_parroquiasId', 'parroquias_id');
     }
 
+    //obtener informacion sobre las coordenadas de la propiedad.
+    public function obtenerCoordenadas() : HasMany
+    {
+        return $this->hasMany(Coordinate::class, 'coordinates_propertiesId', 'properties_id');
+    }
 }

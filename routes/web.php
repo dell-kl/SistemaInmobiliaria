@@ -19,4 +19,4 @@ Route::get('/', [InicioSesionController::class, 'index']);
 Route::controller(GestionPropiedadController::class)->group(function () {
     Route::get('/propiedades', 'propiedad');
     Route::post('/propiedades/registrar', 'registrarPropiedad');
-});
+})->middleware('propiedadMidlw');

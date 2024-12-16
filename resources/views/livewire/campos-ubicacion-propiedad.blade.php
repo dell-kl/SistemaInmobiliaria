@@ -20,12 +20,18 @@
 
     <div class="flex flex-row flex-wrap gap-1 pb-2">
         <div class="form-floating flex-1">
-            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+            <select name="ParroquiaProyecto" class="form-select" id="floatingSelect" aria-label="Floating label select example">
                 <option selected value="0" disabled>-- Parroquias del Canton --</option>
 
                 @if ( !empty($parroquias) )
                 @foreach ($parroquias as $parroquia)
-                    <option value="{{ $parroquia["parroquias_id"] }}">{{ $parroquia["parroquias_name"] }}</option>
+
+                    @if ( $parroquia["parroquias_id"] === $idParroquia)
+                        <option value="{{ $parroquia["parroquias_id"] }}" selected>{{ $parroquia["parroquias_name"] }}</option>
+                    @else
+                        <option value="{{ $parroquia["parroquias_id"] }}">{{ $parroquia["parroquias_name"] }}</option>
+                    @endif
+
                 @endforeach
                 @endif
             </select>
@@ -36,7 +42,7 @@
     <p class="pb-2 text-gray-400 text-capitalize">Puedes dar una direccion descriptiva del proyecto <strong> Ejm: La pulida / Fernando Corral y Carlos Freiler </strong> </p>
 
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Ingresa sector propiedad">
+        <input type="text" name="DireccionProyecto" value="{{ isset($datosPropiedad) ? $datosPropiedad["properties_address"] : "" }}" class="form-control" id="floatingInput" placeholder="Ingresa sector propiedad">
         <label for="floatingInput">🗺️ Direccion de la propiedad</label>
     </div>
 </div>

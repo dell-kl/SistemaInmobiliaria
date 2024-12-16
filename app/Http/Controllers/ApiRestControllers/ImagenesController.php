@@ -28,7 +28,7 @@ class ImagenesController extends Controller{
 
                 if ($validator->fails())
                 {
-                    return response()->json(['mensaje' => 'Archivo incompatible'], 400);
+                    return response()->json(['mensaje' => "Archivo incompatible"], 400);
                 }
 
                 //verificar si existe la propiedad primero, para despues guardar los datos.

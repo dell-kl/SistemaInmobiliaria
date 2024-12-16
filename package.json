@@ -3,7 +3,7 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite",
+        "dev": "vite --host=192.168.100.85",
         "web": "php artisan serve --host=192.168.100.85",
         "api": "php artisan serve --port=9000 --host=192.168.100.85"
     },

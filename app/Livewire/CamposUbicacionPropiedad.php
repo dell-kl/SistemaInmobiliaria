@@ -12,10 +12,12 @@ class CamposUbicacionPropiedad extends Component
 {
     public array $Listadocantones;
     public array $ListadoParroquias;
-
     public int $idCanton = 0;
-
     public bool $mostrarMapa = false;
+
+    //estas propiedades de aqui son usados mucho para la parte de la edicion de nuestra propiedad.
+    public $datosPropiedad;
+    public $idParroquia;
 
     public function render() : View
     {

@@ -1,6 +1,5 @@
 @php
 use App\Models\Property;
-
 @endphp
 
 <!DOCTYPE html>
@@ -48,7 +47,7 @@ use App\Models\Property;
 
     <div class="w-full propiedades" style="background-color: #F2F2F2;">
         <div class="m-auto pt-5" style="width:85.5%;">
-            <button id="btnRegistrarPropiedad" class="btn btn-warning flex flex-row items-center gap-2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <button id="btnRegistrarPropiedad" class="btn btn-warning flex flex-row items-center gap-2 boton-panel" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 <img src="/icons/home.png" width="50"/>
                 Agregar Propiedad
             </button>
@@ -84,7 +83,7 @@ use App\Models\Property;
                 </div>
             </div>
         </div>
-        <div class="m-auto propiedades-listado pt-4 flex flex-row flex-wrap gap-4 items-center pb-2" style="width:85.5%;">
+        <div class="m-auto propiedades-listado pt-4 flex flex-row flex-wrap gap-2 items-center pb-2" style="width:85.5%;">
 
             @if ( !empty($propiedades) )
 
@@ -92,7 +91,7 @@ use App\Models\Property;
                     @php
                         $rutaImagen = config('app.url') . '/storage/' . $propiedad["images"][0]["pictures_route"];
                     @endphp
-                    @livewire('propiedad', ['property' => $propiedad, 'rutaImagen' => $rutaImagen]);
+                    @livewire('propiedad', ['property' => $propiedad, 'rutaImagen' => $rutaImagen])
                 @endforeach
 
             @endif
@@ -117,6 +116,10 @@ use App\Models\Property;
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+    {{-- Vamos a encontrar el identificador justamente de cada uno de los mapas.  --}}
+
+    <script src="{{ Vite::asset('resources/js/loadMap.js') }}"></script>
 
     </body>
 </html>

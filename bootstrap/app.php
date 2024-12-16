@@ -13,7 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'solicitudes' => App\Http\Middleware\InmobiliariaCors::class
+            'solicitudes' => App\Http\Middleware\InmobiliariaCors::class,
+            'propiedadMidlw' => App\Http\Middleware\PropiedadesCors::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

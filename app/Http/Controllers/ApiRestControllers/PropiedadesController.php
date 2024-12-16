@@ -17,7 +17,7 @@ class PropiedadesController extends Controller
     }
 
     public function index(): JsonResponse{
-        $listadoPropiedades = Property::with('images', 'videos', 'planos', 'obtenerTipoPropiedad', 'obtenerUbicacion')->get();
+        $listadoPropiedades = Property::with('images', 'videos', 'planos', 'obtenerTipoPropiedad', 'obtenerUbicacion', 'obtenerCoordenadas')->get();
         return response()->json($listadoPropiedades, 200);
     }
 
@@ -44,6 +44,12 @@ class PropiedadesController extends Controller
         }
 
         return response()->json(['mensaje' => 'Error al registrar la propiedad'], 500);
+    }
+
+    public function ultimoRegistro() : JsonResponse
+    {
+        $propiedad = Property::all()->last();
+        return response()->json(['mensaje' => $propiedad], 200);
     }
 }
 ?>
