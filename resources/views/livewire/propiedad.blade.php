@@ -1,7 +1,8 @@
+
 <div class="relative flex w-full max-w-[26rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700">
     <div class="relative mx-4 mt-4 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40">
       <img
-        src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1470&amp;q=80"
+        src="{{$rutaImagen}}"
         alt="ui/ux review check"
       />
       <div class="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-tr from-transparent via-transparent to-black/60"></div>
@@ -25,26 +26,33 @@
     <div class="p-6">
       <div class="mb-3 flex flex-col items-start justify-between">
         <h6 class="block font-sans text-xl font-medium leading-snug tracking-normal text-blue-gray-900 antialiased">
-          Proyecto - <span>Departamento</span>
+          Proyecto - <span>{{ $property["obtener_tipo_propiedad"]["typeProperties_name"] }}</span>
         </h6>
         <p>
-            Desde <strong class="text-2xl">USD 1200</strong>
+            Desde <strong class="text-2xl">USD {{ $property["properties_price"] }}</strong>
         </p>
       </div>
 
       <div class="detalles pt-1">
-        <h3 class="fw-bold">Pomasqui</h3>
-        <p class="fw-lighter">Batan y Eloy Alfaro</p>
+        <h3 class="fw-bold">{{ $property["obtener_ubicacion"]["parroquias_name"] }}, Quito</h3>
+        <p class="fw-lighter">{{ $property["properties_address"] }}</p>
       </div>
     </div>
     <div class="p-6 pt-3">
       <button
-        class="btn-gestionar block w-full select-none rounded-lg py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+        class="btn-gestionar block w-full select-none rounded-lg py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none boton-panel"
         type="button"
+        id="proyecto-{{$property["properties_id"]}}-btn"
         data-ripple-light="true"
+        data-bs-toggle="modal" data-bs-target="#administrarPropiedad-{{ $property["properties_id"] }}"
       >
         Administrar
       </button>
     </div>
+
+    {{-- El componente va a tener un componente adicional que mostrar de manera mas desglosada
+    la informacion de la propiedad (Terreno, Casa, Departamento)
+    --}}
+
+    @livewire('edicion-propiedad', ['identificadorPropiedad' => $property["properties_id"], 'propiedad' => $property])
   </div>
-  

@@ -22,11 +22,13 @@ return new class extends Migration
             $table->string('properties_area');
             $table->string('properties_description');
             $table->boolean('properties_state',0); //eliminador logico 0 o 1.
+            $table->string('properties_address',100);
             //relaciones 
             $table->unsignedBigInteger('Properties_typePropertieId');
             $table->foreign('Properties_typePropertieId')->references('typeProperties_id')->on('type_properties');
-            $table->unsignedBigInteger('Properties_addressesId');
-            $table->foreign('Properties_addressesId')->references('addresses_id')->on('addresses');
+            //especificaremos el barrio
+            $table->unsignedBigInteger('Properties_parroquiasId');
+            $table->foreign('Properties_parroquiasId')->references('parroquias_id')->on('parroquias');
             $table->timestamps();
         });
     }

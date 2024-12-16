@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sectors', function (Blueprint $table) {
-            $table->id('sectors_id');
-            $table->string('sectors_name',90);
+        Schema::create('cantons', function (Blueprint $table) {
+            $table->id('cantons_id');
+            $table->string('cantons_nombre');
+            $table->boolean('cantons_estado', 1);
             $table->timestamps();
         });
     }
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sectors');
+        Schema::dropIfExists('cantons');
     }
 };
