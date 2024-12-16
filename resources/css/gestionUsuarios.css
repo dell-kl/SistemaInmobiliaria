@@ -1,0 +1,89 @@
+/* Estilo general de la página */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.user-management {
+    max-width: 1200px;
+    margin: 30px auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-management-header {
+    font-size: 24px;
+    color: #ff6600;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Estilo de la tabla */
+.user-management-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.user-management-table th {
+    background-color: #ff6600;
+    color: #ffffff;
+    text-align: left;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.user-management-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.user-management-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Botones de acción */
+.user-management-table td .btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.btn-edit {
+    background-color: #4caf50;
+    color: white;
+}
+
+.btn-delete {
+    background-color: #f44336;
+    color: white;
+}
+
+.btn-edit:hover, .btn-delete:hover {
+    opacity: 0.8;
+}
+
+/* Opcional: Ajuste para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .user-management {
+        padding: 10px;
+    }
+
+    .user-management-header {
+        font-size: 20px;
+    }
+
+    .user-management-table th, .user-management-table td {
+        font-size: 12px;
+        padding: 8px;
+    }
+}
