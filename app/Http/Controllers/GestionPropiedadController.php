@@ -38,6 +38,20 @@ class GestionPropiedadController
         }
     }
 
+
+    //actualizacion de nuestra propiedad.
+    public function actualizarPropiedad(Request $request)
+    {
+        try {
+            //tomamos los datos y los comparamos con nuestra propiedad que vamos a querer actualizar.
+            $datos = $request->all();
+
+            dd($datos);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+
     /**
      * Este metodo de aqui lo vamos a relacionar con nuestro formulario de registro de propiedad.
      */
@@ -58,9 +72,9 @@ class GestionPropiedadController
 
             //definimos la ruta de la api que guarda las propiedades. y le pasamos su contenido json de la propiedad.
             $respuesta = Http::post($this->ruta . "/api/propiedades/registrar", [
-                "properties_rooms" => $datos["numeroHabitaciones"],
-                "properties_bathrooms" => $datos["numeroBanios"],
-                "properties_parking" =>  $datos["numeroEstacionamiento"] ,
+                "properties_rooms" => $datos["tipoProyecto"] == 3 ? 0 :  $datos["numeroHabitaciones"],
+                "properties_bathrooms" => $datos["tipoProyecto"] == 3 ? 0 : $datos["numeroBanios"],
+                "properties_parking" => $datos["tipoProyecto"] == 3 ? 0 :  $datos["numeroEstacionamiento"] ,
                 "properties_price" => $datos["PrecioProyecto"],
                 "properties_availability" => $datos["EstadoProyecto"],
                 "properties_height" => $datos["tipoProyecto"] != 3 ? $datos["AltoProyecto"] : $datos["ProfundidadProyecto"],
@@ -71,6 +85,7 @@ class GestionPropiedadController
                 "Properties_typePropertieId" => $datos["tipoProyecto"],
                 "Properties_parroquiasId" => $datos["ParroquiaProyecto"]
             ]);
+
 
             if ( $respuesta->successful() )
             {
@@ -125,10 +140,20 @@ class GestionPropiedadController
                     "propertyId" => $propiedad["mensaje"]["properties_id"]
                 ]);
 
+
+                // registramos las coordenas de la propiedad.
+                $coordenadasProyecto = $datos["ubicacionMapa"];
+
+                $respuestaCoordenadas = Http::post($this->ruta . "/api/coordenadas/registrar", [
+                    "coodenadas" => $coordenadasProyecto,
+                    "propertyId" => $propiedad["mensaje"]["properties_id"]
+                ]);
+
                 if (
                     $respuestaImagen->successful() &&
                     $respuestaPlanos->successful() &&
-                    $respuestaVideos->successful()
+                    $respuestaVideos->successful() &&
+                    $respuestaCoordenadas->successful()
                 )
                 {
                     dd("correcto...");

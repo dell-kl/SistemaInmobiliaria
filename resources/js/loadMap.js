@@ -6,6 +6,10 @@
 let elemento;
 let mapaGuardados = {};
 
+let agregarUbicacion = true;
+let markerCoordinates = [0,0];
+let marker = L.marker(markerCoordinates);
+
 // let campoMapa;
 document.addEventListener("DOMContentLoaded", (e) => {
     elemento = document.querySelectorAll("#campoUbicacionMapa");
@@ -15,11 +19,13 @@ document.addEventListener("DOMContentLoaded", (e) => {
         mapa(elemento);
     }
 
-
     let botonesPanel = document.querySelectorAll(".boton-panel");
+
     botonesPanel.forEach(boton => {
         boton.onclick = (e) => {
+
             let elemento = e.target.id, idMapa = "";
+
             if ( elemento === "btnRegistrarPropiedad" )
             {
                 idMapa = "map";
@@ -29,26 +35,53 @@ document.addEventListener("DOMContentLoaded", (e) => {
                 idMapa = elemento.split("-")[0] + "-" + elemento.split("-")[1];
             }
 
-            setTimeout(() => {
-                try {
-                    mapaGuardados[idMapa].setView([-0.21011,-78.49560], 15);
-                } catch (error) {
-                    mapaGuardados[idMapa].setView([-0.21011,-78.49560], 15);
-                }
-                mapaGuardados[idMapa].invalidateSize();
-            }, 4000);
+
+            //dentro de aqui vamos a incluir la parte del ubicador en las propiedades que ya estan creadas.
+
+            if ( elemento !== "btnRegistrarPropiedad" )
+            {
+                const coordenadas = document.querySelector(`#${idMapa} input[type=hidden]`).value;
+
+                const lat = coordenadas.split(",")[0];
+                const lng = coordenadas.split(",")[1];
+
+                markerCoordinates = [lat, lng];
+
+                marker = L.marker(markerCoordinates);
+
+                mapaGuardados[idMapa].value = `${lat},${lng}`;
+
+                setTimeout(() => {
+                    try {
+                        mapaGuardados[idMapa].setView([lat,lng], 15);
+                    } catch (error) {
+                        mapaGuardados[idMapa].setView([lat,lng], 15);
+                    }
+                    mapaGuardados[idMapa].invalidateSize();
+                },4000);
+
+                marker.addTo(mapaGuardados[idMapa]);
+
+                marker.bindPopup(`\nLat:${markerCoordinates[0]}\nLng:${markerCoordinates[1]}`).openPopup();
+
+                agregarUbicacion = false;
+            }
+            else
+            {
+                setTimeout(() => {
+                    try {
+                        mapaGuardados[idMapa].setView([-0.21011,-78.49560], 15);
+                    } catch (error) {
+                        mapaGuardados[idMapa].setView([-0.21011,-78.49560], 15);
+                    }
+                    mapaGuardados[idMapa].invalidateSize();
+                }, 4000);
+
+            }
+
         };
     });
 
-    // if ( mapaGuardados.length > 0)
-    // {
-    //     mapaGuardados.forEach(map => {
-    //         map.setView([-0.21011,-78.49560],15);
-    //         map.invalidateSize();
-
-    //         console.log(map);
-    //     });
-    // }
 });
 
 function mapa(elemento)
@@ -58,11 +91,11 @@ function mapa(elemento)
         let identificadorMapa = elemento[i].classList[0];
         imagenEstatica(identificadorMapa);
     }
-    // document.getElementById("btnRegistrarPropiedad").onclick = () => { imagenEstatica(); };
 }
 
 function imagenEstatica(identificadorMapa)
 {
+
     let map = L.map(identificadorMapa, {
         preferCanvas: true
     }).setView([-0.21011,-78.49560], 10);
@@ -72,17 +105,25 @@ function imagenEstatica(identificadorMapa)
     });
     instanciaMapa.addTo(map);
 
-    let agregarUbicacion = true;
-    let markerCoordinates = [0,0];
-    let marker = L.marker(markerCoordinates);
+    agregarUbicacion = true;
+    markerCoordinates = [0,0];
+    marker = L.marker(markerCoordinates);
+
     map.addEventListener('click', function(e) {
-        // if ( !agregarUbicacion)
-        // {
-        //     map.removeLayer(marker);
-        // }
+
+        if ( !agregarUbicacion )
+        {
+            //vamos a eliminar el marker
+            mapaGuardados[identificadorMapa].removeLayer(marker);
+        }
 
         markerCoordinates = [e.latlng.lat, e.latlng.lng];
-        campoMapa.value = `${e.latlng.lat},${e.latlng.lng}`;
+
+        mapaGuardados[identificadorMapa].value = `${e.latlng.lat},${e.latlng.lng}`;
+
+        //vamos a setear en nuestro input oculto para la parte del mapa
+        document.querySelector(`#${identificadorMapa} input[type=hidden]`).value = `${e.latlng.lat},${e.latlng.lng}`;
+
         marker = L.marker(markerCoordinates)
 
         marker.addTo(map);
@@ -90,6 +131,7 @@ function imagenEstatica(identificadorMapa)
         marker.bindPopup(`\nLat:${markerCoordinates[0]}\nLng:${markerCoordinates[1]}`).openPopup();
 
         agregarUbicacion = false;
+
     });
 
     //vamos a guardar los respectivos mapas para su uso posterior.

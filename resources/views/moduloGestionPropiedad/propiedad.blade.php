@@ -12,6 +12,7 @@ use App\Models\Property;
     <link rel="stylesheet" href="{{ Vite::asset('resources/css/config.css') }}">
     <link rel="stylesheet" href="{{ Vite::asset('resources/css/propiedades.css') }}">
     <link rel="stylesheet" href="{{ Vite::asset('resources/css/tailwaind.css') }}">
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link href="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.css" rel="stylesheet" />
 
@@ -120,6 +121,6 @@ use App\Models\Property;
     {{-- Vamos a encontrar el identificador justamente de cada uno de los mapas.  --}}
 
     <script src="{{ Vite::asset('resources/js/loadMap.js') }}"></script>
-
+    <script src="{{ Vite::asset('resources/js/carruselVista.js') }}"></script>
     </body>
 </html>
