@@ -21,3 +21,5 @@ Route::controller(GestionPropiedadController::class)->group(function () {
     Route::post('/propiedades/registrar', 'registrarPropiedad');
     Route::post('/propiedades/actualizar', 'actualizarPropiedad');
 })->middleware('propiedadMidlw');
+
+
