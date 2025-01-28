@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Interest extends Model
 {
-    //
+    protected $fillable = [
+        'interests_rate',
+        'Interests_institutionsId',
+    ];
 
     public function institution() : BelongsTo
     {

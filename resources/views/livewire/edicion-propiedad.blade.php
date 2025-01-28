@@ -15,7 +15,11 @@
                 </div>
             </div>
             <div class="seccion-ubicacion d-flex flex-row gap-2 mt-4">
-                @livewire('ubicacion-mapa', ['identificador' => "proyecto-".$propiedad["properties_id"], 'coordenadas' => $propiedad["obtener_coordenadas"][0]["coordinates_route"]])
+                @if (!empty($propiedad["obtener_coordenadas"]))
+                    @livewire('ubicacion-mapa', ['identificador' => "proyecto-".$propiedad["properties_id"], 'coordenadas' => $propiedad["obtener_coordenadas"][0]["coordinates_route"]])
+                @else
+                    @livewire('ubicacion-mapa', ['identificador' => "proyecto-".$propiedad["properties_id"], 'coordenadas' => ''])
+                @endif
                 @livewire('campos-ubicacion-propiedad', ['datosPropiedad' => $propiedad, 'idCanton' => $propiedad["obtener_ubicacion"]["Parroquias_cantonsId"], 'idParroquia' => $propiedad["obtener_ubicacion"]["parroquias_id"]])
             </div>
             {{-- Vamos a generar la respectiva configuracion del carrusel de imagenes. --}}
@@ -28,4 +32,4 @@
         </div> --}}
       </div>
     </div>
-</div>
+</div>    

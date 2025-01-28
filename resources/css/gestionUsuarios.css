@@ -1,89 +1,173 @@
-/* Estilo general de la página */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
+/* Variables de color */
+:root {
+    --primary-color: #1A202C; /* Azul oscuro para resaltar */
+    --secondary-color: #4A90E2; /* Ajusta según la paleta */
+    --text-color: #333333;
+    --accent-color: #4A90E2; /* Gris oscuro de acento */
+    --background-color: #151616; /* Gris suave para fondos */
+    --highlight-color: #F59E0B; /* Amarillo anaranjado para destacar */
+    --text-color: #2D3748; /* Gris oscuro para texto */
+    --text-light: #E2E8F0; /* Gris más claro para contenido */
+    --btn-bg: #38B2AC; /* Verde suave para botones */
+    --btn-hover-bg: #2C7A7B; /* Verde más oscuro para hover */
 }
 
-.user-management {
-    max-width: 1200px;
-    margin: 30px auto;
-    background-color: #ffffff;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.user-management-header {
-    font-size: 24px;
-    color: #ff6600;
+/* Encabezado de la página */
+h1.logo {
+    font-size: 3rem;
+    color: var(--primary-color);
+    font-weight: 700;
     margin-bottom: 20px;
-    text-align: center;
 }
 
-/* Estilo de la tabla */
-.user-management-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+/* Barra de búsqueda y botón de registro */
+.d-flex {
+    margin-bottom: 30px;
+    justify-content: space-between;
 }
 
-.user-management-table th {
-    background-color: #ff6600;
-    color: #ffffff;
-    text-align: left;
+.d-flex input {
+    border-radius: 8px;
+    border: 1px solid #CBD5E0;
     padding: 10px;
-    font-size: 16px;
+    font-size: 1rem;
+    width: 65%;
 }
 
-.user-management-table td {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    font-size: 14px;
-}
-
-.user-management-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-/* Botones de acción */
-.user-management-table td .btn {
-    padding: 8px 12px;
+.d-flex button {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
     border: none;
-    border-radius: 5px;
+    font-size: 1rem;
     cursor: pointer;
-    font-size: 14px;
-    text-transform: uppercase;
-    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
-.btn-edit {
-    background-color: #4caf50;
+.d-flex button:hover {
+    background-color: var(--highlight-color);
+}
+
+/* Estilos de la tabla de usuarios */
+.table-responsive {
+    margin-top: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+table th, table td {
+    padding: 15px;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+table thead {
+    background-color: var(--secondary-color);
+    color: white;
+    font-weight: 600;
+}
+
+table tbody tr {
+    border-bottom: 1px solid #E2E8F0;
+    transition: background-color 0.3s ease;
+}
+
+table tbody tr:hover {
+    background-color: var(--highlight-color);
     color: white;
 }
 
-.btn-delete {
-    background-color: #f44336;
+table tbody tr td .btn {
+    border-radius: 8px;
+    font-size: 0.875rem;
+    padding: 8px 15px;
+    margin: 0 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+table tbody tr td .btn:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Estilos para los botones en la tabla */
+.btn-gestionar {
+    background-color: var(--btn-bg);
     color: white;
 }
 
-.btn-edit:hover, .btn-delete:hover {
-    opacity: 0.8;
+.btn-gestionar:hover {
+    background-color: var(--btn-hover-bg);
+    transform: translateY(-2px);
 }
 
-/* Opcional: Ajuste para pantallas más pequeñas */
+.btn-warning {
+    background-color: #FBBF24;
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #F59E0B;
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background-color: #E53E3E;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #C53030;
+    transform: translateY(-2px);
+}
+
+/* Estilos del mensaje de no usuarios */
+.mensaje {
+    color: #6B7280;
+    font-size: 1.25rem;
+    margin-top: 30px;
+}
+
+/* Responsividad */
 @media (max-width: 768px) {
-    .user-management {
-        padding: 10px;
+    .table-responsive {
+        margin-top: 20px;
     }
+    .d-flex {
+        flex-direction: column;
+    }
+    .d-flex input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
 
-    .user-management-header {
-        font-size: 20px;
-    }
+.btn-registrar {
+    background-color: var(--btn-bg); /* Fondo verde suave */
+    color: white;
+    text-align: center;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block; /* Asegura que el botón se vea */
+}
 
-    .user-management-table th, .user-management-table td {
-        font-size: 12px;
-        padding: 8px;
-    }
+.btn-registrar:hover {
+    background-color: var(--btn-hover-bg); /* Fondo verde más oscuro */
+    transform: translateY(-2px);
 }

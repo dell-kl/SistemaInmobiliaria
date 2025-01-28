@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -56,5 +58,30 @@ class User extends Authenticatable
     public function getAuthIdentifierName()
     {
         return 'users_email';
+    }
+
+    public function roles() : HasManyThrough
+    {
+        return $this->hasManyThrough(Role::class, Profile::class, 'Profiles_usersId', 'roles_id', 'users_id', 'Profiles_rolesId');
+    }
+
+    public function profiles() : HasMany
+    {
+        return $this->hasMany(Profile::class, 'Profiles_usersId', 'users_id');
+    }
+
+    public function responsibles()
+    {
+        return $this->hasMany(Responsible::class, 'Responsibles_usersId', 'users_id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($user) {
+            $user->profiles()->delete();
+            $user->responsibles()->delete();
+        });
     }
 }
