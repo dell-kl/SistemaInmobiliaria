@@ -20,7 +20,21 @@ class UsersSeeder extends Seeder
         $user->users_phone = '0933898999';
         $user->users_cedula = '1754090106';
         $user->users_email = 'david07@hotmail.com';
-        $user->users_password = Hash::make('123456789');
+        $user->password = Hash::make('123456789');
+        $user->users_intentos = 3;
+        $user->users_estado = 'activo';
+
+        $user->save();
+
+        $user = new User();
+        $user->users_name = 'Juan Carlos';
+        $user->users_phone = '0933898999';
+        $user->users_cedula = '1754090106';
+        $user->users_email = 'juan@hotmail.com';
+        $user->password = Hash::make('123456789');
+        $user->users_intentos = 3;
+        $user->users_estado = 'activo';
+
         $user->save();
     }
 }

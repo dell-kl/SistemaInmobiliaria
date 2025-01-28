@@ -15,6 +15,7 @@
             <img src="/icons/panel.png"/>
             <p class="text-white">Autenticate para seguir con tu panel de administracion asignado.</p>
         </header>
+
         @livewire('formulario-sesion')
     </div>
 

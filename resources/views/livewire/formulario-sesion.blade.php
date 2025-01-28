@@ -3,7 +3,7 @@
         <h2 class="mt-10 text-center text-7xl font-bold tracking-tight text-white">LJZC</h2>
         <p class="text-center font-ligther font-light text-3xl text-white">La inmobiliaria amigable del vecindario</p>
     </div>
-    
+
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
     <form class="space-y-6" action="{{ url('/login') }}" method="POST">
     @csrf
@@ -29,6 +29,6 @@
     <div>
         <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-xl font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" style="background-color:#8E1515;">Iniciar Sesión</button>
     </div>
-</form>       
+</form>
     </div>
 </div>

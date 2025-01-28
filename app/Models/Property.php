@@ -7,6 +7,30 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Property extends Model
 {
+
+    protected $primaryKey = "properties_id";
+
+    protected $fillable = [
+        "properties_id",
+        "properties_rooms",
+        "properties_bathrooms",
+        "properties_parking",
+        "properties_price",
+        "properties_availability",
+        "properties_height",
+        "properties_area",
+        "properties_description",
+        "properties_state",
+        "properties_address",
+        "Properties_typePropertieId",
+        "Properties_parroquiasId"
+    ];
+
+    public function responsible() : HasMany
+    {
+        return $this->hasMany(Responsible::class, 'Responsibles_propertiesId', 'properties_id');
+    }
+
     //imagenes
     public function images() : HasMany
     {

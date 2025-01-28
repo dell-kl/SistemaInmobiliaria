@@ -5,10 +5,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Responsible extends Model
 {
-    use HasFactory;
+    /*use HasFactory;
 
     protected $primaryKey = 'responsibles_id';
 
@@ -20,5 +21,12 @@ class Responsible extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'Responsibles_usersId', 'users_id');
+    }
+}*/
+    //
+
+    public function properties(): BelongsTo
+    {
+        return $this->belongsTo(Property::class);
     }
 }

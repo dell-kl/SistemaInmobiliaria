@@ -8,6 +8,7 @@ use App\Http\Controllers\ApiRestControllers\CoordenadasController;
 use App\Http\Controllers\ApiRestControllers\ImagenesController;
 use App\Http\Controllers\ApiRestControllers\PlanosController;
 use App\Http\Controllers\ApiRestControllers\PropiedadesController;
+use App\Http\Controllers\ApiRestControllers\ResponsibleController;
 use App\Http\Controllers\ApiRestControllers\SesionController;
 use App\Http\Controllers\ApiRestControllers\UbicacionesController;
 use App\Http\Controllers\ApiRestControllers\VideosController;
@@ -18,19 +19,26 @@ use Illuminate\Support\Facades\Route;
  * Inicio Sesion
  * ===========================================================================
  */
-Route::post('/sesion/inicio', [SesionController::class, 'inicioSesion']);
 
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+], function ($router) {
+    Route::post('/sesion', [SesionController::class, 'inicioSesion']);
+    Route::post('/cerrar', [SesionController::class, 'cerrarSesion']);
+});
 
 /**
  * ============================================================================
  * Propiedades
  * ===========================================================================
  */
-
 Route::get('/propiedades/listar', [PropiedadesController::class, 'index'])->middleware('solicitudes');
-Route::post('/propiedades/registrar', [PropiedadesController::class, 'registrar']);
+Route::post('/propiedades/registrar', [PropiedadesController::class, 'registrar'])->middleware('autenticacion');
 Route::get('/propiedades/ultimo', [PropiedadesController::class, 'ultimoRegistro']);
-
+Route::post('/propiedades/actualizar', [PropiedadesController::class, 'actualizar'])->middleware('autenticacion');
+Route::delete('/propiedades/eliminar', [PropiedadesController::class, 'eliminar'])->middleware('autenticacion');
+Route::post('/propiedades/listar/perfil', [PropiedadesController::class, 'listarPerfil'])->middleware('autenticacion');
 /**
  * ============================================================================
  * Cantones y Parroquias
@@ -46,7 +54,7 @@ Route::get('/ubicacion/listado', [UbicacionesController::class, 'obtenerUbicacio
  * Imagenes
  * ===========================================================================
  */
-Route::post('/imagenes/cargar', [ImagenesController::class, 'cargarImagen']);
+Route::post('/imagenes/cargar', [ImagenesController::class, 'cargarImagen'])->middleware('autenticacion');
 
 
 /**
@@ -54,7 +62,7 @@ Route::post('/imagenes/cargar', [ImagenesController::class, 'cargarImagen']);
  * Planos
  * ===========================================================================
  */
-Route::post('/planos/cargar', [PlanosController::class, 'cargarPlanos']);
+Route::post('/planos/cargar', [PlanosController::class, 'cargarPlanos'])->middleware('autenticacion');
 
 
 /**
@@ -63,8 +71,9 @@ Route::post('/planos/cargar', [PlanosController::class, 'cargarPlanos']);
  * ===========================================================================
  */
 
-Route::post('/videos/cargar', [VideosController::class, 'cargarVideo']);
+Route::post('/videos/cargar', [VideosController::class, 'cargarVideo'])->middleware('autenticacion');
 Route::get('/videos/codigos/{id}', [VideosController::class, 'obtenerCodigos']);
+Route::post('/videos/actualizar', [VideosController::class, 'actualizar'])->middleware('autenticacion');
 
 
 /**
@@ -72,6 +81,14 @@ Route::get('/videos/codigos/{id}', [VideosController::class, 'obtenerCodigos']);
  * Coordenadas
  * ===========================================================================
  */
-Route::post('/coordenadas/registrar', [CoordenadasController::class, 'registrarCoordenadas']);
 Route::get('/coordenadas/propiedad/{id}', [CoordenadasController::class, 'obtenerCoordenadas']);
+Route::post('/coordenadas/registrar', [CoordenadasController::class, 'registrarCoordenadas'])->middleware('autenticacion');
+Route::post('/coordenadas/actualizar', [CoordenadasController::class, 'actualizar'])->middleware('autenticacion');
 
+
+/**
+ * =============================================================================
+ * Responsible
+ * =============================================================================
+ */
+Route::post('/responsable/registrar', [ResponsibleController::class, 'registrarResponsable'])->middleware('autenticacion');
