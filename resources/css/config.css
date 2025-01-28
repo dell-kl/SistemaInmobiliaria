@@ -1,6 +1,7 @@
+/* ====== Estructura General ====== */
 html {
     box-sizing: border-box;
-    margin:0;
+    margin: 0;
 }
 
 *::before, *::after {
@@ -9,19 +10,83 @@ html {
 
 body {
     height: 100vh;
-    margin:0;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9fafc;
 }
 
+/* ====== Encabezados ====== */
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #2c3e50; /* Azul oscuro para el encabezado */
+}
+
+/* ====== Colores ====== */
 .logo, .inicial {
-    color: #E64D00;
+    color: #1c2833; /* Azul oscuro similar al encabezado del panel */
 }
 
 .mensaje {
-    color: #FF8B51;
+    color: #566573; /* Gris oscuro */
+    /*color: #FF8B51;*/
     text-decoration: underline;
 }
 
 .logo-perfil {
+    background-color: #d5dbdb; /* Gris claro */
+}
+
+/* ====== Botones ====== */
+.btn-buscar, .btn-gestionar, .btn-registrar {
+    background-color: #1c2833; /* Azul oscuro */
+    color: white;
+    border: none;
+}
+
+.btn-buscar:hover, .btn-gestionar:hover, .btn-registrar:hover {
+    color: #1c2833 !important;
+    background-color: white !important;
+    border: 1px solid #1c2833 !important;
+}
+
+.btn-warning {
+    background-color: #5dade2; /* Azul claro */
+    border: none;
+}
+
+.btn-danger {
+    background-color: #e74c3c; /* Rojo */
+    border: none;
+}
+
+/* ====== Tabla ====== */
+.table {
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: #1c2833; /* Azul oscuro */
+    color: white;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.table tbody tr:hover {
+    background-color: #d5dbdb; /* Gris claro */
+}
+
+/* ====== Mensaje de Sin Resultados ====== */
+.mensaje {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #566573; /* Gris oscuro */
+    text-align: center;
+    margin-top: 2rem;
     background-color: #e64d003b;
 }
 

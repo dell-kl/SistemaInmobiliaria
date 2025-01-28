@@ -1,4 +1,4 @@
-.modal-dialog{
+.modal-dialog {
     max-width: unset;
     max-height: unset;
     width: 100%;
@@ -20,4 +20,199 @@
 
 #registro-terreno {
 
+}
+/* Variables de color - Paleta profesional para bienes raíces */
+:root {
+    --primary-color: #2C3E50;    /* Azul marino profesional */
+    --secondary-color: #F8F9FA;  /* Blanco */
+    --accent-color: #5475b4;     /* Naranja */
+    --background-color: #FFFFFF; /* Blanco */
+    --highlight-color: #1ABC9C;  /* Verde azulado */
+    --text-color: #2D3748;       /* Gris oscuro */
+    --text-light: #F1F5F9;       /* Gris claro */
+    --danger-color: #E74C3C;     /* Rojo para alertas */
+    --success-color: #27AE60;    /* Verde para éxito */
+    --border-radius: 12px;
+    --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Panel de estadísticas mejorado */
+.admin-panel-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    width: 95%;
+    max-width: 1400px;
+    background: linear-gradient(145deg, #ffffff, var(--background-color));
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+/* Tarjetas de estadísticas */
+.admin-stat {
+    position: relative;
+    padding: 2rem;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    overflow: hidden;
+}
+
+.admin-stat::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.admin-stat:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+.admin-stat:hover::before {
+    opacity: 1;
+}
+
+.admin-stat h4 {
+    font-size: 1.25rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.admin-stat p {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+    line-height: 1;
+}
+
+/* Panel de bienvenida mejorado */
+.dashboard-welcome {
+    background: var(--primary-color);
+    padding: 3rem 4rem;
+    border-radius: var(--border-radius);
+    margin: 2rem auto;
+    width: 95%;
+    max-width: 1400px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    color: var(--secondary-color);
+}
+
+.dashboard-welcome::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1));
+    transform: skewX(-45deg);
+}
+
+.dashboard-welcome h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-welcome p {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+}
+
+/* Botones mejorados */
+.btn {
+    padding: 0.875rem 1.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(145deg, var(--primary-color), var(--accent-color));
+    border: none;
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(145deg, var(--accent-color), var(--primary-color));
+}
+
+/* Sección de filtros mejorada */
+.filtro {
+    margin: 2rem auto;
+    width: 95%;
+    max-width: 1400px;
+}
+
+.filtro .bg-white {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.filtro select,
+.filtro input[type="text"] {
+    padding: 0.75rem 1rem;
+    border: 1px solid #E2E8F0;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+.filtro select:focus,
+.filtro input[type="text"]:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+    outline: none;
+}
+
+.btn-buscar {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+}
+
+.btn-buscar:hover {
+    background: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .admin-panel-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-welcome {
+        padding: 2rem;
+    }
+
+    .dashboard-welcome h2 {
+        font-size: 2rem;
+    }
 }

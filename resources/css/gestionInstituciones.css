@@ -1,0 +1,221 @@
+/* Variables de color - Paleta profesional para instituciones financieras */
+:root {
+    --primary-color: #2C3E50;     /* Azul corporativo oscuro */
+    --secondary-color: #34495E;    /* Azul grisáceo */
+    --accent-color: #3498DB;      /* Azul institucional */
+    --background-color: #F8FAFC;   /* Fondo claro */
+    --text-color: #2D3748;        /* Texto principal */
+    --text-light: #718096;        /* Texto secundario */
+    --success-color: #27AE60;     /* Verde para tasas positivas */
+    --warning-color: #F1C40F;     /* Amarillo para alertas */
+    --danger-color: #E74C3C;      /* Rojo para acciones críticas */
+    --border-color: #E2E8F0;      /* Bordes */
+    --table-header: #EDF2F7;      /* Encabezado tabla */
+    --border-radius: 8px;
+    --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor principal */
+.institutions-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+/* Header y acciones principales */
+.institutions-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.institutions-header h1 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Barra de búsqueda y filtros */
+.institutions-search {
+    display: flex;
+    gap: 1rem;
+    background: white;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 2rem;
+    align-items: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.institutions-search input {
+    flex: 1;
+    padding: 0.625rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 0.95rem;
+}
+
+.institutions-search input:focus {
+    border-color: var(--accent-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.1);
+}
+
+/* Tabla de instituciones */
+.institutions-table {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+}
+
+.institutions-table table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+/* Encabezados de tabla */
+.institutions-table th {
+    background: var(--table-header);
+    padding: 1rem;
+    font-weight: 600;
+    text-align: left;
+    color: var(--text-color);
+    border-bottom: 2px solid var(--border-color);
+}
+
+/* Celdas de tabla */
+.institutions-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+/* Fila de tabla */
+.institutions-table tr {
+    transition: background-color 0.2s ease;
+}
+
+.institutions-table tr:hover {
+    background-color: #F8FAFC;
+}
+
+/* Tasa de interés */
+.interest-rate {
+    font-weight: 600;
+    color: var(--success-color);
+    background: rgba(39, 174, 96, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    display: inline-block;
+}
+
+/* Botones de acción */
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: none;
+}
+
+.btn-create {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 0.75rem 1.5rem;
+}
+
+.btn-create:hover {
+    background-color: #2980B9;
+    transform: translateY(-1px);
+}
+
+.btn-edit {
+    background-color: var(--warning-color);
+    color: var(--text-color);
+}
+
+.btn-edit:hover {
+    background-color: #F4D03F;
+    transform: translateY(-1px);
+}
+
+.btn-delete {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: #C0392B;
+    transform: translateY(-1px);
+}
+
+/* Estado vacío */
+.no-institutions {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-light);
+    background: white;
+    border-radius: var(--border-radius);
+    border: 2px dashed var(--border-color);
+}
+
+/* Formularios */
+.institution-form {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    max-width: 600px;
+    margin: 2rem auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .institutions-header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .institutions-search {
+        flex-direction: column;
+    }
+
+    .institutions-table {
+        overflow-x: auto;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

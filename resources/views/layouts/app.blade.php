@@ -1,65 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>@yield('title', 'Inmobiliaria')</title>
+    
+    {{-- Estilos globales --}}
+    <link rel="stylesheet" href="{{ Vite::asset('resources/css/app.css') }}">
+    <link rel="stylesheet" href="{{ Vite::asset('resources/css/gestionInstituciones.css') }}">
+    <link rel="stylesheet" href="{{ Vite::asset('resources/css/config.css') }}">
+    <link rel="stylesheet" href="{{ Vite::asset('resources/css/tailwaind.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{{ Vite::asset('resources/css/gestionUsuarios.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ Vite::asset('resources/css/config.css') }}">
     <link rel="stylesheet" href="{{ Vite::asset('resources/css/propiedades.css') }}">
-    <title>@yield('title', 'Gestión de Usuarios')</title>
+    <link rel="stylesheet" href="{{ Vite::asset('resources/css/tailwaind.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.css" rel="stylesheet" />
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.umd.js"></script>
+    <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
+    {{-- Estilos de Livewire --}}
+    @livewireStyles
 </head>
 <body>
-    {{-- Navbar --}}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">LJZC</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Usuarios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Propiedades</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                            Perfil
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#">Perfil</a></li>
-                            <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    {{-- Header --}}
+    @include('layouts.header')
 
-    {{-- Encabezado --}}
-    <header class="bg-light py-3 px-4 border-bottom">
-        <div class="d-flex align-items-center justify-content-between">
-            <div>
-                <h1 class="text-primary fw-bold">Panel de Gestión</h1>
-                <p class="text-muted">Gestión de Usuarios</p>
-            </div>
-            <div class="d-flex align-items-center gap-3">
-                <span class="badge bg-primary p-3 rounded-circle">A</span>
-            </div>
-        </div>
-    </header>
-
-    {{-- Contenido dinámico --}}
-    <main class="container my-4">
+    {{-- Contenido principal --}}
+    <main class="container mt-4">
         @yield('content')
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    {{-- Footer --}}
+    <footer class="text-center mt-5 py-3 bg-light">
+        <p>&copy; {{ date('Y') }} INMOBILIARIA LJZC. Todos los derechos reservados.</p>
+    </footer>
+
+    {{-- Scripts globales --}}
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    {{-- Scripts de Livewire --}}
+    @livewireScripts
+
+    {{-- Scripts adicionales --}}
+    @stack('scripts')
 </body>
 </html>

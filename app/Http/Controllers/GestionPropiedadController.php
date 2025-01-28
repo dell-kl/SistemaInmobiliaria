@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Institution;
 use App\Models\Property;
-use App\Network\Address;
-use App\Tools\RequestTool;
+use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class GestionPropiedadController
+class GestionPropiedadController extends Controller
 {
     private string $ruta;
     private int $idUsuario;
@@ -24,15 +24,14 @@ class GestionPropiedadController
     public function propiedad(Request $request) : View
     {
         try {
-
             //code...
             $this->ruta = $this->ruta . "/api/propiedades/listar";
+          
             $respuesta = Http::get($this->ruta);
 
             $propiedades = array();
 
-            if ( $respuesta->successful() )
-            {
+            if ($respuesta->successful()) {
                 $propiedades = $respuesta->json();
             }
 
@@ -42,9 +41,9 @@ class GestionPropiedadController
             return view('moduloGestionPropiedad.propiedad', [
                 'propiedades' => $propiedades,
                 'rolUsuario' => $rolUsuario
+              
             ]);
         } catch (\Throwable $th) {
-            //throw $th;
             dd("Error ..." . $th->getMessage());
         }
     }
@@ -174,12 +173,12 @@ class GestionPropiedadController
             $datos = $request->all();
 
             /**
-             * ==============================================================
+             * ============================================================== 
              * Registro Propiedad
-             * ==============================================================
+             * ============================================================== 
              */
 
-            if ( $datos["tipoProyecto"] != 1 )
+            if ($datos["tipoProyecto"] != 1)
                 $datos["numeroEstacionamiento"] = 0;
 
             $tokenAcceso = explode(" ", $request->headers->get("Authorization"))[1];
@@ -201,6 +200,7 @@ class GestionPropiedadController
                 "token" => $tokenAcceso
             ]);
 
+
             $body = json_decode($respuesta->body(), true);
 
             if ( $body["mensaje"] == "Inautorizado" )
@@ -211,6 +211,7 @@ class GestionPropiedadController
             }
 
             if ( $respuesta->successful() )
+
             {
                 // registramos ahora las imagenes...
                 $propiedad = Http::get($this->ruta . "/api/propiedades/ultimo")->json();
@@ -226,7 +227,7 @@ class GestionPropiedadController
 
                 //interamos las demas imagenes restantes.
                 foreach ($datos["entrada_imagenes"] as $index => $file) {
-                    if ( $index > 0 )
+                    if ($index > 0)
                     {
                         $respuestaImagen->attach("FileIMG[$index]", fopen($file->getPathname(), 'r'), $file->getClientOriginalName(), [
                             'Content-Type' => $file->getMimeType()
@@ -248,9 +249,9 @@ class GestionPropiedadController
                     'Content-Type' => $datos["entrada_planos"][0]->getMimeType()
                 ]);
 
-                foreach ($datos["entrada_planos"] as $index => $file )
+                foreach ($datos["entrada_planos"] as $index => $file)
                 {
-                    if ( $index > 0 )
+                    if ($index > 0)
                     {
                         $respuestaPlanos->attach("PlanIMG[$index]", fopen($file->getPathname(), 'r'), $file->getClientOriginalName(), [
                             'Content-Type' => $file->getMimeType()
@@ -263,12 +264,14 @@ class GestionPropiedadController
                     "token" => $tokenAcceso
                 ]);
 
+
                 /*
                 ===============================================================
                 Registro Videos
                 ==============================================================*/
 
                 // //registraremos los codigos respectivos del proyecto.
+
                 $codigos = explode(",", $datos["VideosProyecto"]);
 
                 $respuestaVideos = Http::post($this->ruta . "/api/videos/cargar", [
@@ -347,6 +350,7 @@ class GestionPropiedadController
     }
 
 
+
     public function eliminarPropiedad($id, Request $request)
     {
         try
@@ -386,3 +390,4 @@ class GestionPropiedadController
 
     }
 }
+

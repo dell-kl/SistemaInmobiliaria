@@ -1,6 +1,24 @@
-@php
-use App\Models\Property;
-@endphp
+<!-- resources/views/moduloGestionPropiedad/propiedad.blade.php -->
+
+
+@extends('layouts.app')
+
+@section('title', 'Lista Propiedades')
+
+@section('content')
+    <!-- Panel de bienvenida -->
+    <div class="dashboard-welcome">
+        <h2 class="text-4xl font-bold">Bienvenido al Panel de Gestión de Propiedades</h2>
+        <p class="text-lg mt-2">Aquí puedes administrar todas las propiedades de la plataforma.</p>
+    </div>
+    <div class="admin-panel-stats">
+        <div class="admin-stat">
+            <h4>Usuarios Activos</h4>
+            <p>{{ $usuariosActivos }}</p>
+        </div>
+        <div class="admin-stat">
+            <h4>Propiedades Disponibles</h4>
+            <p>{{ $propiedadesDisponibles }}</p>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,9 +63,13 @@ use App\Models\Property;
                   <li><a class="dropdown-item" href="/logout">Cerrar Sesion</a></li>
                 </ul>
               </li>
-        </div>
-    </header>
 
+        </div>
+        <div class="admin-stat">
+            <h4>Instituciones Disponibles</h4>
+            <p>{{ $institucionesDisponibles }}</p>
+        </div>
+    </div>
 
     <div class="w-full propiedades" style="background-color: #F2F2F2;">
         <div class="m-auto pt-5" style="width:85.5%;">
@@ -56,36 +78,25 @@ use App\Models\Property;
                 Agregar Propiedad
             </button>
 
-            <div class="filtro pt-4">
-                <div class="bg-white w-3/12 text-center fw-bold rounded-t-lg p-2 text-xl">Filtrar Propiedades</div>
-                <div class="bg-white p-3 rounded-r-lg">
-                    <div class="row">
-                        <div class="col">
-                            <select class="form-select border-2 border-black" aria-label="Default select example">
-                                <option selected>Tipo</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <select class="form-select border-2 border-black" aria-label="Default select example">
-                                <option selected>Caracteristica</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control border-2 border-black" placeholder="Escribe lo que deseas buscar"/>
-                        </div>
-
-                        <div class="col">
-                            <input type="submit" class="btn btn-buscar text-white w-50"/>
-                        </div>
-                    </div>
-                </div>
+            <div class="m-auto propiedades-listado pt-4 flex flex-row flex-wrap gap-2 items-center pb-2" style="width:85.5%;">
+                @if (!empty($propiedades))
+                    @foreach ($propiedades as $propiedad)
+                        @php
+                            $rutaImagen = !empty($propiedad["images"]) ? config('app.url') . '/storage/' . $propiedad["images"][0]["pictures_route"] : '/path/to/default/image.jpg';
+                        @endphp
+                        @livewire('propiedad', ['property' => $propiedad, 'rutaImagen' => $rutaImagen])
+                    @endforeach
+                @endif
             </div>
+
+
+            <div class="w-11/12 m-auto flex flex-row items-center justify-center gap-2 paginador py-4">
+                <a href="#" class="group">
+                    <li class="active px-2 w-100 h-10 text-gray-800 grid place-items-center rounded-md border lg:border-2 border-green-700 group-hover:bg-green-700">
+                      <span class="text-green-700 font-medium group-hover:text-slate-200">◀️ Retroceder</span>
+                    </li>
+                </a>
+
         </div>
 
         <div class="m-auto propiedades-listado pt-4 flex flex-row flex-wrap gap-2 items-center pb-2" style="width:85.5%;">
@@ -100,32 +111,27 @@ use App\Models\Property;
                     @livewire('propiedad', ['property' => $propiedad, 'rutaImagen' => $rutaImagen, 'rolUsuario' => $rolUsuario])
                 @endforeach
 
-            @endif
+
+                <a href="#" class="group">
+                    <li class="w-100 px-2 h-10 text-gray-800 grid place-items-center rounded-md border lg:border-2 border-red-700 group-hover:bg-red-700">
+                      <span class="text-red-700 font-medium group-hover:text-slate-200">Continuar ▶️</span>
+                    </li>
+                </a>
+            </div>
         </div>
 
-        <div class="w-11/12 m-auto flex flex-row items-center justify-center gap-2 paginador py-4">
-            <a href="#" class="group">
-                <li class="active px-2 w-100 h-10 text-gray-800 grid place-items-center rounded-md border lg:border-2 border-green-700 group-hover:bg-green-700">
-                  <span class="text-green-700 font-medium group-hover:text-slate-200">◀️ Retroceder</span>
-                </li>
-              </a>
-
-              <a href="#" class="group">
-                <li class="w-100 px-2 h-10 text-gray-800 grid place-items-center rounded-md border lg:border-2 border-red-700 group-hover:bg-red-700">
-                  <span class="text-red-700 font-medium group-hover:text-slate-200">Continuar ▶️</span>
-                </li>
-              </a>
-        </div>
+        @livewire('registro-propiedad')
     </div>
+@endsection
 
-    @livewire('registro-propiedad')
-
+@push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-
-    {{-- Vamos a encontrar el identificador justamente de cada uno de los mapas.  --}}
-
     <script src="{{ Vite::asset('resources/js/loadMap.js') }}"></script>
+
+@endpush
+
     <script src="{{ Vite::asset('resources/js/carruselVista.js') }}"></script>
     </body>
 </html>
+
