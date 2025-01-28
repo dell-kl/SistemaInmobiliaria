@@ -16,6 +16,7 @@ use App\Models\Property;
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link href="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.css" rel="stylesheet" />
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.umd.js"></script>
     <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
@@ -23,6 +24,8 @@ use App\Models\Property;
     <title>Lista Propiedades</title>
 </head>
 <body>
+    @include('sweetalert::alert')
+
     <header class="flex flex-row justify-between px-4 pt-2 mb-2">
         <div class="flex flex-row items-baseline gap-2">
             <h1 class="logo font-bold text-5xl">LJZC</h1>
@@ -39,7 +42,7 @@ use App\Models\Property;
                 </a>
                 <ul class="dropdown-menu list-none">
                   <li><a class="dropdown-item" href="#">Perfil</a></li>
-                  <li><a class="dropdown-item" href="#">Cerrar Sesion</a></li>
+                  <li><a class="dropdown-item" href="/logout">Cerrar Sesion</a></li>
                 </ul>
               </li>
         </div>
@@ -84,7 +87,9 @@ use App\Models\Property;
                 </div>
             </div>
         </div>
+
         <div class="m-auto propiedades-listado pt-4 flex flex-row flex-wrap gap-2 items-center pb-2" style="width:85.5%;">
+
 
             @if ( !empty($propiedades) )
 
@@ -92,7 +97,7 @@ use App\Models\Property;
                     @php
                         $rutaImagen = config('app.url') . '/storage/' . $propiedad["images"][0]["pictures_route"];
                     @endphp
-                    @livewire('propiedad', ['property' => $propiedad, 'rutaImagen' => $rutaImagen])
+                    @livewire('propiedad', ['property' => $propiedad, 'rutaImagen' => $rutaImagen, 'rolUsuario' => $rolUsuario])
                 @endforeach
 
             @endif

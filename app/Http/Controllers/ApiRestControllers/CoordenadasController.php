@@ -49,6 +49,26 @@ class CoordenadasController extends Controller
 
         return response()->json(['mensaje' => "Campos no definidas o vacias"], 500);
     }
+
+    public function actualizar(Request $request)
+    {
+        try {
+            //code...
+
+            $propiedad = Property::where('properties_id', $request->propertyId)->first();
+
+            $coordenada = $propiedad->obtenerCoordenadas()->first();
+
+            Coordinate::updateOrCreate(['coordinates_id' => $coordenada->coordinates_id],
+             ['coordinates_route' => $request->coodenadas]);
+
+            return response()->json(['mensaje' => 'coordenadas actualizada'], 200);
+
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json(['mensaje' => 'coordenadas no actualizada'], 500);
+        }
+    }
 }
 
 ?>

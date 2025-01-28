@@ -10,6 +10,8 @@ class Propiedad extends Component
     public $property;
     public $rutaImagen;
 
+    public $rolUsuario;
+
     public function render()
     {
         return view('livewire.propiedad');

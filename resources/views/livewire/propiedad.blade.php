@@ -49,6 +49,12 @@
       >
         Administrar
       </button>
+
+      {{-- Validacion para los permisos que va tener cada rol asignado.  --}}
+      @if ( $rolUsuario === "agente_inmobiliaria")
+        <a href="/propiedades/eliminar/{{$property["properties_id"]}}" class="btn-eliminar block w-full select-none rounded-lg py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none boton-panel mt-2">Eliminar</a>
+      @endif
+
     </div>
 
     {{-- El componente va a tener un componente adicional que mostrar de manera mas desglosada

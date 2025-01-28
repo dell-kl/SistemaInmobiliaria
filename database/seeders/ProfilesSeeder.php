@@ -19,5 +19,11 @@ class ProfilesSeeder extends Seeder
         $profile->Profiles_rolesId = 1;
         $profile->profiles_state = 1; //activo perfil
         $profile->save();
+
+        $profile = new Profile();
+        $profile->Profiles_usersId = 2;
+        $profile->Profiles_rolesId = 2;
+        $profile->profiles_state = 1; //activo perfil
+        $profile->save();
     }
 }

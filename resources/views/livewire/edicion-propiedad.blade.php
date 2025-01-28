@@ -3,11 +3,13 @@
       <div class="modal-content">
 
         <form method="post" action="/propiedades/actualizar" enctype="multipart/form-data">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="propiedadId" value="{{ $identificadorPropiedad }}">
             <div class="flex flex-row justify-between px-4 pt-4">
               <h1 class="modal-title inicial fw-bold text-4xl" id="staticBackdropLabel">Edicion Propiedad</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="position: unset;">
 
                 @php
                 //vamos a realizar una configuracion respectiva.

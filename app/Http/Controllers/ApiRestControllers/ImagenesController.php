@@ -37,11 +37,18 @@ class ImagenesController extends Controller{
                     return response()->json(['mensaje' => 'Propiedad no encontrada'], 404);
                 }
 
+                /**
+                 * Dentro de esta seccion guardamos a nuestra carpeta public todas las imagenes que se van cargando.
+                 * Esto para poder utilizado mas adelante por la api.
+                 */
                 $rutaImagenes = array_map(function($imagen) {
                     return $imagen->store('imagenes', 'public');
                 }, $imagenes);
 
-                //luego de haber guardado a nivel del proyecto las imagenes... vamos a guardar su ruta.
+                /**
+                 * Vamos a guardar la ruta de las imagenes dentro de nuestra base de datos.. En este caso solo guardamos una ruta
+                 * relativa.
+                 */
                 foreach($rutaImagenes as $ruta)
                 {
                     $picture = new Picture();

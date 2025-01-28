@@ -7,7 +7,7 @@ html {
     box-sizing: inherit;
 }
 
-body { 
+body {
     height: 100vh;
     margin:0;
 }
@@ -16,13 +16,17 @@ body {
     color: #E64D00;
 }
 
-.mensaje { 
+.mensaje {
     color: #FF8B51;
     text-decoration: underline;
 }
 
-.logo-perfil { 
+.logo-perfil {
     background-color: #e64d003b;
+}
+
+.btn-eliminar {
+    background-color: rgb(231, 36, 36);
 }
 
 .btn-buscar,.btn-gestionar, .btn-registrar {

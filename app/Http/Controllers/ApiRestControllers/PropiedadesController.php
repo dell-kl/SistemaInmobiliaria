@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Services\PropiedadesServices;
 use App\Models\Property;
 use Illuminate\Http\JsonResponse;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class PropiedadesController extends Controller
 {
@@ -50,6 +51,51 @@ class PropiedadesController extends Controller
     {
         $propiedad = Property::all()->last();
         return response()->json(['mensaje' => $propiedad], 200);
+    }
+
+    public function actualizar(Request $request) : JsonResponse {
+        try {
+
+            $respuesta = Property::updateOrCreate(['properties_id' => $request->properties_id], [
+                'properties_rooms' => $request->properties_rooms,
+                'properties_bathrooms' => $request->properties_bathrooms,
+                'properties_parking' => $request->properties_parking,
+                'properties_price' => $request->properties_price,
+                'properties_availability' => $request->properties_availability,
+                'properties_height' => $request->properties_height,
+                'properties_area' => $request->properties_area,
+                'properties_description' => $request->properties_description,
+                'properties_state' => $request->properties_state,
+                'properties_address' => $request->properties_address,
+                'Properties_typePropertieId' => $request->Properties_typePropertieId,
+                'Properties_parroquiasId' => $request->Properties_parroquiasId
+            ]);
+
+            return response()->json(['mensaje' => 'Propiedad actualizada correctamente'], 200);
+        } catch (\Throwable $th) {
+            // return response()->json(['mensaje' => 'Error servidor, intentalo en otro momento'], 500);
+            return response()->json(['mensaje' => 'Propiedad no actualizada'], 500);
+        }
+    }
+
+    public function eliminar(Request $request) : JsonResponse {
+        try {
+
+            $propiedad = Property::where('properties_id', $request->propiedadId)->first();
+            $propiedad->delete();
+            return response()->json(['mensaje' => 'Propiedad eliminada correctamente'], 200);
+        } catch (\Throwable $th) {
+            return response()->json(['mensaje' => 'Error al eliminar la propiedad'], 500);
+        }
+    }
+
+    public function listarPerfil(Request $request)
+    {
+        $identificador = JWTAuth::parseToken()->getPayload()->get('id');
+        $listadoPropiedades = Property::with('images', 'videos', 'planos', 'obtenerTipoPropiedad', 'obtenerUbicacion', 'obtenerCoordenadas', 'responsible')->get();
+        dd($listadoPropiedades->where('Responsibles_usersId', $identificador));
+
+        return response()->json($listadoPropiedades, 200);
     }
 }
 ?>

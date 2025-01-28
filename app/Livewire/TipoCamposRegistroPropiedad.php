@@ -18,6 +18,5 @@ class TipoCamposRegistroPropiedad extends Component
     public function EventUpdateTypeProject($type)
     {
         $typeProjects = intval( $type );
-
     }
 }

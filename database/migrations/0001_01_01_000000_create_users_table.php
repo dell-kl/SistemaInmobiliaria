@@ -17,7 +17,9 @@ return new class extends Migration
             $table->string('users_phone',10);
             $table->string('users_cedula',10);
             $table->string('users_email')->unique();
-            $table->string('users_password')->hash();
+            $table->string('password')->hash();
+            $table->integer('users_intentos')->default(3);
+            $table->string('users_estado')->default('activo');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -36,6 +38,7 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+
     }
 
     /**

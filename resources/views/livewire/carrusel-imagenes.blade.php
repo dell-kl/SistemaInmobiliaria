@@ -1,4 +1,11 @@
-<div class="carrusel-imagenes {{ $mostrar }}" id="carruselVista-{{$idPropiedad}}">
+<div class="carrusel-imagenes {{ $mostrar }}" id="carruselVista-{{$idPropiedad}}" style="position:fixed; z-index: 999; right: 0; left: 0; top: 0; bottom: 0;">
+
+    <button
+        wire:click="cerrarCarrusel"
+        type="button"
+        class="btn btn-warning boton-cerrar-carrusel fw-bold"
+        style="position:absolute;right:23px;bottom:90%;border-radius:100%"
+    >X</button>
 
     <main class="grid min-h-screen w-full place-content-center bg-gray-900">
 
@@ -32,16 +39,25 @@
                 </svg>
             </button>
 
-            @php
-            //vamos a sacar la imagen en base a la posicion
-            $imagen = $recursosPropiedad["images"][$posicion]["pictures_route"];
-            $imagen = config('app.url') . '/storage/' . $imagen;
-            @endphp
-            <img
-            class="border border-2 rounded-2"
-            width="900"
-            height="900"
-            src="{{ $imagen }}">
+            @if ( $tipoElemento === 1 )
+                @php
+
+                if ( $posicion == count($recursosPropiedad["images"]) )
+                {
+                    $posicion = count($recursosPropiedad["images"]) - 1 ;
+                }
+
+                //vamos a sacar la imagen en base a la posicion
+                $imagen = $recursosPropiedad["images"][$posicion]["pictures_route"];
+                $imagen = config('app.url') . '/storage/' . $imagen;
+
+                @endphp
+                <img
+                class="border border-2 rounded-2"
+                width="800"
+                style="height: 550px"
+                src="{{ $imagen }}">
+            @endif
 
             <button type="button" class="fs-3" wire:click.prevent="siguiente">
                 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -75,16 +91,24 @@
                 </svg>
             </button>
 
-            @php
-            //vamos a sacar la imagen en base a la posicion
-            $imagen = $recursosPropiedad["planos"][$posicion]["plans_route"];
-            $imagen = config('app.url') . '/storage/' . $imagen;
-            @endphp
-            <img
-            class="border border-2 rounded-2"
-            width="900"
-            height="900"
-            src="{{ $imagen }}">
+            @if ( $tipoElemento === 2 )
+                @php
+
+                if ( $posicion == count($recursosPropiedad["planos"]) )
+                {
+                    $posicion = count($recursosPropiedad["planos"]) - 1 ;
+                }
+
+                //vamos a sacar la imagen en base a la posicion
+                $imagen = $recursosPropiedad["planos"][$posicion]["plans_route"];
+                $imagen = config('app.url') . '/storage/' . $imagen;
+                @endphp
+                <img
+                class="border border-2 rounded-2"
+                width="800"
+                style="height: 550px"
+                src="{{ $imagen }}">
+            @endif
 
             <button type="button" class="fs-3" wire:click.prevent="siguiente">
                 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -118,20 +142,27 @@
                 </svg>
             </button>
 
-            @php
-            //vamos a sacar la imagen en base a la posicion
-            $codigoVideo = $recursosPropiedad["videos"][$posicion]["videos_route"];
-            @endphp
+            @if ( $tipoElemento === 3 )
+                @php
+                    if ( $posicion == count($recursosPropiedad["videos"]) )
+                    {
+                        $posicion = count($recursosPropiedad["videos"]) - 1 ;
+                    }
 
-            <iframe
-                width="600"
-                height="400"
-                src="https://www.youtube.com/embed/{{ $codigoVideo }}"
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
-            </iframe>
+                    //vamos a sacar la imagen en base a la posicion
+                    $codigoVideo = $recursosPropiedad["videos"][$posicion]["videos_route"];
+                @endphp
+
+                <iframe
+                    width="800"
+                    height="550"
+                    src="https://www.youtube.com/embed/{{ $codigoVideo }}"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            @endif
 
             <button type="button" class="fs-3" wire:click.prevent="siguiente">
                 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
