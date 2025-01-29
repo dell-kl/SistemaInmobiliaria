@@ -7,24 +7,23 @@ use Livewire\Component;
 class FormularioSesion extends Component
 {
     //vamos a definir unos atributos que podemos empezar a realizar cambios.
+
     public $email = "";
+
     public $password = "";
 
-    public  $botonConfirmar = "disabled";
+    public  $permitirSesion = "denegado";
+
+    protected $rules = [
+        'email' => 'required|email',
+        'password' => 'required|string|max:15|min:5',
+    ];
 
     public function render()
     {
+        $this->validate($this->rules);
 
         return view('livewire.formulario-sesion');
     }
 
-    public function validarCampos()
-    {
-        if ( !empty($this->email) && !empty($this->password) )
-        {
-            $this->botonConfirmar = "";
-        }
-
-
-    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class InicioSesionController extends Controller
 {
@@ -42,6 +43,7 @@ class InicioSesionController extends Controller
         //gestion respectivo del perfil del cliente...
         try
         {
+
             $respuesta = Http::post($this->ruta . "/api/auth/sesion", [
                 "email" => $request["email"],
                 "password" => $request["password"]
@@ -56,13 +58,33 @@ class InicioSesionController extends Controller
             }
             else
             {
+
+                if ( $respuesta->getStatusCode() === 403 )
+                {
+                    Alert::error('Inicio Sesion', $body["mensaje"])
+                    ->autoclose(10000);
+                }
+                else if ( $respuesta->getStatusCode() === 404 )
+                {
+                    Alert::error('Inicio Sesion', $body["mensaje"])
+                    ->autoclose(10000);
+                }
+                else if ( $respuesta->getStatusCode() === 401 )
+                {
+                    Alert::error('Inicio Sesion', $body["mensaje"]. ". Tienes " . $body["intentos"] . " intentos disponibles.!!!!")
+                    ->autoclose(10000);
+                }
+
               //redireccionamos a la persona por datos invalidos.
                 return redirect('/');
             }
         }
         catch(Exception $e)
         {
-            //regresarlos al formulario en caso de error.
+            Alert::error('Inicio Sesion', $body["mensaje"])
+            ->autoclose(5000);
+          //redireccionamos a la persona por datos invalidos.
+            return redirect('/');
         }
     }
 }

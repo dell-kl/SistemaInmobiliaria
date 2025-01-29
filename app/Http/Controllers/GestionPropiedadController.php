@@ -24,9 +24,10 @@ class GestionPropiedadController extends Controller
     public function propiedad(Request $request) : View
     {
         try {
+            dd($request);
             //code...
             $this->ruta = $this->ruta . "/api/propiedades/listar";
-          
+
             $respuesta = Http::get($this->ruta);
 
             $propiedades = array();
@@ -41,7 +42,7 @@ class GestionPropiedadController extends Controller
             return view('moduloGestionPropiedad.propiedad', [
                 'propiedades' => $propiedades,
                 'rolUsuario' => $rolUsuario
-              
+
             ]);
         } catch (\Throwable $th) {
             dd("Error ..." . $th->getMessage());
@@ -154,8 +155,6 @@ class GestionPropiedadController extends Controller
             return redirect('/propiedades');
         } catch (\Throwable $th) {
 
-            dd($th->getMessage());
-
             //throw $th;
             Alert::error('Alteracion Propiedad', 'Error de servidor, intentalo de nuevo mas tarde')
             ->autoclose(5000);
@@ -173,9 +172,9 @@ class GestionPropiedadController extends Controller
             $datos = $request->all();
 
             /**
-             * ============================================================== 
+             * ==============================================================
              * Registro Propiedad
-             * ============================================================== 
+             * ==============================================================
              */
 
             if ($datos["tipoProyecto"] != 1)
