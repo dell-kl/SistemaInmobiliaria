@@ -7,14 +7,12 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
 
 /**
  * =============================================================================
  * Inicio Sesión.
  * =============================================================================
  */
-
 Route::controller(InicioSesionController::class)->group(function() {
     Route::get('/',  'index')->middleware('sesion');
     Route::post('/auth', 'auth');

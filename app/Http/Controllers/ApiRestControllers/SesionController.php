@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\ApiRestControllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Services\SesionesServices;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -17,7 +18,6 @@ class SesionController extends Controller {
 
         //configuracion con la parte del middleware.
         $this->sesionService = $sesiones;
-
     }
 
     public function inicioSesion(Request $request) : JsonResponse {
@@ -38,14 +38,48 @@ class SesionController extends Controller {
             //code...
             $tokenGenerado = JWTAuth::attempt(['users_email' => $request->email, 'password' => $request->password]);
 
+            $usuarioVerificar = User::where('users_email', '=', $request->email)->first();
+
             if ( !$tokenGenerado )
             {
-                return response()->json(['mensaje' => 'email o contraseña incorrecto'], 401);
+                /**
+                 * Aqui tenemos que realizar una configuracion para tener que ir reduciendo el numero de intentos del
+                 * usuario que introdujo mal la contraseña....
+                 * Pero debemos verificar si el email existe en la base de datos.
+                 */
+
+                if ( isset($usuarioVerificar) && $usuarioVerificar->users_intentos > 0 )
+                {
+                    $usuarioVerificar->users_intentos -= 1;
+                    $usuarioVerificar->save();
+
+                    return response()->json(['mensaje' => 'email o contraseña incorrecto', 'intentos' => $usuarioVerificar->users_intentos], 401);
+                }
+                else if ( isset($usuarioVerificar) && $usuarioVerificar->users_intentos == 0 )
+                {
+                    $usuarioVerificar->users_estado = 'inactivo';
+                    $usuarioVerificar->save();
+
+                    return response()->json(['mensaje' => 'Cuenta bloqueada, contacta con el administrador', 'intentos' => $usuarioVerificar->users_intentos], 403);
+                }
+
+                return response()->json(['mensaje' => 'email o contraseña incorrecto'], 404);
             }
             else
             {
-                return response()->json(['mensaje' => 'autorizado', 'token' => $tokenGenerado], 200);
+                //tenemos que hacer una comprobacion adicional... solamente entregamos token a cuentas
+                //con estado activo y con un nivel de intentos superior a 0.
+
+                if ( $usuarioVerificar->users_intentos > 0 && $usuarioVerificar->users_estado == 'activo' )
+                {
+                    return response()->json(['mensaje' => 'autorizado', 'token' => $tokenGenerado], 200);
+                }
+                else
+                {
+                    return response()->json(['mensaje' => 'Cuenta bloqueada, contacta con el administrador', 'intentos' => $usuarioVerificar->users_intentos], 403);
+                }
             }
+
         } catch (\Throwable $th) {
             //throw $th;
             return response()->json(['mensaje' => 'error servidor'], 500);
