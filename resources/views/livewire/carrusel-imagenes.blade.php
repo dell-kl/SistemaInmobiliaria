@@ -11,13 +11,13 @@
 
         <nav aria-label="" class="mb-2">
             <ul class="pagination pagination-lg d-flex flex-row justify-content-center">
-                <li class="page-item {{ $mostrarProyect == "d-block" ? "active" : ""}}" wire:click="verificarTipoRecurso(1)">
+                <li class="page-item {{ $mostrarProyect == 'd-block' ? 'active' : ''}}" wire:click="verificarTipoRecurso(1)">
                     <span class="page-link">🏢Imagenes Proyecto</span>
                 </li>
-                <li class="page-item {{ $mostrarPlanos == "d-block" ? "active" : ""}}" wire:click="verificarTipoRecurso(2)">
+                <li class="page-item {{ $mostrarPlanos == 'd-block' ? 'active' : ''}}" wire:click="verificarTipoRecurso(2)">
                     <a class="page-link" href="#">🗺️ Imagenes Planos</a>
                 </li>
-                <li class="page-item {{ $mostrarVideos == "d-block" ? "active" : ""}}" wire:click="verificarTipoRecurso(3)">
+                <li class="page-item {{ $mostrarVideos == 'd-block' ? 'active' : ''}}" wire:click="verificarTipoRecurso(3)">
                     <a class="page-link" href="#">📽️ Videos Proyecto</a>
                 </li>
             </ul>

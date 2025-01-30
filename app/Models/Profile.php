@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Profile extends Model
 {
-    /*use HasFactory;
+    
 
     protected $primaryKey = 'profiles_id';
 
@@ -29,7 +29,6 @@ class Profile extends Model
     {
         return $this->belongsTo(Role::class, 'Profiles_rolesId', 'roles_id');
     }
-}*/
 
 
     public function obtenerUser():HasMany {

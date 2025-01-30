@@ -65,4 +65,4 @@ class InstitutionController extends Controller
         $institution->delete();
         return redirect()->route('institutions.index');
     }
-}
+}                                                                                                                                   

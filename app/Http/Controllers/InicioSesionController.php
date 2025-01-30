@@ -49,8 +49,9 @@ class InicioSesionController extends Controller
                 "password" => $request["password"]
             ]);
 
+          
             $body = json_decode($respuesta->body(), true);
-
+            
             if ( $body["mensaje"] === "autorizado" ) {
                 $tokenAutorizacion = "Bearer ". $body["token"];
 

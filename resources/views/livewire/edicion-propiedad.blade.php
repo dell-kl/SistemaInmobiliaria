@@ -10,42 +10,16 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div class="seccion-ubicacion d-flex flex-row gap-2 mt-4">
-                @if (!empty($propiedad["obtener_coordenadas"]))
-                    @livewire('ubicacion-mapa', ['identificador' => "proyecto-".$propiedad["properties_id"], 'coordenadas' => $propiedad["obtener_coordenadas"][0]["coordinates_route"]])
-                @else
-                    @livewire('ubicacion-mapa', ['identificador' => "proyecto-".$propiedad["properties_id"], 'coordenadas' => ''])
-                @endif
-                @livewire('campos-ubicacion-propiedad', ['datosPropiedad' => $propiedad, 'idCanton' => $propiedad["obtener_ubicacion"]["Parroquias_cantonsId"], 'idParroquia' => $propiedad["obtener_ubicacion"]["parroquias_id"]])
-            <div class="modal-body" style="position: unset;">
-
+            <div class="seccion-ubicacion mt-4 d-flex flex-row flex-wrap gap-2">
+                
                 @php
-                //vamos a realizar una configuracion respectiva.
-                $recursos = array(
-                    "images" => $propiedad["images"],
-                    "videos" => $propiedad["videos"],
-                    "planos" => $propiedad["planos"]
-                );
+                    //vamos a decir que solo vamos a tomar cinco imagenes para la parte previa de imagenes.
+                    $imagenesGaleria = array_slice($propiedad["images"], 0, 5);
+                @endphp
 
-               @endphp
-
-                @livewire('carrusel-imagenes', ['idPropiedad' => $propiedad["properties_id"], 'recursosPropiedad' => $recursos])
-
-                <div class="galeria-imagenes-proyecto">
-                    <div class="secciones-proyecto d-flex flex-row gap-3 items-center">
-                        @php
-                            //vamos a decir que solo vamos a tomar cinco imagenes para la parte previa de imagenes.
-                            $imagenesGaleria = array_slice($propiedad["images"], 0, 5);
-                        @endphp
-
-                        @livewire('galeria-imagenes', ['idPropiedad' => $propiedad["properties_id"], 'imagenes' => $imagenesGaleria])
-                        @livewire('tipo-campos-registro-propiedad', ['typeProjects' => $propiedad["obtener_tipo_propiedad"]["typeProperties_id"], 'datosPropiedad' => $propiedad])
-                    </div>
-                </div>
-                <div class="seccion-ubicacion d-flex flex-row gap-2 mt-4">
-                    @livewire('ubicacion-mapa', ['identificador' => "proyecto-".$propiedad["properties_id"], 'coordenadas' => $propiedad["obtener_coordenadas"][0]["coordinates_route"]])
-                    @livewire('campos-ubicacion-propiedad', ['datosPropiedad' => $propiedad, 'idCanton' => $propiedad["obtener_ubicacion"]["Parroquias_cantonsId"], 'idParroquia' => $propiedad["obtener_ubicacion"]["parroquias_id"]])
-                </div>
+                @livewire('galeria-imagenes', ['idPropiedad' => $propiedad["properties_id"], 'imagenes' => $imagenesGaleria])
+                @livewire('tipo-campos-registro-propiedad', ['typeProjects' => $propiedad["obtener_tipo_propiedad"]["typeProperties_id"], 'datosPropiedad' => $propiedad])
+                
 
                 <button type="submit" class="btn btn-warning text-bold fs-6 w-100 mt-4 fw-bold">🗃️ Actualizar</button>
 

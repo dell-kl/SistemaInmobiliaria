@@ -13,7 +13,7 @@
                 </a>
                 <ul class="dropdown-menu list-none">
                     <li><a class="dropdown-item" href="#">Perfil</a></li>
-                    <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                    <li><a class="dropdown-item" href="/logout">Cerrar sesión</a></li>
                 </ul>
             </li>
         </div>
@@ -40,7 +40,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" 
+                    <a href="{{ route('roles.index') }}" 
                         class="flex flex-col items-center p-3 rounded-xl bg-gray-100 hover:bg-blue-500 transition-all duration-300 group shadow-md border border-gray-200"
                         style="text-decoration: none;">
                         <i class="fas fa-user-shield text-2xl mb-2 text-gray-600 group-hover:text-white"></i>
