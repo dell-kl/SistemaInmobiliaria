@@ -19,9 +19,14 @@ class FormularioSesion extends Component
         'password' => 'required|string|max:15|min:5',
     ];
 
+
     public function render()
     {
-        $this->validate($this->rules);
+
+        if ( $this->email != "" && $this->password != "" )
+        {
+           $this->permitirSesion = "autorizado";
+        }
 
         return view('livewire.formulario-sesion');
     }

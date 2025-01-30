@@ -12,7 +12,6 @@
     <title>Inicio Sesión</title>
 </head>
 <body>
-
     <div class="inicioSesion">
 
         <header class="bg-black flex flex-row items-center gap-2 justify-center absolute start-0 end-0">
@@ -20,9 +19,7 @@
             <p class="text-white">Autenticate para seguir con tu panel de administracion asignado.</p>
         </header>
 
-
         @livewire('formulario-sesion')
-
     </div>
 
     @include('sweetalert::alert')

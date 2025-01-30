@@ -24,15 +24,13 @@ class SesionController extends Controller {
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email',
             'password' => 'required|string|max:15',
-            
+
         ]);
-        
+
         if ( $validator->fails()  )
         {
             return response()->json(['mensaje' => 'formato incorrecto'], 422);
         }
-        
-       
 
         try {
             //code...
@@ -53,7 +51,7 @@ class SesionController extends Controller {
                     $usuarioVerificar->users_intentos -= 1;
                     $usuarioVerificar->save();
 
-                    return response()->json(['mensaje' => 'email o contraseña incorrecto', 'intentos' => $usuarioVerificar->users_intentos], 401);
+                    return response()->json(['mensaje' => 'Email o contraseña incorrecto', 'intentos' => $usuarioVerificar->users_intentos], 401);
                 }
                 else if ( isset($usuarioVerificar) && $usuarioVerificar->users_intentos == 0 )
                 {
@@ -63,7 +61,7 @@ class SesionController extends Controller {
                     return response()->json(['mensaje' => 'Cuenta bloqueada, contacta con el administrador', 'intentos' => $usuarioVerificar->users_intentos], 403);
                 }
 
-                return response()->json(['mensaje' => 'email o contraseña incorrecto'], 404);
+                return response()->json(['mensaje' => 'Email o contraseña incorrecto'], 404);
             }
             else
             {

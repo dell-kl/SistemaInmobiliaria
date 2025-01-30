@@ -9,31 +9,18 @@ use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-<<<<<<< HEAD
-
-=======
->>>>>>> 7f1e148ea5deb73a8350e254d2ae8072c83269f2
 
 /**
  * =============================================================================
  * Inicio Sesión.
  * =============================================================================
  */
-<<<<<<< HEAD
 
- 
  Route::controller(InicioSesionController::class)->group(function() {
      Route::get('/login',  'index')->middleware('sesion')->name('login');
      Route::post('/auth', 'auth');
      Route::get('/logout', 'logout');
  });
-=======
-Route::controller(InicioSesionController::class)->group(function() {
-    Route::get('/',  'index')->middleware('sesion');
-    Route::post('/auth', 'auth');
-    Route::get('/logout', 'logout');
-});
->>>>>>> 7f1e148ea5deb73a8350e254d2ae8072c83269f2
 
 /**
  * =============================================================================
@@ -42,7 +29,7 @@ Route::controller(InicioSesionController::class)->group(function() {
  */
 
 
- 
+
  Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 /**
  * =============================================================================

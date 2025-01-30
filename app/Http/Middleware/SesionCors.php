@@ -32,7 +32,6 @@ class SesionCors
         }
 
         $response = $next($request);
-
         return $response;
     }
 }
