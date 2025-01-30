@@ -27,14 +27,20 @@
         </div>
     </div>
 
-    <div class="w-full propiedades" style="background-color: #F2F2F2;">
-        <div class="m-auto pt-5" style="width:85.5%;">
-            <button id="btnRegistrarPropiedad" class="btn btn-warning flex flex-row items-center gap-2 boton-panel" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    <div class="w-full propiedades" style="background-color: #F2F2F2; border-radius: 5px;">
+        <div class="m-auto pt-5">
+            <button
+                id="btnRegistrarPropiedad"
+                class="btn flex flex-row items-center gap-2 boton-panel d-flex"
+                type="button"
+                data-bs-toggle="modal"
+                style="background-color:#c09d22 !important;margin-left: 15px !important;"
+                data-bs-target="#staticBackdrop">
                 <img src="/icons/home.png" width="50"/>
                 Agregar Propiedad
             </button>
 
-            <div class="m-auto propiedades-listado pt-4 flex flex-row flex-wrap gap-2 items-center pb-2" style="width:85.5%;">
+            <div class="m-auto propiedades-listado pt-4 flex flex-row flex-wrap justify-content-center gap-2 items-center pb-2">
                 @if (!empty($propiedades))
                     @foreach ($propiedades as $propiedad)
                         @php
@@ -65,7 +71,7 @@
 @endsection
 
 @push('scripts')
-<!-- Scripts para Bootstrap 5 
+<!-- Scripts para Bootstrap 5
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 -->

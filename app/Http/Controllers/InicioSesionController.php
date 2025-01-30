@@ -34,7 +34,7 @@ class InicioSesionController extends Controller
 
        if ( $body["mensaje"] === "Sesion cerrada" )
        {
-           return redirect('/');
+           return redirect('/login');
        }
     }
 
@@ -49,9 +49,9 @@ class InicioSesionController extends Controller
                 "password" => $request["password"]
             ]);
 
-          
+
             $body = json_decode($respuesta->body(), true);
-            
+
             if ( $body["mensaje"] === "autorizado" ) {
                 $tokenAutorizacion = "Bearer ". $body["token"];
 
@@ -59,6 +59,7 @@ class InicioSesionController extends Controller
             }
             else
             {
+
 
                 if ( $respuesta->getStatusCode() === 403 )
                 {
@@ -75,9 +76,14 @@ class InicioSesionController extends Controller
                     Alert::error('Inicio Sesion', $body["mensaje"]. ". Tienes " . $body["intentos"] . " intentos disponibles.!!!!")
                     ->autoclose(10000);
                 }
+                else if ( $respuesta->getStatusCode() === 500 )
+                {
+                    Alert::error('Inicio Sesion', $body["mensaje"])
+                    ->autoclose(10000);
+                }
 
               //redireccionamos a la persona por datos invalidos.
-                return redirect('/');
+                return redirect('/login');
             }
         }
         catch(Exception $e)
@@ -85,7 +91,7 @@ class InicioSesionController extends Controller
             Alert::error('Inicio Sesion', $body["mensaje"])
             ->autoclose(5000);
           //redireccionamos a la persona por datos invalidos.
-            return redirect('/');
+            return redirect('/login');
         }
     }
 }

@@ -15,9 +15,9 @@ class GestionPropiedadController extends Controller
 {
     private string $ruta;
     private int $idUsuario;
-   
 
-    
+
+
     public function __construct() {
         $this->ruta = config("app.url_api");
         $this->idUsuario = JWTAuth::parseToken()->getPayload()->get('id');
@@ -26,18 +26,12 @@ class GestionPropiedadController extends Controller
     public function propiedad(Request $request) : View
     {
         try {
-            dd($request);
-            //code...
-<<<<<<< HEAD
             $usuariosActivos = User::count();
             $propiedadesDisponibles = Property::count();
             $institucionesDisponibles = Institution::count();
 
             $this->ruta = config("app.url_api") . "/api/propiedades/listar";
-=======
-            $this->ruta = $this->ruta . "/api/propiedades/listar";
 
->>>>>>> 7f1e148ea5deb73a8350e254d2ae8072c83269f2
             $respuesta = Http::get($this->ruta);
 
             $propiedades = array();
@@ -46,25 +40,18 @@ class GestionPropiedadController extends Controller
                 $propiedades = $respuesta->json();
             }
 
-            
-
             //informacion de la persona que se autentico.
             $rolUsuario = JWTAuth::parseToken()->getPayload()->get('roles');
 
-
             return view('moduloGestionPropiedad.propiedad', [
                 'propiedades' => $propiedades,
-<<<<<<< HEAD
                 'rolUsuario' => $rolUsuario,
                 'usuariosActivos' => $usuariosActivos,
                 'propiedadesDisponibles' => $propiedadesDisponibles,
                 'institucionesDisponibles' => $institucionesDisponibles,
-              
-=======
                 'rolUsuario' => $rolUsuario
-
->>>>>>> 7f1e148ea5deb73a8350e254d2ae8072c83269f2
             ]);
+
         } catch (\Throwable $th) {
             dd("Error ..." . $th->getMessage());
         }
@@ -316,6 +303,24 @@ class GestionPropiedadController extends Controller
                 ]);
 
 
+                if ( strlen($datos["VideosProyecto"]) == 1 )
+                {
+                    $codigos = explode(" ", $datos["VideosProyecto"]);
+                }
+                else if ( strlen($datos["VideosProyecto"]) == 0 )
+                {
+                    $codigos = [];
+                }
+                else
+                {
+                    $codigos = explode(",", $datos["VideosProyecto"]);
+                }
+
+                $respuestaVideos = Http::post($this->ruta . "/api/videos/actualizar", [
+                    "propertyId" => $datos["propiedadId"],
+                    "route" => $codigos,
+                    "token" => $tokenAcceso
+                ]);
 
 
                 if (

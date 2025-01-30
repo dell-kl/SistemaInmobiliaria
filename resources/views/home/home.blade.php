@@ -43,7 +43,7 @@
     <section class="swiper mySwiper">
         <div class="swiper-wrapper">
             <div class="swiper-slide relative">
-                <img src="{{ asset('images/property1.jpg') }}" alt="Propiedad 1" class="w-full h-[500px] object-cover">
+                <img src="{{ asset('image/imagenFondoHome.jpg') }}" alt="Propiedad 1" class="w-full h-[500px] object-cover">
                 <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-white text-center">
                     <h2 class="text-5xl font-bold">Encuentra tu hogar ideal</h2>
                     <p class="text-xl mt-3">Las mejores propiedades seleccionadas para ti</p>
@@ -91,14 +91,21 @@
     <section class="container mx-auto px-4 py-16">
         <h2 class="text-3xl font-bold text-primary mb-8 text-center">Propiedades Disponibles</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
             @foreach ($propiedades as $propiedad)
+                @php
+                    $rutaImagen = config('app.url') . '/storage/' . $propiedad["images"][0]["pictures_route"];
+
+                @endphp
+
                 <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300">
-                    <img src="{{ isset($propiedad['properties_image']) ? asset('storage/' . $propiedad['properties_image']) : asset('images/default-property.jpg') }}" 
+                    <img src="{{$rutaImagen}}"
                          alt="{{ $propiedad['properties_name'] ?? 'Propiedad' }}"
                          class="w-full h-56 object-cover">
                     <div class="p-6">
-                        <h3 class="text-xl font-bold text-primary">{{ $propiedad['properties_name'] ?? 'Nombre no disponible' }}</h3>
-                        <p class="text-gray-600">{{ $propiedad['properties_description'] ?? 'Descripción no disponible' }}</p>
+                        <h3 class="text-xl font-bold text-primary">Proyecto - {{ $propiedad["obtener_tipo_propiedad"]["typeProperties_name"] }}</h3>
+                        <p class="text-gray-600">{{ $propiedad['properties_description'] }}</p>
+                        <p class="text-gray-600" style="font-size: 14px; padding-top: 5px;">{{ $propiedad['properties_address'] }}</p>
                         <div class="flex justify-between items-center mt-4">
                             <span class="text-secondary font-bold text-xl">${{ number_format($propiedad['properties_price'] ?? 0) }}</span>
                             <button type="button" class="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded">
