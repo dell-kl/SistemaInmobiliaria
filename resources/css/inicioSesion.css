@@ -1,13 +1,25 @@
-.inicioSesion { 
+body {
     background-image: url('/public/image/FondoSesion.jpeg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-    height: inherit;
+    /* height: 100%; */
+}
+
+.inicioSesion {
+    height: 100%;
+}
+
+.inicioSesion header {
+    z-index: 3;
 }
 
 .seccionFormulario {
     background-color: #1c1818a8;
     width: 40%;
     margin: auto;
+    position: absolute;
+    right: 0;
+    left: 0;
+    z-index: 2;
 }

@@ -26,12 +26,18 @@ class GestionPropiedadController extends Controller
     public function propiedad(Request $request) : View
     {
         try {
+            dd($request);
             //code...
+<<<<<<< HEAD
             $usuariosActivos = User::count();
             $propiedadesDisponibles = Property::count();
             $institucionesDisponibles = Institution::count();
 
             $this->ruta = config("app.url_api") . "/api/propiedades/listar";
+=======
+            $this->ruta = $this->ruta . "/api/propiedades/listar";
+
+>>>>>>> 7f1e148ea5deb73a8350e254d2ae8072c83269f2
             $respuesta = Http::get($this->ruta);
 
             $propiedades = array();
@@ -48,11 +54,16 @@ class GestionPropiedadController extends Controller
 
             return view('moduloGestionPropiedad.propiedad', [
                 'propiedades' => $propiedades,
+<<<<<<< HEAD
                 'rolUsuario' => $rolUsuario,
                 'usuariosActivos' => $usuariosActivos,
                 'propiedadesDisponibles' => $propiedadesDisponibles,
                 'institucionesDisponibles' => $institucionesDisponibles,
               
+=======
+                'rolUsuario' => $rolUsuario
+
+>>>>>>> 7f1e148ea5deb73a8350e254d2ae8072c83269f2
             ]);
         } catch (\Throwable $th) {
             dd("Error ..." . $th->getMessage());
@@ -165,8 +176,6 @@ class GestionPropiedadController extends Controller
             return redirect('/propiedades');
         } catch (\Throwable $th) {
 
-            dd($th->getMessage());
-
             //throw $th;
             Alert::error('Alteracion Propiedad', 'Error de servidor, intentalo de nuevo mas tarde')
             ->autoclose(5000);
@@ -184,9 +193,9 @@ class GestionPropiedadController extends Controller
             $datos = $request->all();
 
             /**
-             * ============================================================== 
+             * ==============================================================
              * Registro Propiedad
-             * ============================================================== 
+             * ==============================================================
              */
 
             if ($datos["tipoProyecto"] != 1)
