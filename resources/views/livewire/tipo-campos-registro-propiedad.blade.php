@@ -27,18 +27,18 @@
             <div class="flex flex-row flex-wrap gap-1">
 
                 <div class="form-floating mb-3  flex-1">
-                    <input type="number" name="numeroHabitaciones" value="{{ ( isset($datosPropiedad) ) ? $datosPropiedad["properties_rooms"] : "" }}" class="form-control" id="floatingInput" placeholder="Inserta numero de habitaciones">
+                    <input type="number" name="numeroHabitaciones" value="{{ ( isset($datosPropiedad) ) ? $datosPropiedad['properties_rooms'] : '' }}" class="form-control" id="floatingInput" placeholder="Inserta numero de habitaciones">
                     <label for="floatingInput">🛌 Numero Habitaciones</label>
                 </div>
 
                 <div class="form-floating mb-3  flex-1">
-                    <input type="text" name="numeroBanios" class="form-control" value="{{ isset($datosPropiedad) ? $datosPropiedad["properties_bathrooms"] : "" }}" id="floatingInput" placeholder="Inserta numero de baños">
+                    <input type="text" name="numeroBanios" class="form-control" value="{{ isset($datosPropiedad) ? $datosPropiedad['properties_bathrooms'] : '' }}" id="floatingInput" placeholder="Inserta numero de baños">
                     <label for="floatingInput">🚽 Numero Baños</label>
                 </div>
 
                 @if ( intval($typeProjects) === 1 )
                     <div class="form-floating mb-3 flex-1">
-                        <input type="number" name="numeroEstacionamiento" value="{{ isset($datosPropiedad) ? $datosPropiedad["properties_parking"] : "" }}" class="form-control" placeholder="Inserta cuantos estacionamientos">
+                        <input type="number" name="numeroEstacionamiento" value="{{ isset($datosPropiedad) ? $datosPropiedad['properties_parking'] : '' }}" class="form-control" placeholder="Inserta cuantos estacionamientos">
                         <label for="floatingInput">🚏 Numero Estacionamiento</label>
                     </div>
                 @endif
@@ -55,18 +55,18 @@
             <h3 class="fw-bold pt-2 pb-2">Medidas Proyecto</h3>
             <div class="flex flex-row flex-wrap gap-1">
                 <div class="form-floating mb-3  flex-1">
-                    <input type="text" name="AreaProyecto" value="{{ isset($datosPropiedad) ? $datosPropiedad["properties_area"] : "" }}" class="form-control" id="floatingInput" placeholder="Inserta el area del proyecto">
+                    <input type="text" name="AreaProyecto" value="{{ isset($datosPropiedad) ? $datosPropiedad['properties_area'] : '' }}" class="form-control" id="floatingInput" placeholder="Inserta el area del proyecto">
                     <label for="floatingInput">📏 Area Terreno</label>
                 </div>
 
                 @if (intval($typeProjects) !== 3 )
                     <div class="form-floating mb-3  flex-1">
-                        <input type="text" name="AltoProyecto" value="{{ isset($datosPropiedad) ? $datosPropiedad["properties_height"] : "" }}" class="form-control" id="floatingInput" placeholder="Inserta el alto de la casa o departamento">
+                        <input type="text" name="AltoProyecto" value="{{ isset($datosPropiedad) ? $datosPropiedad['properties_height'] : '' }}" class="form-control" id="floatingInput" placeholder="Inserta el alto de la casa o departamento">
                         <label for="floatingInput">📐 Alto Total</label>
                     </div>
                 @else
                     <div class="form-floating mb-3  flex-1">
-                        <input type="text" name="ProfundidadProyecto" value="{{ isset($datosPropiedad) ? $datosPropiedad["properties_height"] : "" }}" class="form-control" id="floatingInput" placeholder="Inserta la profundidad del terreno">
+                        <input type="text" name="ProfundidadProyecto" value="{{ isset($datosPropiedad) ? $datosPropiedad['properties_height'] : '' }}" class="form-control" id="floatingInput" placeholder="Inserta la profundidad del terreno">
                         <label for="floatingInput">📐 Profundidad Terreno</label>
                     </div>
                 @endif
@@ -81,9 +81,9 @@
                 <div class="form-floating flex-1">
                     <select name="EstadoProyecto" class="form-select" id="floatingSelect" aria-label="Floating label select example">
                       <option selected>-- Disponibilidad --</option>
-                      <option value="1" {{ $disponibilidad == "1" ? "selected" : "" }}>Disponible</option>
-                      <option value="2" {{ $disponibilidad == "2" ? "selected" : "" }}>Reservado</option>
-                      <option value="3" {{ $disponibilidad == "3" ? "selected" : "" }}>No Disponible</option>
+                      <option value="1" {{ $disponibilidad == "1" ? 'selected' : '' }}>Disponible</option>
+                      <option value="2" {{ $disponibilidad == "2" ? 'selected' : '' }}>Reservado</option>
+                      <option value="3" {{ $disponibilidad == "3" ? 'selected' : '' }}>No Disponible</option>
                     </select>
                     <label for="floatingSelect">Dale la disponibilidad al proyecto</label>
                 </div>
@@ -92,7 +92,7 @@
             <h3 class="fw-bold pt-3 pb-2">Datos Financieros</h3>
             <div class="flex flex-row flex-wrap gap-1">
                 <div class="form-floating mb-3  flex-1">
-                    <input type="number" name="PrecioProyecto" value="{{ isset($datosPropiedad) ? $datosPropiedad["properties_price"] : "" }}" class="form-control" id="floatingInput" placeholder="Precio propuesto del proyecto">
+                    <input type="number" name="PrecioProyecto" value="{{ isset($datosPropiedad) ? $datosPropiedad['properties_price'] : '' }}" class="form-control" id="floatingInput" placeholder="Precio propuesto del proyecto">
                     <label for="floatingInput">💲💲 Ponle un precio al proyecto</label>
                 </div>
             </div>

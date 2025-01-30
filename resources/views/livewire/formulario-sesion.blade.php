@@ -5,12 +5,12 @@
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <form class="space-y-6" action="{{ url('/login') }}" method="POST">
+    <form class="space-y-6" action="/auth" method="POST">
     @csrf
     <div>
         <label for="users_email" class="block font-medium text-white text-xl">Correo Electrónico</label>
         <div class="mt-2">
-            <input id="users_email" name="users_email" type="email" placeholder="Ingresa tu correo electrónico" autocomplete="email" required class="ps-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+            <input id="users_email" name="email" type="email" placeholder="Ingresa tu correo electrónico" autocomplete="email" required class="ps-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
         </div>
     </div>
 

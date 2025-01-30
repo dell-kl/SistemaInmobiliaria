@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -91,7 +92,7 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne(Profile::class, 'Profiles_usersId', 'users_id');
     }
 
-    public function roles() : HasManyThrough
+     public function roles() : HasManyThrough
     {
         return $this->hasManyThrough(Role::class, Profile::class, 'Profiles_usersId', 'roles_id', 'users_id', 'Profiles_rolesId');
     }

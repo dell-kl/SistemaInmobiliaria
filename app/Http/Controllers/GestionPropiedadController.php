@@ -15,7 +15,9 @@ class GestionPropiedadController extends Controller
 {
     private string $ruta;
     private int $idUsuario;
+   
 
+    
     public function __construct() {
         $this->ruta = config("app.url_api");
         $this->idUsuario = JWTAuth::parseToken()->getPayload()->get('id');
@@ -25,8 +27,11 @@ class GestionPropiedadController extends Controller
     {
         try {
             //code...
-            $this->ruta = $this->ruta . "/api/propiedades/listar";
-          
+            $usuariosActivos = User::count();
+            $propiedadesDisponibles = Property::count();
+            $institucionesDisponibles = Institution::count();
+
+            $this->ruta = config("app.url_api") . "/api/propiedades/listar";
             $respuesta = Http::get($this->ruta);
 
             $propiedades = array();
@@ -35,12 +40,18 @@ class GestionPropiedadController extends Controller
                 $propiedades = $respuesta->json();
             }
 
+            
+
             //informacion de la persona que se autentico.
             $rolUsuario = JWTAuth::parseToken()->getPayload()->get('roles');
 
+
             return view('moduloGestionPropiedad.propiedad', [
                 'propiedades' => $propiedades,
-                'rolUsuario' => $rolUsuario
+                'rolUsuario' => $rolUsuario,
+                'usuariosActivos' => $usuariosActivos,
+                'propiedadesDisponibles' => $propiedadesDisponibles,
+                'institucionesDisponibles' => $institucionesDisponibles,
               
             ]);
         } catch (\Throwable $th) {

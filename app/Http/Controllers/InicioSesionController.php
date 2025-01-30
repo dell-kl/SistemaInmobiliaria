@@ -42,13 +42,15 @@ class InicioSesionController extends Controller
         //gestion respectivo del perfil del cliente...
         try
         {
+
             $respuesta = Http::post($this->ruta . "/api/auth/sesion", [
                 "email" => $request["email"],
                 "password" => $request["password"]
             ]);
 
+          
             $body = json_decode($respuesta->body(), true);
-
+            
             if ( $body["mensaje"] === "autorizado" ) {
                 $tokenAutorizacion = "Bearer ". $body["token"];
 

@@ -21,18 +21,18 @@ class SesionController extends Controller {
     }
 
     public function inicioSesion(Request $request) : JsonResponse {
-
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email',
             'password' => 'required|string|max:15',
-
+            
         ]);
-
+        
         if ( $validator->fails()  )
         {
             return response()->json(['mensaje' => 'formato incorrecto'], 422);
         }
-
+        
+       
 
         try {
             //code...
@@ -48,7 +48,7 @@ class SesionController extends Controller {
             }
         } catch (\Throwable $th) {
             //throw $th;
-            return response()->json(['mensaje' => 'error servidor'], 500);
+            return response()->json(['mensaje' => $th->getMessage()], 500);
         }
 
     }
