@@ -4,6 +4,7 @@ use App\Http\Controllers\GestionPropiedadController;
 use App\Http\Controllers\InicioSesionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CreditoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\ProfileController;
@@ -65,3 +66,6 @@ Route::resource('institutions', InstitutionController::class);
 Route::resource('profiles', ProfileController::class);
 
 Route::resource('roles', RoleController::class);
+
+Route::get('/obtener-interes/{institucionId}', [CreditoController::class, 'getInteres'])->name('obtener.interes');
+Route::get('/simular-credito/{id}', [CreditoController::class, 'show'])->name('home.simularCredito');

@@ -3,6 +3,8 @@
 
     <div class="relative mx-4 mt-4 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40">
       <img
+        widith="500"
+        height="500"
         src="{{$rutaImagen}}"
         alt="ui/ux review check"
       />

@@ -45,7 +45,8 @@
                     @foreach ($propiedades as $propiedad)
                         @php
                             $rutaImagen = !empty($propiedad["images"]) ? config('app.url') . '/storage/' . $propiedad["images"][0]["pictures_route"] : '/path/to/default/image.jpg';
-                        @endphp
+                       // dd($rutaImagen);
+                            @endphp
                         @livewire('propiedad', ['property' => $propiedad, 'rutaImagen' => $rutaImagen])
                     @endforeach
                 @endif
