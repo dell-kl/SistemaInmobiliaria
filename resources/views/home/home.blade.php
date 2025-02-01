@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Plusvalía</title>
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Swiper CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ Vite::asset('resources/css/config.css') }}">
+    <link rel="stylesheet" href="{{ Vite::asset('resources/css/tailwaind.css') }}">
+    <link rel="stylesheet" href="{{ Vite::asset('resources/css/home.css') }}"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
         /* Colores personalizados */
         :root {
@@ -108,12 +109,19 @@
                         <p class="text-gray-600" style="font-size: 14px; padding-top: 5px;">{{ $propiedad['properties_address'] }}</p>
                         <div class="flex justify-between items-center mt-4">
                             <span class="text-secondary font-bold text-xl">${{ number_format($propiedad['properties_price'] ?? 0) }}</span>
-                            <button type="button" class="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded">
+                            <button type="button" class="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded" data-bs-toggle="modal" data-bs-target="#modalPropiedadDetalles-{{ $propiedad['properties_id'] }}">
                                 Ver Detalles
                             </button>
                         </div>
                     </div>
                 </div>
+
+                @livewire('detalles-propiedad', [
+                    'idPropiedad' => $propiedad['properties_id'],
+                    'propiedad' => $propiedad
+                ])
+
+
             @endforeach
         </div>
     </section>
@@ -123,6 +131,8 @@
         <p>&copy; 2024 Sistema de Plusvalía. Todos los derechos reservados.</p>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script>
@@ -143,5 +153,7 @@
             },
         });
     </script>
+
+    <script src="{{ Vite::asset('resources/js/loadMap.js') }}"></script>
 </body>
 </html>

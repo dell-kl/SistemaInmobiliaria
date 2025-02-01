@@ -95,7 +95,6 @@ function mapa(elemento)
 
 function imagenEstatica(identificadorMapa)
 {
-
     let map = L.map(identificadorMapa, {
         preferCanvas: true
     }).setView([-0.21011,-78.49560], 10);

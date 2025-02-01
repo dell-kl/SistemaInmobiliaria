@@ -1,7 +1,7 @@
-<div class="h-screen w-screen flex justify-center w-50 items-center rounded" style="background-color:#e64d0012;">
+<div class="h-screen flex justify-center items-center rounded" style="background-color:#e64d0012;width: 40%;">
 
     <div class="bg-slate-800 text-white rounded-lg w-full mx-5 md:w-[40rem]  space-y-6 p-10">
-        <div id="galeriaImagenes-{{$idPropiedad}}" class="galeria-imagenes-proyecto pictures-first grid grid-cols-6 col-span-2   gap-2  cursor-pointer">
+        <div id="galeriaImagenes-{{$idPropiedad}}" class="galeria-imagenes-proyecto pictures-first grid grid-cols-6 col-span-2 gap-2 cursor-pointer">
 
             @php
                 $conteo = 0;

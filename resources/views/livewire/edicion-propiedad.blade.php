@@ -11,6 +11,7 @@
             </div>
 
             <div class="seccion-ubicacion mt-4 d-flex flex-row flex-wrap gap-2">
+                {{-- @livewire('carrusel-imagenes', ['idPropiedad' => $propiedad["properties_id"]]); --}}
 
                 @php
                     //vamos a decir que solo vamos a tomar cinco imagenes para la parte previa de imagenes.
