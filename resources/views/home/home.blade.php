@@ -109,7 +109,7 @@
                         <p class="text-gray-600" style="font-size: 14px; padding-top: 5px;">{{ $propiedad['properties_address'] }}</p>
                         <div class="flex justify-between items-center mt-4">
                             <span class="text-secondary font-bold text-xl">${{ number_format($propiedad['properties_price'] ?? 0) }}</span>
-                            <button type="button" class="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded" data-bs-toggle="modal" data-bs-target="#modalPropiedadDetalles-{{ $propiedad['properties_id'] }}">
+                            <button type="button" id="proyecto-{{$propiedad['properties_id']}}-btn" class="boton-panel bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded" data-bs-toggle="modal" data-bs-target="#modalPropiedadDetalles-{{ $propiedad['properties_id'] }}">
                                 Ver Detalles
                             </button>
                         </div>

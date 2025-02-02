@@ -179,6 +179,8 @@ class GestionPropiedadController extends Controller
         {
             $datos = $request->all();
 
+
+            dd("... proceso reigstro proiedad");
             /**
              * ==============================================================
              * Registro Propiedad

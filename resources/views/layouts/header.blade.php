@@ -24,7 +24,11 @@
         <div class="container mx-auto py-2">
             <ul class="flex justify-center space-x-6">
                 <li>
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop" 
+                    <a
+                    href="#"
+                    id="agregarPropiedadSeccion"
+                    data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop"
                         class="flex flex-col items-center p-3 rounded-xl bg-gray-100 hover:bg-blue-500 transition-all duration-300 group shadow-md border border-gray-200"
                         style="text-decoration: none;">
                         <i class="fas fa-home text-2xl mb-2 text-gray-600 group-hover:text-white"></i>
@@ -32,7 +36,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('usuarios.index') }}" 
+                    <a href="{{ route('usuarios.index') }}"
                         class="flex flex-col items-center p-3 rounded-xl bg-gray-100 hover:bg-blue-500 transition-all duration-300 group shadow-md border border-gray-200"
                         style="text-decoration: none;">
                         <i class="fas fa-users text-2xl mb-2 text-gray-600 group-hover:text-white"></i>
@@ -40,7 +44,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('roles.index') }}" 
+                    <a href="{{ route('roles.index') }}"
                         class="flex flex-col items-center p-3 rounded-xl bg-gray-100 hover:bg-blue-500 transition-all duration-300 group shadow-md border border-gray-200"
                         style="text-decoration: none;">
                         <i class="fas fa-user-shield text-2xl mb-2 text-gray-600 group-hover:text-white"></i>
@@ -48,7 +52,7 @@
                     </a>
                 </li>
                 <li>
-                <a href="{{ route('profiles.index') }}" 
+                <a href="{{ route('profiles.index') }}"
                         class="flex flex-col items-center p-3 rounded-xl bg-gray-100 hover:bg-blue-500 transition-all duration-300 group shadow-md border border-gray-200"
                         style="text-decoration: none;">
                         <i class="fas fa-cogs text-2xl mb-2 text-gray-600 group-hover:text-white"></i>
@@ -56,7 +60,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('institutions.index') }}" 
+                    <a href="{{ route('institutions.index') }}"
                         class="flex flex-col items-center p-3 rounded-xl bg-gray-100 hover:bg-blue-500 transition-all duration-300 group shadow-md border border-gray-200"
                         style="text-decoration: none;">
                         <i class="fas fa-building text-2xl mb-2 text-gray-600 group-hover:text-white"></i>
@@ -64,7 +68,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/reportes" 
+                    <a href="/reportes"
                         class="flex flex-col items-center p-3 rounded-xl bg-gray-100 hover:bg-blue-500 transition-all duration-300 group shadow-md border border-gray-200"
                         style="text-decoration: none;">
                         <i class="fas fa-chart-bar text-2xl mb-2 text-gray-600 group-hover:text-white"></i>

@@ -19,60 +19,131 @@
                 <p class="mb-3 font-semibold text-gray-900 flex flex-wrap justify-center">
                   <span>{{ $mensaje }}</span>
                 </p>
-                <input id="hidden-input-{{ $tipoSubidaArchivo }}" type="file" name="entrada_{{$tipoSubidaArchivo}}[]" multiple class="hidden" />
-                <button type="button" id="button" class="buttonArchivo-{{ $tipoSubidaArchivo }} mt-2 rounded-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none">
+                <input id="hidden-input-{{ $tipoSubidaArchivo }}"
+                    type="file"
+                    wire:model="imagenes"
+                    name="entrada_{{$tipoSubidaArchivo}}[]"
+                    multiple
+                    class="hidden Entradasubidaimagenes"
+                />
+
+                <button
+                type="button"
+                wire:click="activarEntrada"
+                id="button-{{ $tipoSubidaArchivo }}"
+                class="buttonSubidaArchivos buttonArchivo-{{ $tipoSubidaArchivo }} mt-2 rounded-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none">
                   Seleccionar Archivos
                 </button>
               </header>
+
+              @script
+              <script>
+                Livewire.on('activarEntrada', (e) => {
+                   document.getElementById('hidden-input-{{ $tipoSubidaArchivo }}').click();
+                })
+              </script>
+              @endscript
+
+              @if ( $mostrarBotonValidar )
+                    <button
+                        id="botonValidacionImagenes"
+                        type="button"
+                        class="d-none"
+                        wire:click="validarImagenes"
+                    ></button>
+
+                    @script
+                        <script>
+                            document.getElementById('botonValidacionImagenes').click();
+                        </script>
+                    @endscript
+              @endif
+
+              {{-- Aqui vamos a poner una validacion para nuestro formulario --}}
+              <div>
+
+                  @error('imagenes')
+                      <span class="text-red-500">{{ $message }}</span>
+                  @enderror
+              </div>
 
               <h1 class="pt-8 pb-3 font-semibold sm:text-lg text-gray-900">
                 {{ $subtitulo }}
               </h1>
 
-              <ul id="gallery-{{ $tipoSubidaArchivo }}" class="flex flex-1 flex-wrap -m-1">
-                <li id="empty-{{ $tipoSubidaArchivo }}" class="seccion-archivo-seleccion h-full w-full text-center flex flex-col items-center justify-center items-center">
-                  <img class="mx-auto w-32" src="https://user-images.githubusercontent.com/507615/54591670-ac0a0180-4a65-11e9-846c-e55ffce0fe7b.png" alt="no data" />
-                  <span class="text-small text-gray-500">No files selected</span>
-                </li>
-              </ul>
+              <ul id="gallery" class="flex flex-1 flex-wrap -m-1">
+                    @if ( !empty($imagenes) )
+                        @foreach ($imagenes as $imagen)
+                            @php
+                                dd($imagen);
+                                $ruta = $imagen->temporaryUrl();
+                            @endphp
+                            <li class="block p-1 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 xl:w-1/8 h-24" id="blob:https://www.creative-tim.com/cf91ce8d-4dab-4c2d-b158-b1552e043501">
+                                <article tabindex="0" class="group hasImage w-full h-full rounded-md focus:outline-none focus:shadow-outline bg-gray-100 cursor-pointer relative text-transparent hover:text-white shadow-sm">
+                                    <img
+                                    alt="imagen seleccionada proyecto"
+                                    class="img-preview w-full h-full sticky object-cover rounded-md bg-fixed"
+                                    src="{{$ruta}}">
+                                    <button
+
+                                        id="botonEliminar"
+                                        type="button"
+                                        wire:click="borrarImagen('{{$imagen}}')"
+                                        class="hover:bg-gray-300 p-1 rounded-md">
+                                        elim.
+                                    </button>
+
+
+                                    {{-- <button
+                                        type="button"
+                                        wire:click="borrarImagen({{$ruta}})"
+                                        class="delete ml-auto focus:outline-none hover:bg-gray-300 p-1 rounded-md">
+                                        <svg class="pointer-events-none fill-current w-4 h-4 ml-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path class="pointer-events-none" d="M3 6l3 18h12l3-18h-18zm19-4v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.316c0 .901.73 2 1.631 2h5.711z"></path>
+                                        </svg>
+                                    </button> --}}
+                                    {{--
+                                    <section class="flex flex-col rounded-md text-xs break-words w-full z-20 absolute top-0 py-2 px-3">
+                                        <h1 class="flex-1">{{basename($ruta)}}</h1>
+                                        <div class="flex">
+                                        <span class="p-1">
+                                            <i>
+                                            <svg class="fill-current w-4 h-4 ml-auto pt-" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                                <path d="M5 8.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5c0 .829-.672 1.5-1.5 1.5s-1.5-.671-1.5-1.5zm9 .5l-2.519 4-2.481-1.96-4 5.96h14l-5-8zm8-4v14h-20v-14h20zm2-2h-24v18h24v-18z"></path>
+                                            </svg>
+                                            </i>
+                                        </span>
+
+                                        <p class="p-1 size text-xs">2mb</p>
+                                        <button class="delete ml-auto focus:outline-none hover:bg-gray-300 p-1 rounded-md" data-target="blob:https://www.creative-tim.com/cf91ce8d-4dab-4c2d-b158-b1552e043501">
+                                            <svg class="pointer-events-none fill-current w-4 h-4 ml-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                            <path class="pointer-events-none" d="M3 6l3 18h12l3-18h-18zm19-4v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.316c0 .901.73 2 1.631 2h5.711z"></path>
+                                            </svg>
+                                        </button>
+                                        </div>
+                                    </section> --}}
+                                </article>
+                            </li>
+                        @endforeach
+
+                    @endif
+
+                    @if ( empty($imagenes) )
+                        <li id="empty" class="h-full w-full text-center flex flex-col items-center justify-center">
+                            <img class="mx-auto w-32" src="https://user-images.githubusercontent.com/507615/54591670-ac0a0180-4a65-11e9-846c-e55ffce0fe7b.png" alt="no data">
+                            <span class="text-small text-gray-500">No files selected</span>
+                        </li>
+                    @endif
+                </ul>
+
             </section>
 
           </article>
         </main>
-
     </div>
 
-
-    <!-- plantilla usada para representar a la parte de los archivos que se suben. -->
-    <template id="file-template-{{ $tipoSubidaArchivo }}">
-        <li class="block p-1 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 xl:w-1/8 h-24">
-          <article tabindex="0" class="group w-full h-full rounded-md focus:outline-none focus:shadow-outline elative bg-gray-100 cursor-pointer relative shadow-sm">
-            <img alt="upload preview" class="img-preview hidden w-full h-full sticky object-cover rounded-md bg-fixed" />
-
-            <section class="flex flex-col rounded-md text-xs break-words w-full h-full z-20 absolute top-0 py-2 px-3">
-              <h1 class="flex-1 group-hover:text-blue-800"></h1>
-              <div class="flex">
-                <span class="p-1 text-blue-800">
-                  <i>
-                    <svg class="fill-current w-4 h-4 ml-auto pt-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                      <path d="M15 2v5h5v15h-16v-20h11zm1-2h-14v24h20v-18l-6-6z" />
-                    </svg>
-                  </i>
-                </span>
-                <p class="p-1 size text-xs text-gray-700"></p>
-                <button class="delete ml-auto focus:outline-none hover:bg-gray-300 p-1 rounded-md text-gray-800">
-                  <svg class="pointer-events-none fill-current w-4 h-4 ml-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                    <path class="pointer-events-none" d="M3 6l3 18h12l3-18h-18zm19-4v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.316c0 .901.73 2 1.631 2h5.711z" />
-                  </svg>
-                </button>
-              </div>
-            </section>
-          </article>
-        </li>
-    </template>
-
     <!-- plantilla usada para representar a la parte de las imagenes que se suben. -->
-    <template id="image-template-{{ $tipoSubidaArchivo }}">
+    {{-- <template id="image-template-{{ $tipoSubidaArchivo }}">
         <li class="block p-1 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 xl:w-1/8 h-24">
           <article tabindex="0" class="group hasImage w-full h-full rounded-md focus:outline-none focus:shadow-outline bg-gray-100 cursor-pointer relative text-transparent hover:text-white shadow-sm">
             <img alt="upload preview" class="img-preview w-full h-full sticky object-cover rounded-md bg-fixed" />
@@ -98,7 +169,7 @@
             </section>
           </article>
         </li>
-    </template>
+    </template> --}}
 
         <style>
         .hasImage:hover section {

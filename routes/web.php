@@ -20,7 +20,14 @@ use App\Http\Controllers\UserController;
      Route::get('/login',  'index')->middleware('sesion')->name('login');
      Route::post('/auth', 'auth');
      Route::get('/logout', 'logout');
- });
+     Route::get('/reset', 'reset');
+     Route::post('/resetPost', 'resetPost');
+
+
+     Route::get('/proceso-reseteo/{token}', 'procesoReset');
+     Route::post('/proceso-reseteo-bck', 'procesoResetPost');
+});
+
 
 /**
  * =============================================================================

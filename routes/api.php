@@ -11,6 +11,7 @@ use App\Http\Controllers\ApiRestControllers\PropiedadesController;
 use App\Http\Controllers\ApiRestControllers\ResponsibleController;
 use App\Http\Controllers\ApiRestControllers\SesionController;
 use App\Http\Controllers\ApiRestControllers\UbicacionesController;
+use App\Http\Controllers\ApiRestControllers\UsuarioController;
 use App\Http\Controllers\ApiRestControllers\VideosController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,7 +27,15 @@ Route::group([
 ], function ($router) {
     Route::post('/sesion', [SesionController::class, 'inicioSesion']);
     Route::post('/cerrar', [SesionController::class, 'cerrarSesion']);
+    Route::post('/reset', [SesionController::class, 'reset']);
 });
+
+/**
+ * ============================================================================
+ * Existencia de usuarios
+ * ============================================================================
+ */
+Route::post('/usuario/verificar', [UsuarioController::class, 'encontrarUsuario']);
 
 /**
  * ============================================================================

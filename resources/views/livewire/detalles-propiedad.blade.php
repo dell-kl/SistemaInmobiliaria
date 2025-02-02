@@ -172,12 +172,26 @@
                                 </div>
 
 
+                                @php
+                                $idPropiedad = $propiedad["properties_id"];
+                                $coordenadasProyecto = $propiedad["obtener_coordenadas"][0]["coordinates_route"];
+                                @endphp
+
                                 {{-- Ubicacion en tiempo real de nuestro proyecto. --}}
                                 <div class="ubicacion-propiedad d-flex flex-column">
                                     <h3 class="fw-bold pt-8 fs-3 pb-2">Ubicacion del proyecto</h3>
+                                    {{-- <div
+                                       id="proyecto-{{ $idPropiedad }}"
+                                        style="height: 300px !important;"
+                                        >
+                                        <input type="hidden"
+                                            value="{{ $coordenadasProyecto }}"
+                                            class="mapa-ubicacion-{{ $idPropiedad }}"
+                                            id="campoUbicacionMapa"/>
+                                    </div> --}}
                                     @livewire('ubicacion-mapa', [
-                                        'identificador' => 'mapa-ubicacion-{{ $propiedad["properties_id"] }}',
-                                        'coordenadas' => "-0.2105851200575526,-78.49919942688963",
+                                        'identificador' => "proyecto-{$idPropiedad}",
+                                        'coordenadas' => $coordenadasProyecto
                                     ])
                                 </div>
 

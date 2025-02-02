@@ -1,88 +1,89 @@
 // (() => {
 
 //clasificamos la manera en como vamos a guardar los respectivos archivos.
-let FILES = {
-    imagenes: new Map(),
-    planos: new Map(),
-    videos: new Map()
-};
+// let FILES = {
+//     imagenes: new Map(),
+//     planos: new Map(),
+//     videos: new Map()
+// };
 
-document.addEventListener("DOMContentLoaded", (e) => {
-    CargaArchivos();
-});
-
-
-function CargaArchivos(){
-    let SeccionesArchivos = document.querySelectorAll(".seccion-archivo");
-
-    SeccionesArchivos.forEach(elemento => {
-        //buscar el boton de agregar..
-        let tipoArchivo = elemento.id;
-
-        document.querySelector(`.buttonArchivo-${tipoArchivo}`).onclick = (e) => {
-            const gallery = document.getElementById(`gallery-${tipoArchivo}`);
-            const empty = document.getElementById(`empty-${tipoArchivo}`);
-            const hidden = document.getElementById(`hidden-input-${tipoArchivo}`);
-            hidden.click();
-
-            hidden.onchange = (j) => {
-                for (const file of j.target.files) {
-                    addFile(gallery, file, tipoArchivo);
-                }
-            };
-
-            gallery.onclick = ({ target }) => {
-                if (target.classList.contains("delete")) {
-                    const ou = target.dataset.target;
-                    let elemento = document.getElementById(ou);
-                    console.log(elemento);
-                    elemento.remove(ou);
-                    gallery.children.length === 1 && empty.classList.remove("hidden");
-
-                    // FILES[tipoArchivo].delete(ou);
-                }
-            };
-
-        };
-    });
-}
+// document.addEventListener("DOMContentLoaded", (e) => {
+//     CargaArchivos();
+// });
 
 
-function addFile(target, file, type) {
-    const isImage = file.type.match("image.*"),
-    objectURL = URL.createObjectURL(file);
+// function CargaArchivos(){
+//     let SeccionesArchivos = document.querySelectorAll(".seccion-archivo");
 
-    const clone = isImage
-    ? document.getElementById(`image-template-${type}`).content.cloneNode(true)
-    : document.getElementById(`file-template-${type}`).content.cloneNode(true);
+//     SeccionesArchivos.forEach(elemento => {
+//         //buscar el boton de agregar..
+//         let tipoArchivo = elemento.id;
 
-    console.log(clone);
+//         document.querySelector(`.buttonArchivo-${tipoArchivo}`).onclick = (e) => {
+//             const gallery = document.getElementById(`gallery-${tipoArchivo}`);
+//             const empty = document.getElementById(`empty-${tipoArchivo}`);
+//             const hidden = document.getElementById(`hidden-input-${tipoArchivo}`);
+//             hidden.click();
 
-    clone.querySelector("h1").textContent = file.name;
-    clone.querySelector("li").id = objectURL;
-    clone.querySelector(".delete").dataset.target = objectURL;
-    clone.querySelector(".size").textContent = file.size > 1024
-        ? file.size > 1048576
-        ? Math.round(file.size / 1048576) + "mb"
-        : Math.round(file.size / 1024) + "kb"
-        : file.size + "b";
+//             hidden.onchange = (j) => {
+//                 for (const file of j.target.files) {
+//                     addFile(gallery, file, tipoArchivo);
+//                 }
+//             };
 
-    isImage &&
-    Object.assign(clone.querySelector("img"), {
-        src: objectURL,
-        alt: file.name
-    });
+//             gallery.onclick = ({ target }) => {
+//                 if (target.classList.contains("delete")) {
+//                     const ou = target.dataset.target;
+//                     let elemento = document.getElementById(ou);
+//                     console.log(elemento);
+//                     elemento.remove(ou);
+//                     gallery.children.length === 1 && empty.classList.remove("hidden");
 
-    //este es el mensaje de "Archvio no seleccionado" que vamos a ocultar.
-    document.getElementById(`empty-${type}`).classList.add("hidden");
+//                     // FILES[tipoArchivo].delete(ou);
+//                 }
+//             };
 
-    console.log(target);
+//         };
+//     });
+// }
 
-    target.appendChild(clone);
 
-    // FILES[type].set(objectURL, file);
+// function addFile(target, file, type) {
+//     const isImage = file.type.match("image.*"),
+//     objectURL = URL.createObjectURL(file);
 
-}
+//     const clone = isImage
+//     ? document.getElementById(`image-template-${type}`).content.cloneNode(true)
+//     : document.getElementById(`file-template-${type}`).content.cloneNode(true);
+
+//     console.log(clone);
+
+//     clone.querySelector("h1").textContent = file.name;
+//     clone.querySelector("li").id = objectURL;
+//     clone.querySelector(".delete").dataset.target = objectURL;
+//     clone.querySelector(".size").textContent = file.size > 1024
+//         ? file.size > 1048576
+//         ? Math.round(file.size / 1048576) + "mb"
+//         : Math.round(file.size / 1024) + "kb"
+//         : file.size + "b";
+
+//     isImage &&
+//     Object.assign(clone.querySelector("img"), {
+//         src: objectURL,
+//         alt: file.name
+//     });
+
+//     //este es el mensaje de "Archvio no seleccionado" que vamos a ocultar.
+//     document.getElementById(`empty-${type}`).classList.add("hidden");
+
+//     console.log(target);
+
+//     target.appendChild(clone);
+
+//     // FILES[type].set(objectURL, file);
+
+// }
+
 
 
     // let fileTempl = document.getElementById("file-template-imagenes") ? document.getElementById("file-template-imagenes") :
