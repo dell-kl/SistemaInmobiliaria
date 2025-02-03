@@ -46,6 +46,25 @@ class TipoCamposRegistroPropiedad extends Component
 
     public function render()
     {
+        if ( isset($this->datosPropiedad) )
+        {
+            //vamos a establcer los valores. 
+            $this->habitaciones = $this->datosPropiedad["properties_rooms"];
+            $this->banos = $this->datosPropiedad["properties_bathrooms"];
+            $this->estacionamiento = $this->datosPropiedad["properties_parking"];
+            $this->area = $this->datosPropiedad["properties_area"];
+            $this->altoProfundidad = $this->datosPropiedad["properties_height"];
+            $this->disponibilidadProyecto = $this->datosPropiedad["properties_availability"];
+            $this->precioProyecto = $this->datosPropiedad["properties_price"];
+            $this->descripcionProyecto = $this->datosPropiedad["properties_description"];
+
+
+            //setear diferente manera la parte de nuestro videos. 
+            //$videos = $this->datosPropiedad["videos"];
+
+           // $this->codigosVideoYoutube = $this->datosPropiedad["properties_video_youtube"];
+        }
+
         return view('livewire.tipo-campos-registro-propiedad');
     }
 
@@ -88,6 +107,11 @@ class TipoCamposRegistroPropiedad extends Component
 
         $this->validateOnly($campo);
 
+    }
+
+    public function actualizacionCampo($campo)
+    {
+        dd($campo);
     }
 
     public function EventUpdateTypeProject($type)

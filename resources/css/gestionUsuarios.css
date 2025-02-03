@@ -34,7 +34,7 @@ h1.logo {
     width: 65%;
 }
 
-.d-flex button {
+/* .d-flex button {
     background-color: var(--accent-color);
     color: white;
     padding: 10px 20px;
@@ -43,7 +43,7 @@ h1.logo {
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
-}
+} */
 
 .d-flex button:hover {
     background-color: var(--highlight-color);
