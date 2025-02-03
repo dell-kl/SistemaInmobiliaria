@@ -26,7 +26,7 @@
         </div>
         <div class="form-group">
             <label>Contraseña:</label>
-            <input type="password" name="users_password" class="form-control" minlength="6" title="La contraseña debe tener al menos 6 caracteres" required>
+            <input type="password" name="password" class="form-control" minlength="6" title="La contraseña debe tener al menos 6 caracteres" required>
         </div>
         <div class="form-group">
             <label>Rol:</label>

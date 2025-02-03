@@ -56,6 +56,7 @@
                     Agregar Propiedad
                 </button>
 
+
                 <div class="m-auto propiedades-listado pt-4 flex flex-row flex-wrap justify-content-center gap-2 items-center pb-2">
                     @if (!empty($propiedades))
                         @foreach ($propiedades as $propiedad)
@@ -66,6 +67,7 @@
                         @endforeach
                     @endif
                 </div>
+
 
                 <div class="w-11/12 m-auto flex flex-row items-center justify-center gap-2 paginador py-4">
                     <a href="#" class="group">

@@ -17,13 +17,33 @@ class PropiedadesController extends Controller
         $this->propiedadService = $propiedadesServices;
     }
 
-    public function index(): JsonResponse{
-        $listadoPropiedades = Property::with('images', 'videos', 'planos', 'obtenerTipoPropiedad', 'obtenerUbicacion', 'obtenerCoordenadas')->get();
+    public function index(Request $request): JsonResponse
+    {
+        $query = Property::with('images', 'videos', 'planos', 'obtenerTipoPropiedad', 'obtenerUbicacion', 'obtenerCoordenadas');
+
+        if ($request->filled('tipo')) {
+            $query->where('Properties_typePropertieId', $request->input('tipo'));
+        }
+
+        if ($request->filled('habitaciones')) {
+            $query->where('properties_rooms', $request->input('habitaciones'));
+        }
+
+        if ($request->filled('precio_min')) {
+            $query->where('properties_price', '>=', $request->input('precio_min'));
+        }
+
+        if ($request->filled('precio_max')) {
+            $query->where('properties_price', '<=', $request->input('precio_max'));
+        }
+
+        $listadoPropiedades = $query->get();
+
         return response()->json($listadoPropiedades, 200);
     }
 
-    public function registrar(Request $request): JsonResponse {
-
+    public function registrar(Request $request): JsonResponse
+    {
         $propiedad = new Property();
         $propiedad->properties_rooms = $request->properties_rooms;
         $propiedad->properties_bathrooms = $request->properties_bathrooms;
@@ -53,9 +73,9 @@ class PropiedadesController extends Controller
         return response()->json(['mensaje' => $propiedad], 200);
     }
 
-    public function actualizar(Request $request) : JsonResponse {
+    public function actualizar(Request $request) : JsonResponse
+    {
         try {
-
             $respuesta = Property::updateOrCreate(['properties_id' => $request->properties_id], [
                 'properties_rooms' => $request->properties_rooms,
                 'properties_bathrooms' => $request->properties_bathrooms,
@@ -73,14 +93,13 @@ class PropiedadesController extends Controller
 
             return response()->json(['mensaje' => 'Propiedad actualizada correctamente'], 200);
         } catch (\Throwable $th) {
-            // return response()->json(['mensaje' => 'Error servidor, intentalo en otro momento'], 500);
             return response()->json(['mensaje' => 'Propiedad no actualizada'], 500);
         }
     }
 
-    public function eliminar(Request $request) : JsonResponse {
+    public function eliminar(Request $request) : JsonResponse
+    {
         try {
-
             $propiedad = Property::where('properties_id', $request->propiedadId)->first();
             $propiedad->delete();
             return response()->json(['mensaje' => 'Propiedad eliminada correctamente'], 200);
@@ -98,4 +117,3 @@ class PropiedadesController extends Controller
         return response()->json($listadoPropiedades, 200);
     }
 }
-?>

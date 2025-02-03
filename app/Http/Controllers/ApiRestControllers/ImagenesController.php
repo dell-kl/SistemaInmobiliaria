@@ -23,13 +23,15 @@ class ImagenesController extends Controller{
             if(!empty( $imagenes ))
             {
                 $validator = Validator::make($request->all(), [
-                'FileIMG.*' => 'required|image|mimes:jpeg,png,jpg|max:4080'
+                'FileIMG.*' => 'required|image|mimes:jpeg,png,jpg|max:6080'
                 ]);
 
                 if ($validator->fails())
                 {
                     return response()->json(['mensaje' => "Archivo incompatible"], 400);
                 }
+
+
 
                 //verificar si existe la propiedad primero, para despues guardar los datos.
                 if(!Property::where('properties_id', $request->PropertyId)->exists())
