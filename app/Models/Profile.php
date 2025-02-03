@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Profile extends Model
 {
-    
+
 
     protected $primaryKey = 'profiles_id';
 
@@ -30,6 +30,10 @@ class Profile extends Model
         return $this->belongsTo(Role::class, 'Profiles_rolesId', 'roles_id');
     }
 
+    public function authorizations() : HasMany
+    {
+        return $this->hasMany(Authorization::class, 'authorizations_profilesId', 'profiles_id');
+    }
 
     public function obtenerUser():HasMany {
         return $this->hasMany(User::class, 'Profiles_usersId', 'users_id');

@@ -25,11 +25,22 @@ class RoleController extends Controller
 
     public function create()
     {
-        return view('roles.create');
+                /**
+         * VARIABLES PARA VERIFICAR PERMISOS Y ROL DEL USUARIO.
+         */
+
+        //informacion de la persona que se autentico.
+        $rolUsuario = JWTAuth::parseToken()->getPayload()->get('roles');
+        //permisos que tiene el usuario.. en base a ello mostraremos lo que puede y no puede hacer.
+        $permisos = JWTAuth::parseToken()->getPayload()->get('permisos');
+
+
+        return view('roles.create', compact('rolUsuario', 'permisos'));
     }
 
     public function store(Request $request)
     {
+
         $request->validate([
             'roles_name' => 'required|string|max:255',
             'roles_estado' => 'required|boolean',
@@ -42,13 +53,33 @@ class RoleController extends Controller
 
     public function show(Role $role)
     {
-        return view('roles.show', compact('role'));
+                /**
+         * VARIABLES PARA VERIFICAR PERMISOS Y ROL DEL USUARIO.
+         */
+
+        //informacion de la persona que se autentico.
+        $rolUsuario = JWTAuth::parseToken()->getPayload()->get('roles');
+        //permisos que tiene el usuario.. en base a ello mostraremos lo que puede y no puede hacer.
+        $permisos = JWTAuth::parseToken()->getPayload()->get('permisos');
+
+
+        return view('roles.show', compact('role', 'rolUsuario', 'permisos'));
     }
 
     public function edit(Role $role)
     {
 
-        return view('roles.edit', compact('role'));
+        /**
+         * VARIABLES PARA VERIFICAR PERMISOS Y ROL DEL USUARIO.
+         */
+
+        //informacion de la persona que se autentico.
+        $rolUsuario = JWTAuth::parseToken()->getPayload()->get('roles');
+        //permisos que tiene el usuario.. en base a ello mostraremos lo que puede y no puede hacer.
+        $permisos = JWTAuth::parseToken()->getPayload()->get('permisos');
+
+
+        return view('roles.edit', compact('role', 'rolUsuario', 'permisos'));
     }
 
     public function update(Request $request, Role $role)

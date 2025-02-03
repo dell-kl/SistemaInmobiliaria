@@ -81,7 +81,9 @@ class User extends Authenticatable implements JWTSubject
         $d =  $this->profile();
         $rol = $d->where('Profiles_usersId', '=', $this->users_id)->first()->obtenerRoles()->first();
 
-        $authorizations = $rol->authorizations();
+        $profile = $d->where('Profiles_usersId', '=', $this->users_id)->first();
+
+        $authorizations = $profile->authorizations();
         $authorizations = $authorizations->get();
 
         $rol_name = $rol->roles_name;

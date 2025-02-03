@@ -36,14 +36,14 @@
         <div class="container mx-auto py-2">
             <ul class="flex justify-center space-x-6">
 
-                @if ( $rolUsuario !==  "soporte_tecnico" )
+                @if ( $rolUsuario !==  "soporte_tecnico")
                 <li>
                     <a
                     href="/propiedades"
                         class="flex flex-col items-center p-3 rounded-xl bg-gray-100 hover:bg-blue-500 transition-all duration-300 group shadow-md border border-gray-200"
                         style="text-decoration: none;">
                         <i class="fas fa-home text-2xl mb-2 text-gray-600 group-hover:text-white"></i>
-                        <span class="text-sm text-gray-700 group-hover:text-white">Agregar Propiedad</span>
+                        <span class="text-sm text-gray-700 group-hover:text-white">Gestionar Propiedades</span>
                     </a>
                 </li>
                 @endif

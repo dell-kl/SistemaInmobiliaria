@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('authorizations', function (Blueprint $table) {
             $table->id('authorizations_id');
-            $table->unsignedBigInteger('authorizations_rolId');
-            $table->foreign('authorizations_rolId')->references('roles_id')->on('roles');
+            $table->unsignedBigInteger('authorizations_profilesId');
+            $table->foreign('authorizations_profilesId')->references('profiles_id')->on('profiles');
             $table->unsignedBigInteger('authorizations_permissionId');
             $table->foreign('authorizations_permissionId')->references('permissions_id')->on('permissions');
             $table->timestamps();

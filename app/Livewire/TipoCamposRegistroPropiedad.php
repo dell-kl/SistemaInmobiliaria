@@ -46,7 +46,6 @@ class TipoCamposRegistroPropiedad extends Component
 
     public function render()
     {
-
         return view('livewire.tipo-campos-registro-propiedad');
     }
 

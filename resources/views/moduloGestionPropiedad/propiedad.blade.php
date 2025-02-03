@@ -45,16 +45,20 @@
     @if ( $rolUsuario !== "soporte_tecnico" )
         <div class="w-full propiedades" style="background-color: #F2F2F2; border-radius: 5px;">
             <div class="m-auto pt-5">
-                <button
-                    id="btnRegistrarPropiedad"
-                    class="btn flex flex-row items-center gap-2 boton-panel d-flex"
-                    type="button"
-                    data-bs-toggle="modal"
-                    style="background-color:#c09d22 !important;margin-left: 15px !important;"
-                    data-bs-target="#staticBackdrop">
-                    <img src="/icons/home.png" width="50"/>
-                    Agregar Propiedad
-                </button>
+
+                @if ( $rolUsuario !== "soporte_tecnico" && in_array(["authorizations_permissionId" => "1"], $permisos) )
+                    <button
+                        id="btnRegistrarPropiedad"
+                        class="btn flex flex-row items-center gap-2 boton-panel d-flex"
+                        type="button"
+                        data-bs-toggle="modal"
+                        style="background-color:#c09d22 !important;margin-left: 15px !important;"
+                        data-bs-target="#staticBackdrop">
+                        <img src="/icons/home.png" width="50"/>
+                        Agregar Propiedad
+                    </button>
+                @endif
+
 
                 <div class="m-auto propiedades-listado pt-4 flex flex-row flex-wrap justify-content-center gap-2 items-center pb-2">
                     @if (!empty($propiedades))
@@ -62,7 +66,7 @@
                             @php
                                 $rutaImagen = !empty($propiedad["images"]) ? config('app.url') . '/storage/' . $propiedad["images"][0]["pictures_route"] : '/path/to/default/image.jpg';
                             @endphp
-                            @livewire('propiedad', ['property' => $propiedad, 'rutaImagen' => $rutaImagen, 'rolUsuario' => $rolUsuario])
+                            @livewire('propiedad', ['property' => $propiedad, 'rutaImagen' => $rutaImagen, 'rolUsuario' => $rolUsuario, 'permisos' => $permisos])
                         @endforeach
                     @endif
                 </div>

@@ -27,20 +27,20 @@
             <div class="flex flex-row flex-wrap gap-1">
 
                 <div class="form-floating mb-3  flex-1">
-                    <input type="number" wire:blur="actualizarValidaciones('habitaciones')" wire:model.lazy="habitaciones" name="numeroHabitaciones" value="{{ ( isset($datosPropiedad) ) ? $datosPropiedad['properties_rooms'] : '' }}" class="form-control  @error('habitaciones') border border-danger @enderror" id="floatingInput" placeholder="Inserta numero de habitaciones">
+                    <input type="number" wire:blur="actualizarValidaciones('habitaciones')" wire:model.live="habitaciones" name="numeroHabitaciones" value="{{ ( isset($datosPropiedad) ) ? $datosPropiedad['properties_rooms'] : '' }}" class="form-control w-100  @error('habitaciones') border border-danger @enderror" id="floatingInput" placeholder="Inserta numero de habitaciones">
                     <label for="floatingInput">🛌 Numero Habitaciones</label>
                     @error('habitaciones') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
 
                 <div class="form-floating mb-3  flex-1">
-                    <input type="text" wire:blur="actualizarValidaciones('banos')" wire:model.lazy="banos" name="numeroBanios" class="form-control  @error('banos') border border-danger @enderror" value="{{ isset($datosPropiedad) ? $datosPropiedad['properties_bathrooms'] : '' }}" id="floatingInput" placeholder="Inserta numero de baños">
+                    <input type="text" wire:blur="actualizarValidaciones('banos')" wire:model.lazy="banos" name="numeroBanios" class="form-control w-100  @error('banos') border border-danger @enderror" value="{{ isset($datosPropiedad) ? $datosPropiedad['properties_bathrooms'] : '' }}" id="floatingInput" placeholder="Inserta numero de baños">
                     <label for="floatingInput">🚽 Numero Baños</label>
                     @error('banos') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
 
                 @if ( intval($typeProjects) === 1 )
                     <div class="form-floating mb-3 flex-1">
-                        <input type="number" wire:blur="actualizarValidaciones('estacionamiento')" wire:model.lazy="estacionamiento" name="numeroEstacionamiento" value="{{ isset($datosPropiedad) ? $datosPropiedad['properties_parking'] : '' }}" class="form-control  @error('estacionamiento') border border-danger @enderror" placeholder="Inserta cuantos estacionamientos">
+                        <input type="number" wire:blur="actualizarValidaciones('estacionamiento')" wire:model.lazy="estacionamiento" name="numeroEstacionamiento" value="{{ isset($datosPropiedad) ? $datosPropiedad['properties_parking'] : '' }}" class="form-control w-100  @error('estacionamiento') border border-danger @enderror" placeholder="Inserta cuantos estacionamientos">
                         <label for="floatingInput">🚏 Numero Estacionamiento</label>
                         @error('estacionamiento') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
@@ -58,20 +58,20 @@
             <h3 class="fw-bold pt-2 pb-2">Medidas Proyecto</h3>
             <div class="flex flex-row flex-wrap gap-1">
                 <div class="form-floating mb-3  flex-1">
-                    <input type="text" wire:blur="actualizarValidaciones('area')" wire:model.lazy="area" name="AreaProyecto" value="{{ isset($datosPropiedad) ? $datosPropiedad['properties_area'] : '' }}" class="form-control  @error('area') border border-danger @enderror" id="floatingInput" placeholder="Inserta el area del proyecto">
+                    <input type="text" wire:blur="actualizarValidaciones('area')" wire:model.lazy="area" name="AreaProyecto" value="{{ isset($datosPropiedad) ? $datosPropiedad['properties_area'] : '' }}" class="form-control w-100  @error('area') border border-danger @enderror" id="floatingInput" placeholder="Inserta el area del proyecto">
                     <label for="floatingInput">📏 Area Terreno</label>
                     @error('area') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
 
                 @if (intval($typeProjects) !== 3 )
                     <div class="form-floating mb-3  flex-1">
-                        <input type="text" wire:blur="actualizarValidaciones('altoProfundidad')" wire:model.lazy="altoProfundidad" name="AltoProyecto" value="{{ isset($datosPropiedad) ? $datosPropiedad['properties_height'] : '' }}" class="form-control  @error('altoProfundidad') border border-danger @enderror" id="floatingInput" placeholder="Inserta el alto de la casa o departamento">
+                        <input type="text" wire:blur="actualizarValidaciones('altoProfundidad')" wire:model.lazy="altoProfundidad" name="AltoProyecto" value="{{ isset($datosPropiedad) ? $datosPropiedad['properties_height'] : '' }}" class="form-control w-100  @error('altoProfundidad') border border-danger @enderror" id="floatingInput" placeholder="Inserta el alto de la casa o departamento">
                         <label for="floatingInput">📐 Alto Total</label>
                         @error('altoProfundidad') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
                 @else
                     <div class="form-floating mb-3  flex-1">
-                        <input type="text" wire:blur="actualizarValidaciones('altoProfundidad')" wire:model.lazy="altoProfundidad" name="ProfundidadProyecto" value="{{ isset($datosPropiedad) ? $datosPropiedad['properties_height'] : '' }}" class="form-control  @error('altoProfundidad') border border-danger @enderror" id="floatingInput" placeholder="Inserta la profundidad del terreno">
+                        <input type="text" wire:blur="actualizarValidaciones('altoProfundidad')" wire:model.lazy="altoProfundidad" name="ProfundidadProyecto" value="{{ isset($datosPropiedad) ? $datosPropiedad['properties_height'] : '' }}" class="form-control  w-100  @error('altoProfundidad') border border-danger @enderror" id="floatingInput" placeholder="Inserta la profundidad del terreno">
                         <label for="floatingInput">📐 Profundidad Terreno</label>
                         @error('altoProfundidad') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
@@ -99,7 +99,7 @@
             <h3 class="fw-bold pt-3 pb-2">Datos Financieros</h3>
             <div class="flex flex-row flex-wrap gap-1">
                 <div class="form-floating mb-3  flex-1">
-                    <input type="number" wire:blur="actualizarValidaciones('precioProyecto')" wire:model.lazy="precioProyecto" name="PrecioProyecto" value="{{ isset($datosPropiedad) ? $datosPropiedad['properties_price'] : '' }}" class="form-control @error('precioProyecto') border border-danger @enderror" id="floatingInput" placeholder="Precio propuesto del proyecto">
+                    <input type="number" wire:blur="actualizarValidaciones('precioProyecto')" wire:model.lazy="precioProyecto" name="PrecioProyecto" value="{{ isset($datosPropiedad) ? $datosPropiedad['properties_price'] : '' }}" class="form-control w-100  @error('precioProyecto') border border-danger @enderror" id="floatingInput" placeholder="Precio propuesto del proyecto">
                     <label for="floatingInput">💲💲 Ponle un precio al proyecto</label>
                     @error('precioProyecto') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
@@ -130,7 +130,7 @@
             <h3 class="fw-bold pt-3 pb-2">Codigos videos cargados en youtube</h3>
             <div class="flex flex-row flex-wrap gap-1">
                 <div class="form-floating mb-3  flex-1">
-                    <input type="text" wire:blur="actualizarValidaciones('codigosVideoYoutube')" wire:model.lazy="codigosVideoYoutube" name="VideosProyecto" value="{{$codigosVideoYoutube}}" class="form-control @error('codigosVideoYoutube') border border-danger @enderror" id="floatingInput" placeholder="Videos del proyecto">
+                    <input type="text" wire:blur="actualizarValidaciones('codigosVideoYoutube')" wire:model.lazy="codigosVideoYoutube" name="VideosProyecto" value="{{$codigosVideoYoutube}}" class="form-control w-100  @error('codigosVideoYoutube') border border-danger @enderror" id="floatingInput" placeholder="Videos del proyecto">
                     <label for="floatingInput">📽️ Codigos Videos Proyecto</label>
                     @error('codigosVideoYoutube') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>

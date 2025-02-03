@@ -44,7 +44,7 @@
     <p class="pb-2 text-gray-400 text-capitalize">Puedes dar una direccion descriptiva del proyecto <strong> Ejm: La pulida / Fernando Corral y Carlos Freiler </strong> </p>
 
     <div class="form-floating mb-3">
-        <input type="text" wire:blur="validacionCampos('direccionPropiedad')" wire:model.lazy="direccionPropiedad" name="DireccionProyecto" value="{{ isset($datosPropiedad) ? $datosPropiedad["properties_address"] : "" }}" class="form-control @error('direccionPropiedad') border border-danger @enderror" id="floatingInput" placeholder="Ingresa sector propiedad">
+        <input type="text" wire:blur="validacionCampos('direccionPropiedad')" wire:model.lazy="direccionPropiedad" name="DireccionProyecto" value="{{ isset($datosPropiedad) ? $datosPropiedad["properties_address"] : "" }}" class="form-control w-100 @error('direccionPropiedad') border border-danger @enderror" id="floatingInput" placeholder="Ingresa sector propiedad">
         <label for="floatingInput">🗺️ Direccion de la propiedad</label>
         @error('direccionPropiedad') <span class="text-danger">{{ $message }}</span> @enderror
     </div>

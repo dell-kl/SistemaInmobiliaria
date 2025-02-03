@@ -17,9 +17,17 @@
                 $imagenesGaleria = array_slice($propiedad["images"], 0, 5);
             @endphp
 
-            <div class="d-inline-block">
+            <div class="m-4 d-flex gap-2 align-items-end">
                 @livewire('galeria-imagenes', ['idPropiedad' => $propiedad["properties_id"], 'imagenes' => $imagenesGaleria])
                 @livewire('tipo-campos-registro-propiedad', ['typeProjects' => $propiedad["obtener_tipo_propiedad"]["typeProperties_id"], 'datosPropiedad' => $propiedad])
+            </div>
+
+            <div class="campos-adicionales mt-4 d-flex gap-2">
+                @livewire('ubicacion-mapa', [
+                    'identificador' => "proyecto-{{ $identificadorPropiedad }}",
+                    'coordenadas' => $propiedad["obtener_coordenadas"][0]["coordinates_route"]
+                ])
+                @livewire('campos-ubicacion-propiedad')
             </div>
 
 

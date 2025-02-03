@@ -12,6 +12,8 @@ class Propiedad extends Component
 
     public $rolUsuario;
 
+    public $permisos;
+
     public function render()
     {
         return view('livewire.propiedad');

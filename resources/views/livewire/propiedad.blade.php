@@ -40,19 +40,22 @@
       </div>
     </div>
     <div class="p-6 pt-3">
-      <button
-        class="btn-gestionar block w-full select-none rounded-lg py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none boton-panel"
-        type="button"
-        id="proyecto-{{$property['properties_id']}}-btn"
-        data-ripple-light="true"
-        data-bs-toggle="modal" data-bs-target="#administrarPropiedad-{{ $property['properties_id'] }}"
-        >
-        Administrar
-      </button>
+
+        @if ( $rolUsuario !== "soporte_tecnico" && in_array(["authorizations_permissionId" => "3"], $permisos) )
+        <button
+            class="btn-gestionar block w-full select-none rounded-lg py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none boton-panel"
+            type="button"
+            id="proyecto-{{$property['properties_id']}}-btn"
+            data-ripple-light="true"
+            data-bs-toggle="modal" data-bs-target="#administrarPropiedad-{{ $property['properties_id'] }}"
+            >
+            Administrar
+        </button>
+      @endif
 
 
       {{-- Validacion para los permisos que va tener cada rol asignado.  --}}
-      @if ( $rolUsuario !== "soporte_tecnico")
+      @if ( $rolUsuario !== "soporte_tecnico" && in_array(["authorizations_permissionId" => "2"], $permisos) )
 
       <a href="/propiedades/eliminar/{{$property['properties_id']}}" class="btn-eliminar block w-full select-none rounded-lg py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none boton-panel mt-2">Eliminar</a>
       @endif
