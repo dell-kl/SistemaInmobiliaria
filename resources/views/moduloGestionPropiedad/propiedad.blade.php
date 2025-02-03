@@ -62,7 +62,7 @@
                             @php
                                 $rutaImagen = !empty($propiedad["images"]) ? config('app.url') . '/storage/' . $propiedad["images"][0]["pictures_route"] : '/path/to/default/image.jpg';
                             @endphp
-                            @livewire('propiedad', ['property' => $propiedad, 'rutaImagen' => $rutaImagen])
+                            @livewire('propiedad', ['property' => $propiedad, 'rutaImagen' => $rutaImagen, 'rolUsuario' => $rolUsuario])
                         @endforeach
                     @endif
                 </div>
