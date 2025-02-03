@@ -19,22 +19,37 @@
         </div>
     </div>
 
-    <!-- Barra de navegación secundaria -->
+
+
+    {{--
+        =======================================================================
+                        EN ESTA PARTE DISCRIMINARE QUE
+                        ES LO QUE PUEDE Y NO PUEDE HACER
+                                CADA PERFIL.
+        =======================================================================
+    --}}
+
+    @php
+    @endphp
+
     <nav class="mt-4 bg-white shadow-sm">
         <div class="container mx-auto py-2">
             <ul class="flex justify-center space-x-6">
+
+                @if ( $rolUsuario !==  "soporte_tecnico" )
                 <li>
                     <a
-                    href="#"
-                    id="agregarPropiedadSeccion"
-                    data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop"
+                    href="/propiedades"
                         class="flex flex-col items-center p-3 rounded-xl bg-gray-100 hover:bg-blue-500 transition-all duration-300 group shadow-md border border-gray-200"
                         style="text-decoration: none;">
                         <i class="fas fa-home text-2xl mb-2 text-gray-600 group-hover:text-white"></i>
                         <span class="text-sm text-gray-700 group-hover:text-white">Agregar Propiedad</span>
                     </a>
                 </li>
+                @endif
+
+                @if ( $rolUsuario !==  "soporte_tecnico" && $rolUsuario !== "agente_inmobiliaria" )
+
                 <li>
                     <a href="{{ route('usuarios.index') }}"
                         class="flex flex-col items-center p-3 rounded-xl bg-gray-100 hover:bg-blue-500 transition-all duration-300 group shadow-md border border-gray-200"
@@ -43,6 +58,9 @@
                         <span class="text-sm text-gray-700 group-hover:text-white">Gestión Usuarios</span>
                     </a>
                 </li>
+                @endif
+
+                @if ( $rolUsuario !==  "soporte_tecnico" && $rolUsuario !== "agente_inmobiliaria" )
                 <li>
                     <a href="{{ route('roles.index') }}"
                         class="flex flex-col items-center p-3 rounded-xl bg-gray-100 hover:bg-blue-500 transition-all duration-300 group shadow-md border border-gray-200"
@@ -51,6 +69,9 @@
                         <span class="text-sm text-gray-700 group-hover:text-white">Gestión Roles</span>
                     </a>
                 </li>
+                @endif
+
+                @if ( $rolUsuario !==  "soporte_tecnico" && $rolUsuario !== "agente_inmobiliaria" )
                 <li>
                 <a href="{{ route('profiles.index') }}"
                         class="flex flex-col items-center p-3 rounded-xl bg-gray-100 hover:bg-blue-500 transition-all duration-300 group shadow-md border border-gray-200"
@@ -59,6 +80,9 @@
                         <span class="text-sm text-gray-700 group-hover:text-white">Gestión Perfiles</span>
                     </a>
                 </li>
+                @endif
+
+                @if ( $rolUsuario !== "soporte_tecnico" && $rolUsuario !== "agente_inmobiliaria" )
                 <li>
                     <a href="{{ route('institutions.index') }}"
                         class="flex flex-col items-center p-3 rounded-xl bg-gray-100 hover:bg-blue-500 transition-all duration-300 group shadow-md border border-gray-200"
@@ -67,14 +91,29 @@
                         <span class="text-sm text-gray-700 group-hover:text-white">Gestión Instituciones</span>
                     </a>
                 </li>
+                @endif
+
+                @if ( $rolUsuario !== "soporte_tecnico" && $rolUsuario !== "agente_inmobiliaria" )
+                    <li>
+                        <a href="/reportes"
+                            class="flex flex-col items-center p-3 rounded-xl bg-gray-100 hover:bg-blue-500 transition-all duration-300 group shadow-md border border-gray-200"
+                            style="text-decoration: none;">
+                            <i class="fas fa-chart-bar text-2xl mb-2 text-gray-600 group-hover:text-white"></i>
+                            <span class="text-sm text-gray-700 group-hover:text-white">Reportes</span>
+                        </a>
+                    </li>
+                @endif
+
+                @if ( $rolUsuario !== "soporte_tecnico"  )
                 <li>
-                    <a href="/reportes"
+                    <a href="/citas"
                         class="flex flex-col items-center p-3 rounded-xl bg-gray-100 hover:bg-blue-500 transition-all duration-300 group shadow-md border border-gray-200"
                         style="text-decoration: none;">
                         <i class="fas fa-chart-bar text-2xl mb-2 text-gray-600 group-hover:text-white"></i>
-                        <span class="text-sm text-gray-700 group-hover:text-white">Reportes</span>
+                        <span class="text-sm text-gray-700 group-hover:text-white">Revisar Citas</span>
                     </a>
                 </li>
+                @endif
             </ul>
         </div>
     </nav>

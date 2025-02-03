@@ -3,8 +3,6 @@
 use App\Http\Controllers\GestionPropiedadController;
 use App\Http\Controllers\InicioSesionController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -58,17 +56,17 @@ use App\Http\Controllers\UserController;
  * =============================================================================
  */
 Route::controller(UserController::class)->prefix('usuarios')->name('usuarios.')->group(function () {
-    Route::get('/', 'index')->name('index');          // Listar usuarios
-    Route::get('/crear', 'create')->name('create');   // Formulario crear usuario
-    Route::post('/', 'store')->name('store');         // Guardar nuevo usuario
-    Route::get('/{id}', 'show')->name('show');        // Mostrar detalles de un usuario
-    Route::get('/{id}/editar', 'edit')->name('edit'); // Formulario editar usuario
-    Route::put('/{id}', 'update')->name('update');    // Actualizar usuario
-    Route::delete('/{id}', 'destroy')->name('destroy'); // Eliminar usuario
+    Route::get('/', 'index')->name('index')->middleware('autenticacionWeb');          // Listar usuarios
+    Route::get('/crear', 'create')->name('create')->middleware('autenticacionWeb');   // Formulario crear usuario
+    Route::post('/', 'store')->name('store')->middleware('autenticacionWeb');         // Guardar nuevo usuario
+    Route::get('/{id}', 'show')->name('show')->middleware('autenticacionWeb');        // Mostrar detalles de un usuario
+    Route::get('/{id}/editar', 'edit')->name('edit')->middleware('autenticacionWeb'); // Formulario editar usuario
+    Route::put('/{id}', 'update')->name('update')->middleware('autenticacionWeb');    // Actualizar usuario
+    Route::delete('/{id}', 'destroy')->name('destroy')->middleware('autenticacionWeb'); // Eliminar usuario
 });
 
 
-Route::resource('institutions', InstitutionController::class);
-Route::resource('profiles', ProfileController::class);
+Route::resource('institutions', InstitutionController::class)->middleware('autenticacionWeb');
+Route::resource('profiles', ProfileController::class)->middleware('autenticacionWeb');
 
-Route::resource('roles', RoleController::class);
+Route::resource('roles', RoleController::class)->middleware('autenticacionWeb');

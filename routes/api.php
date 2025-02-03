@@ -4,11 +4,14 @@
  * como para la parte web.
  */
 
+use App\Http\Controllers\ApiRestControllers\AutorizacionesController;
 use App\Http\Controllers\ApiRestControllers\CoordenadasController;
 use App\Http\Controllers\ApiRestControllers\ImagenesController;
+use App\Http\Controllers\ApiRestControllers\PermisosController;
 use App\Http\Controllers\ApiRestControllers\PlanosController;
 use App\Http\Controllers\ApiRestControllers\PropiedadesController;
 use App\Http\Controllers\ApiRestControllers\ResponsibleController;
+use App\Http\Controllers\ApiRestControllers\RolesController;
 use App\Http\Controllers\ApiRestControllers\SesionController;
 use App\Http\Controllers\ApiRestControllers\UbicacionesController;
 use App\Http\Controllers\ApiRestControllers\UsuarioController;
@@ -101,3 +104,30 @@ Route::post('/coordenadas/actualizar', [CoordenadasController::class, 'actualiza
  * =============================================================================
  */
 Route::post('/responsable/registrar', [ResponsibleController::class, 'registrarResponsable'])->middleware('autenticacion');
+
+
+/**
+ * ============================================================================
+ * Roles
+ * =============================================================================
+ */
+
+Route::get('/roles/listar', [RolesController::class, 'listarRoles']);
+
+
+/**
+ * ============================================================================
+ * Permisos
+ * =============================================================================
+ */
+Route::get('/permisos/listar', [PermisosController::class, 'listarPermisos']);
+
+
+
+/**
+ * ============================================================================
+ * Autorzaciones
+ * ============================================================================
+ */
+
+ Route::get('/autorizaciones/listar', [AutorizacionesController::class, 'listarAutorizaciones']);

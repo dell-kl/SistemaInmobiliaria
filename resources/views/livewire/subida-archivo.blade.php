@@ -22,48 +22,37 @@
                 <input id="hidden-input-{{ $tipoSubidaArchivo }}"
                     type="file"
                     wire:model="imagenes"
+                    x-ref="imagenesInput"
+                    x-on:change="$refs.generarValidacion.click()"
                     name="entrada_{{$tipoSubidaArchivo}}[]"
                     multiple
+                    accept="image/*"
                     class="hidden Entradasubidaimagenes"
                 />
 
                 <button
                 type="button"
-                wire:click="activarEntrada"
+                x-on:click="$refs.imagenesInput.click()"
                 id="button-{{ $tipoSubidaArchivo }}"
                 class="buttonSubidaArchivos buttonArchivo-{{ $tipoSubidaArchivo }} mt-2 rounded-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none">
                   Seleccionar Archivos
                 </button>
+
+                <button
+                type="button"
+                x-ref="generarValidacion"
+                wire:click="validarImagenes"
+                class="d-none"></button>
               </header>
 
-              @script
-              <script>
-                Livewire.on('activarEntrada', (e) => {
-                   document.getElementById('hidden-input-{{ $tipoSubidaArchivo }}').click();
-                })
-              </script>
-              @endscript
-
-              @if ( $mostrarBotonValidar )
-                    <button
-                        id="botonValidacionImagenes"
-                        type="button"
-                        class="d-none"
-                        wire:click="validarImagenes"
-                    ></button>
-
-                    @script
-                        <script>
-                            document.getElementById('botonValidacionImagenes').click();
-                        </script>
-                    @endscript
-              @endif
-
-              {{-- Aqui vamos a poner una validacion para nuestro formulario --}}
               <div>
-
                   @error('imagenes')
                       <span class="text-red-500">{{ $message }}</span>
+                      @php
+                        //dentro de este punto vamos a sacar el tipo de elemento que no es compatibel con el formato pedido.
+
+                        $imagenes = [];
+                     @endphp
                   @enderror
               </div>
 
@@ -75,7 +64,6 @@
                     @if ( !empty($imagenes) )
                         @foreach ($imagenes as $imagen)
                             @php
-                                dd($imagen);
                                 $ruta = $imagen->temporaryUrl();
                             @endphp
                             <li class="block p-1 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/6 xl:w-1/8 h-24" id="blob:https://www.creative-tim.com/cf91ce8d-4dab-4c2d-b158-b1552e043501">
@@ -84,44 +72,16 @@
                                     alt="imagen seleccionada proyecto"
                                     class="img-preview w-full h-full sticky object-cover rounded-md bg-fixed"
                                     src="{{$ruta}}">
+
                                     <button
-
-                                        id="botonEliminar"
                                         type="button"
-                                        wire:click="borrarImagen('{{$imagen}}')"
-                                        class="hover:bg-gray-300 p-1 rounded-md">
-                                        elim.
-                                    </button>
-
-
-                                    {{-- <button
-                                        type="button"
-                                        wire:click="borrarImagen({{$ruta}})"
+                                        x-on:click="$wire.borrarImagen('{{$imagen->getFilename()}}')"
                                         class="delete ml-auto focus:outline-none hover:bg-gray-300 p-1 rounded-md">
                                         <svg class="pointer-events-none fill-current w-4 h-4 ml-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                             <path class="pointer-events-none" d="M3 6l3 18h12l3-18h-18zm19-4v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.316c0 .901.73 2 1.631 2h5.711z"></path>
                                         </svg>
-                                    </button> --}}
-                                    {{--
-                                    <section class="flex flex-col rounded-md text-xs break-words w-full z-20 absolute top-0 py-2 px-3">
-                                        <h1 class="flex-1">{{basename($ruta)}}</h1>
-                                        <div class="flex">
-                                        <span class="p-1">
-                                            <i>
-                                            <svg class="fill-current w-4 h-4 ml-auto pt-" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                                <path d="M5 8.5c0-.828.672-1.5 1.5-1.5s1.5.672 1.5 1.5c0 .829-.672 1.5-1.5 1.5s-1.5-.671-1.5-1.5zm9 .5l-2.519 4-2.481-1.96-4 5.96h14l-5-8zm8-4v14h-20v-14h20zm2-2h-24v18h24v-18z"></path>
-                                            </svg>
-                                            </i>
-                                        </span>
+                                    </button>
 
-                                        <p class="p-1 size text-xs">2mb</p>
-                                        <button class="delete ml-auto focus:outline-none hover:bg-gray-300 p-1 rounded-md" data-target="blob:https://www.creative-tim.com/cf91ce8d-4dab-4c2d-b158-b1552e043501">
-                                            <svg class="pointer-events-none fill-current w-4 h-4 ml-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                            <path class="pointer-events-none" d="M3 6l3 18h12l3-18h-18zm19-4v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.316c0 .901.73 2 1.631 2h5.711z"></path>
-                                            </svg>
-                                        </button>
-                                        </div>
-                                    </section> --}}
                                 </article>
                             </li>
                         @endforeach

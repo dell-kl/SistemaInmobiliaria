@@ -42,6 +42,8 @@ class GestionPropiedadController extends Controller
 
             //informacion de la persona que se autentico.
             $rolUsuario = JWTAuth::parseToken()->getPayload()->get('roles');
+            //permisos que tiene el usuario.. en base a ello mostraremos lo que puede y no puede hacer.
+            $permisos = JWTAuth::parseToken()->getPayload()->get('permisos');
 
             return view('moduloGestionPropiedad.propiedad', [
                 'propiedades' => $propiedades,
@@ -49,7 +51,8 @@ class GestionPropiedadController extends Controller
                 'usuariosActivos' => $usuariosActivos,
                 'propiedadesDisponibles' => $propiedadesDisponibles,
                 'institucionesDisponibles' => $institucionesDisponibles,
-                'rolUsuario' => $rolUsuario
+                'rolUsuario' => $rolUsuario,
+                'permisos' => $permisos
             ]);
 
         } catch (\Throwable $th) {
@@ -179,8 +182,6 @@ class GestionPropiedadController extends Controller
         {
             $datos = $request->all();
 
-
-            dd("... proceso reigstro proiedad");
             /**
              * ==============================================================
              * Registro Propiedad

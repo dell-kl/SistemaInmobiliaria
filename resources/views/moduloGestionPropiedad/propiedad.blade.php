@@ -9,8 +9,23 @@
 </head>
     <!-- Panel de bienvenida -->
     <div class="dashboard-welcome">
-        <h2 class="text-4xl font-bold">Bienvenido al Panel de Gestión de Propiedades</h2>
-        <p class="text-lg mt-2">Aquí puedes administrar todas las propiedades de la plataforma.</p>
+
+        @php
+            $mensaje = "Bienvenido a tu panel de administrador general";
+            $mensaje2 = "Puedes empezar haciendo una gestion de todos los procesos disponibles hasta el momento.";
+            if ( $rolUsuario === "soporte_tecnico" ) {
+                $mensaje = "Bienvenido a tu panel de soporte tecnico";
+                $mensaje2 = "Puedes hacer una gestion y seguimiento de todos los usuarios con sus roles y permisos";
+            }
+
+            else if ( $rolUsuario === "agente_inmobiliaria" ) {
+                $mensaje = "Bienvenido a tu panel de agente de inmobiliarias";
+                $mensaje2 = "Aqui puedes administrar todas las propiedades que estan a tu cargo.";
+            }
+        @endphp
+
+        <h2 class="text-4xl font-bold">{{ $mensaje }}</h2>
+        <p class="text-lg mt-2">{{ $mensaje2 }}</p>
     </div>
     <div class="admin-panel-stats">
         <div class="admin-stat">
@@ -27,47 +42,49 @@
         </div>
     </div>
 
-    <div class="w-full propiedades" style="background-color: #F2F2F2; border-radius: 5px;">
-        <div class="m-auto pt-5">
-            <button
-                id="btnRegistrarPropiedad"
-                class="btn flex flex-row items-center gap-2 boton-panel d-flex"
-                type="button"
-                data-bs-toggle="modal"
-                style="background-color:#c09d22 !important;margin-left: 15px !important;"
-                data-bs-target="#staticBackdrop">
-                <img src="/icons/home.png" width="50"/>
-                Agregar Propiedad
-            </button>
+    @if ( $rolUsuario !== "soporte_tecnico" )
+        <div class="w-full propiedades" style="background-color: #F2F2F2; border-radius: 5px;">
+            <div class="m-auto pt-5">
+                <button
+                    id="btnRegistrarPropiedad"
+                    class="btn flex flex-row items-center gap-2 boton-panel d-flex"
+                    type="button"
+                    data-bs-toggle="modal"
+                    style="background-color:#c09d22 !important;margin-left: 15px !important;"
+                    data-bs-target="#staticBackdrop">
+                    <img src="/icons/home.png" width="50"/>
+                    Agregar Propiedad
+                </button>
 
-            <div class="m-auto propiedades-listado pt-4 flex flex-row flex-wrap justify-content-center gap-2 items-center pb-2">
-                @if (!empty($propiedades))
-                    @foreach ($propiedades as $propiedad)
-                        @php
-                            $rutaImagen = !empty($propiedad["images"]) ? config('app.url') . '/storage/' . $propiedad["images"][0]["pictures_route"] : '/path/to/default/image.jpg';
-                        @endphp
-                        @livewire('propiedad', ['property' => $propiedad, 'rutaImagen' => $rutaImagen])
-                    @endforeach
-                @endif
+                <div class="m-auto propiedades-listado pt-4 flex flex-row flex-wrap justify-content-center gap-2 items-center pb-2">
+                    @if (!empty($propiedades))
+                        @foreach ($propiedades as $propiedad)
+                            @php
+                                $rutaImagen = !empty($propiedad["images"]) ? config('app.url') . '/storage/' . $propiedad["images"][0]["pictures_route"] : '/path/to/default/image.jpg';
+                            @endphp
+                            @livewire('propiedad', ['property' => $propiedad, 'rutaImagen' => $rutaImagen])
+                        @endforeach
+                    @endif
+                </div>
+
+                <div class="w-11/12 m-auto flex flex-row items-center justify-center gap-2 paginador py-4">
+                    <a href="#" class="group">
+                        <li class="active px-2 w-100 h-10 text-gray-800 grid place-items-center rounded-md border lg:border-2 border-green-700 group-hover:bg-green-700">
+                        <span class="text-green-700 font-medium group-hover:text-slate-200">◀️ Retroceder</span>
+                        </li>
+                    </a>
+
+                    <a href="#" class="group">
+                        <li class="w-100 px-2 h-10 text-gray-800 grid place-items-center rounded-md border lg:border-2 border-red-700 group-hover:bg-red-700">
+                        <span class="text-red-700 font-medium group-hover:text-slate-200">Continuar ▶️</span>
+                        </li>
+                    </a>
+                </div>
             </div>
 
-            <div class="w-11/12 m-auto flex flex-row items-center justify-center gap-2 paginador py-4">
-                <a href="#" class="group">
-                    <li class="active px-2 w-100 h-10 text-gray-800 grid place-items-center rounded-md border lg:border-2 border-green-700 group-hover:bg-green-700">
-                      <span class="text-green-700 font-medium group-hover:text-slate-200">◀️ Retroceder</span>
-                    </li>
-                </a>
-
-                <a href="#" class="group">
-                    <li class="w-100 px-2 h-10 text-gray-800 grid place-items-center rounded-md border lg:border-2 border-red-700 group-hover:bg-red-700">
-                      <span class="text-red-700 font-medium group-hover:text-slate-200">Continuar ▶️</span>
-                    </li>
-                </a>
-            </div>
+            @livewire('registro-propiedad')
         </div>
-
-        @livewire('registro-propiedad')
-    </div>
+    @endif
 @endsection
 
 @push('scripts')
