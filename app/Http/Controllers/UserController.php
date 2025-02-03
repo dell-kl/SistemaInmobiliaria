@@ -60,6 +60,7 @@ class UserController extends Controller
 }
 
 
+
 public function store(Request $request)
 {
 
@@ -68,7 +69,7 @@ public function store(Request $request)
         'users_email' => 'required|email|unique:users',
         'users_cedula' => 'required|digits:10|unique:users',
         'users_phone' => 'required|digits:10',
-        'users_password' => 'required|string|min:6',
+        'password' => 'required|string|min:6',
         'roles_id' => 'required|exists:roles,roles_id',
     ]);
 
@@ -77,9 +78,7 @@ public function store(Request $request)
         'users_email' => $request->users_email,
         'users_cedula' => $request->users_cedula,
         'users_phone' => $request->users_phone,
-        'password' => Hash::make($request->users_password),
-        'users_intentos' => 3,
-        'users_estado' => 'activo'
+        'password' => Hash::make($request->password),
     ]);
 
     // Crear un registro en la tabla profile para asignar el rol al usuario
@@ -149,7 +148,7 @@ public function store(Request $request)
             'users_email' => $request->users_email,
             'users_cedula' => $request->users_cedula,
             'users_phone' => $request->users_phone,
-            'users_password' => $request->users_password ? Hash::make($request->users_password) : $user->users_password,
+            'password' => $request->users_password ? Hash::make($request->users_password) : $user->users_password,
         ]);
 
         return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado correctamente.');

@@ -41,17 +41,21 @@
     </header>
 
     <!-- 🔹 HERO CON CARRUSEL -->
-    <section class="swiper mySwiper">
+    <section class="swiper mySwiper w-full h-[500px]">
         <div class="swiper-wrapper">
             <div class="swiper-slide relative">
-                <img src="{{ asset('image/imagenFondoHome.jpg') }}" alt="Propiedad 1" class="w-full h-[500px] object-cover">
+                <img src="{{ asset('image/imagenFondoHome.jpg') }}" alt="Propiedad 1" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-white text-center">
                     <h2 class="text-5xl font-bold">Encuentra tu hogar ideal</h2>
                     <p class="text-xl mt-3">Las mejores propiedades seleccionadas para ti</p>
-                    <button class="mt-6 bg-secondary hover:bg-secondary-dark text-white py-3 px-8 rounded-full text-lg font-semibold">
-                        Ver Propiedades
-                    </button>
+                   
                 </div>
+            </div>
+            <div class="swiper-slide relative">
+                <img src="{{ asset('image/casa2.jpg') }}" alt="Propiedad 2" class="w-full h-full object-cover">
+            </div>
+            <div class="swiper-slide relative">
+                <img src="{{ asset('image/casa3.jpg') }}" alt="Propiedad 3" class="w-full h-full object-cover">
             </div>
         </div>
         <div class="swiper-button-next"></div>
@@ -59,29 +63,34 @@
         <div class="swiper-pagination"></div>
     </section>
 
-    <!-- 🔹 BARRA DE BÚSQUEDA -->
+    <!-- 🔹 FILTRO DE PROPIEDADES -->
     <section class="container mx-auto mt-10 px-4">
         <div class="bg-white rounded-lg shadow-lg p-6">
-            <form class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <form method="GET" action="{{ route('home') }}" class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700">Ubicación</label>
-                    <input type="text" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Tipo</label>
-                    <select class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary">
-                        <option>Casa</option>
-                        <option>Departamento</option>
-                        <option>Terreno</option>
+                    <label class="block text-sm font-medium text-gray-700">Tipo de Propiedad</label>
+                    <select name="tipo" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary">
+                        <option value="">Todos</option>
+                        <option value="1">Casa</option>
+                        <option value="2">Departamento</option>
+                        <option value="3">Terreno</option>
                     </select>
                 </div>
                 <div>
+                    <label class="block text-sm font-medium text-gray-700">Número de Habitaciones</label>
+                    <input type="number" name="habitaciones" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Precio Mínimo</label>
+                    <input type="number" name="precio_min" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary">
+                </div>
+                <div>
                     <label class="block text-sm font-medium text-gray-700">Precio Máximo</label>
-                    <input type="number" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary">
+                    <input type="number" name="precio_max" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary">
                 </div>
                 <div class="flex items-end">
-                    <button class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded">
-                        Buscar
+                    <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded">
+                        Filtrar
                     </button>
                 </div>
             </form>
@@ -92,26 +101,32 @@
     <section class="container mx-auto px-4 py-16">
         <h2 class="text-3xl font-bold text-primary mb-8 text-center">Propiedades Disponibles</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
             @foreach ($propiedades as $propiedad)
                 @php
-                    $rutaImagen = config('app.url') . '/storage/' . $propiedad["images"][0]["pictures_route"];
-
+                    $rutaImagen = isset($propiedad["images"]) && count($propiedad["images"]) > 0
+                        ? config('app.url') . '/storage/' . $propiedad["images"][0]["pictures_route"]
+                        : asset('images/default-image.jpg');
                 @endphp
 
-                <div class="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300">
-                    <img src="{{$rutaImagen}}"
-                         alt="{{ $propiedad['properties_name'] ?? 'Propiedad' }}"
-                         class="w-full h-56 object-cover">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300">
+                    <img src="{{$rutaImagen}}" alt="{{ $propiedad['properties_name'] ?? 'Propiedad' }}" class="w-full h-56 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-primary">Proyecto - {{ $propiedad["obtener_tipo_propiedad"]["typeProperties_name"] }}</h3>
                         <p class="text-gray-600">{{ $propiedad['properties_description'] }}</p>
-                        <p class="text-gray-600" style="font-size: 14px; padding-top: 5px;">{{ $propiedad['properties_address'] }}</p>
+                        <p class="text-gray-600 text-sm pt-2">{{ $propiedad['properties_address'] }}</p>
                         <div class="flex justify-between items-center mt-4">
                             <span class="text-secondary font-bold text-xl">${{ number_format($propiedad['properties_price'] ?? 0) }}</span>
-                            <button type="button" id="proyecto-{{$propiedad['properties_id']}}-btn" class="boton-panel bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded" data-bs-toggle="modal" data-bs-target="#modalPropiedadDetalles-{{ $propiedad['properties_id'] }}">
-                                Ver Detalles
-                            </button>
+
+                            <div class="flex gap-2">
+                                <button type="button" id="proyecto-{{$propiedad['properties_id']}}-btn" class="boton-panel bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded" data-bs-toggle="modal" data-bs-target="#modalPropiedadDetalles-{{ $propiedad['properties_id'] }}">
+                                    Ver Detalles
+                                </button>
+                                @if(isset($propiedad['properties_id']))
+                                    <a href="{{ route('home.simularCredito', ['id' => $propiedad['properties_id']]) }}" class="bg-secondary hover:bg-secondary-dark text-white font-bold py-2 px-4 rounded">
+                                        Simular Crédito
+                                    </a>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -140,7 +155,7 @@
             slidesPerView: 1,
             loop: true,
             autoplay: {
-                delay: 5000,
+                delay: 4000,
                 disableOnInteraction: false,
             },
             pagination: {

@@ -3,6 +3,9 @@
 use App\Http\Controllers\GestionPropiedadController;
 use App\Http\Controllers\InicioSesionController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CreditoController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -69,4 +72,11 @@ Route::controller(UserController::class)->prefix('usuarios')->name('usuarios.')-
 Route::resource('institutions', InstitutionController::class)->middleware('autenticacionWeb');
 Route::resource('profiles', ProfileController::class)->middleware('autenticacionWeb');
 
+
 Route::resource('roles', RoleController::class)->middleware('autenticacionWeb');
+
+
+
+Route::get('/obtener-interes/{institucionId}', [CreditoController::class, 'getInteres'])->name('obtener.interes');
+Route::get('/simular-credito/{id}', [CreditoController::class, 'show'])->name('home.simularCredito');
+
