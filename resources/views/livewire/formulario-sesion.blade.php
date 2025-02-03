@@ -34,7 +34,7 @@
         <div class="flex items-center justify-between">
             <label for="password" class="block font-medium text-white text-xl">Contraseña</label>
             <div class="text-sm">
-                <a href="#" class="font-semibold text-white" style="text-color:#8E1515;">Olvidaste tu contraseña?</a>
+                <a href="/reset" class="font-semibold text-white" style="text-color:#8E1515;">Olvidaste tu contraseña?</a>
             </div>
         </div>
         <div class="mt-2">

@@ -48,13 +48,15 @@
         id="proyecto-{{$property['properties_id']}}-btn"
         data-ripple-light="true"
         data-bs-toggle="modal" data-bs-target="#administrarPropiedad-{{ $property['properties_id'] }}"
-      >
+        >
         Administrar
       </button>
 
+
       {{-- Validacion para los permisos que va tener cada rol asignado.  --}}
-      @if ( $rolUsuario === "agente_inmobiliaria")
-        <a href="/propiedades/eliminar/{{$property['properties_id']}}" class="btn-eliminar block w-full select-none rounded-lg py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none boton-panel mt-2">Eliminar</a>
+      @if ( $rolUsuario !== "soporte_tecnico")
+
+      <a href="/propiedades/eliminar/{{$property['properties_id']}}" class="btn-eliminar block w-full select-none rounded-lg py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none boton-panel mt-2">Eliminar</a>
       @endif
 
     </div>

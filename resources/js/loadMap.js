@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
     let botonesPanel = document.querySelectorAll(".boton-panel");
 
     botonesPanel.forEach(boton => {
+
         boton.onclick = (e) => {
 
             let elemento = e.target.id, idMapa = "";
@@ -34,7 +35,6 @@ document.addEventListener("DOMContentLoaded", (e) => {
             {
                 idMapa = elemento.split("-")[0] + "-" + elemento.split("-")[1];
             }
-
 
             //dentro de aqui vamos a incluir la parte del ubicador en las propiedades que ya estan creadas.
 
@@ -89,13 +89,13 @@ function mapa(elemento)
     for(let i = 0; i < elemento.length; i++)
     {
         let identificadorMapa = elemento[i].classList[0];
+
         imagenEstatica(identificadorMapa);
     }
 }
 
 function imagenEstatica(identificadorMapa)
 {
-
     let map = L.map(identificadorMapa, {
         preferCanvas: true
     }).setView([-0.21011,-78.49560], 10);

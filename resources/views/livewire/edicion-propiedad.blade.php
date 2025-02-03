@@ -10,8 +10,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
+
                 <div class="seccion-ubicacion mt-4 d-flex flex-row flex-wrap gap-2">
 
+                    {{-- @livewire('carrusel-imagenes', ['idPropiedad' => $propiedad["properties_id"]]); --}}
                     @php
                         // Vamos a decir que solo vamos a tomar cinco imágenes para la parte previa de imágenes.
                         $imagenesGaleria = array_slice($propiedad["images"], 0, 5);
@@ -19,6 +21,7 @@
 
                     @livewire('galeria-imagenes', ['idPropiedad' => $propiedad["properties_id"], 'imagenes' => $imagenesGaleria])
                     @livewire('tipo-campos-registro-propiedad', ['typeProjects' => $propiedad["obtener_tipo_propiedad"]["typeProperties_id"], 'datosPropiedad' => $propiedad])
+
 
                     <div class="w-100 mt-4">
                         <label for="nuevasImagenes" class="form-label">Agregar nuevas imágenes</label>

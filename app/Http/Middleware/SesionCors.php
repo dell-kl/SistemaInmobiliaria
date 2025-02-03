@@ -24,6 +24,8 @@ class SesionCors
             if ( $autenticacion->profile->obtenerRoles()->first()->roles_name === "administrador"
             ||
             $autenticacion->profile->obtenerRoles()->first()->roles_name === "agente_inmobiliaria"
+            ||
+            $autenticacion->profile->obtenerRoles()->first()->roles_name === "soporte_tecnico"
             )
             {
                 //vamos a tener que redireccionar nuevamente a la ruta especifica...

@@ -21,7 +21,14 @@ use App\Http\Controllers\UserController;
      Route::get('/login',  'index')->middleware('sesion')->name('login');
      Route::post('/auth', 'auth');
      Route::get('/logout', 'logout');
- });
+     Route::get('/reset', 'reset');
+     Route::post('/resetPost', 'resetPost');
+
+
+     Route::get('/proceso-reseteo/{token}', 'procesoReset');
+     Route::post('/proceso-reseteo-bck', 'procesoResetPost');
+});
+
 
 /**
  * =============================================================================
@@ -52,20 +59,24 @@ use App\Http\Controllers\UserController;
  * =============================================================================
  */
 Route::controller(UserController::class)->prefix('usuarios')->name('usuarios.')->group(function () {
-    Route::get('/', 'index')->name('index');          // Listar usuarios
-    Route::get('/crear', 'create')->name('create');   // Formulario crear usuario
-    Route::post('/', 'store')->name('store');         // Guardar nuevo usuario
-    Route::get('/{id}', 'show')->name('show');        // Mostrar detalles de un usuario
-    Route::get('/{id}/editar', 'edit')->name('edit'); // Formulario editar usuario
-    Route::put('/{id}', 'update')->name('update');    // Actualizar usuario
-    Route::delete('/{id}', 'destroy')->name('destroy'); // Eliminar usuario
+    Route::get('/', 'index')->name('index')->middleware('autenticacionWeb');          // Listar usuarios
+    Route::get('/crear', 'create')->name('create')->middleware('autenticacionWeb');   // Formulario crear usuario
+    Route::post('/', 'store')->name('store')->middleware('autenticacionWeb');         // Guardar nuevo usuario
+    Route::get('/{id}', 'show')->name('show')->middleware('autenticacionWeb');        // Mostrar detalles de un usuario
+    Route::get('/{id}/editar', 'edit')->name('edit')->middleware('autenticacionWeb'); // Formulario editar usuario
+    Route::put('/{id}', 'update')->name('update')->middleware('autenticacionWeb');    // Actualizar usuario
+    Route::delete('/{id}', 'destroy')->name('destroy')->middleware('autenticacionWeb'); // Eliminar usuario
 });
 
 
-Route::resource('institutions', InstitutionController::class);
-Route::resource('profiles', ProfileController::class);
+Route::resource('institutions', InstitutionController::class)->middleware('autenticacionWeb');
+Route::resource('profiles', ProfileController::class)->middleware('autenticacionWeb');
 
-Route::resource('roles', RoleController::class);
+
+Route::resource('roles', RoleController::class)->middleware('autenticacionWeb');
+
+
 
 Route::get('/obtener-interes/{institucionId}', [CreditoController::class, 'getInteres'])->name('obtener.interes');
 Route::get('/simular-credito/{id}', [CreditoController::class, 'show'])->name('home.simularCredito');
+

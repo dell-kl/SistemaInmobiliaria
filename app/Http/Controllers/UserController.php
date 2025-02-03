@@ -7,18 +7,33 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller
 {
+    public function __construct() {
+
+    }
+
     public function index(Request $request)
     {
+        /**
+         * VARIABLES PARA VERIFICAR PERMISOS Y ROL DEL USUARIO.
+         */
+
+        //informacion de la persona que se autentico.
+        $rolUsuario = JWTAuth::parseToken()->getPayload()->get('roles');
+        //permisos que tiene el usuario.. en base a ello mostraremos lo que puede y no puede hacer.
+        $permisos = JWTAuth::parseToken()->getPayload()->get('permisos');
+
         $search = $request->input('search');
         if ($search) {
             $users = User::where('users_cedula', 'like', "%{$search}%")->get();
         } else {
             $users = User::all();
         }
-        return view('moduloGestionUsuario.usuarios.index', compact('users'));
+
+        return view('moduloGestionUsuario.usuarios.index', compact('users', 'rolUsuario', 'permisos') );
     }
 
     public function create()

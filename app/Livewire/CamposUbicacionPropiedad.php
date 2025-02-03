@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Canton;
 use App\Models\Parroquia;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Http;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -12,26 +13,62 @@ class CamposUbicacionPropiedad extends Component
 {
     public array $Listadocantones;
     public array $ListadoParroquias;
-    public int $idCanton = 0;
+    public $idCanton;
     public bool $mostrarMapa = false;
 
     //estas propiedades de aqui son usados mucho para la parte de la edicion de nuestra propiedad.
     public $datosPropiedad;
     public $idParroquia;
 
+    public $direccionPropiedad;
+
+    //seccion para la parte de la validacion de los campos.
+    protected $rules = [
+        'idCanton' => 'required|min:1|regex:/^[1-9]+$/',
+        'idParroquia' => 'required|min:1|regex:/^[1-9]+$/',
+        'direccionPropiedad' => 'required',
+    ];
+
+    protected function messages()
+    {
+        //mensajes personalizados del cual vamos agreegar para cada uno de nuestros campos.
+        return [
+            'idCanton.required' => 'El canton es obligatorio',
+            'idCanton.min' => 'El canton es obligatorio',
+            'idCanton.regex' => 'El canton es obligatorio',
+            'idParroquia.required' => 'La parroquia es obligatorio',
+            'idParroquia.min' => 'La parroquia es obligatorio',
+            'direccionPropiedad.required' => 'La direccion es obligatoria para el proyecto',
+        ];
+    }
+
+
     public function render() : View
     {
-        //pasar la infromacion de todos los cantones.
-        $Listadocantones = Canton::all();
+        $rutaApi = config('app.url_api') . '/api/ubicacion/listado';
 
-        //vamos a revisar si podemos filtrar por medio del canton que selecciono.
-        $ListadoParroquias = ($this->idCanton===0) ? []
-            : Parroquia::Where('Parroquias_cantonsId', $this->idCanton)->get()->toArray();
+        //consumo de nuestro api para poder presentar los respectvos datos en el frontend.. principalemnte en los campos de select.
+        $response = Http::get($rutaApi);
+
+        //pasar la infromacion de todos los cantones.
+        $Listadocantones = $response->json();
+
+        $resultado = [];
+
+        if ( isset($this->idCanton) && $this->idCanton != 0 ) {
+            $resultado = collect($Listadocantones)->where('cantons_id', $this->idCanton)->first();
+            $resultado = $resultado['obtener_parroquias'];
+        }
 
         return view('livewire.campos-ubicacion-propiedad')->with([
             'cantones' => $Listadocantones,
-            'parroquias' => $ListadoParroquias
+            'parroquias' => $resultado
         ]);
+    }
+
+    public function validacionCampos($campo)
+    {
+        $this->validateOnly($campo);
     }
 
     //esta opcion de aqui se va a ejecutar cuando seleccionemos un canto disponible.

@@ -7,7 +7,7 @@ use App\Services\SesionesServices;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Validator;
 
@@ -96,6 +96,34 @@ class SesionController extends Controller {
         catch (Exception $exception )
         {
             return response()->json(['mensaje' => "Error en cerrar la sesion " . $exception->getMessage()], 500);
+        }
+    }
+
+    public function reset(Request $request)
+    {
+        try {
+            //code...
+            $passwordNuevo = $request->password;
+            $email = $request->email;
+
+            //seteo respectivo de los datos.
+            $usuario = User::where('users_email', $email)->get();
+
+            if ( $usuario->isEmpty() )
+            {
+                return response()->json(['mensaje' => 'no se puedo actualizar la contrasena'], 500);
+            }
+
+            $usuario = $usuario->first();
+
+            $usuario->password = Hash::make($passwordNuevo);
+
+            $usuario->save();
+
+            return response()->json(['mensaje' => 'contrasena actualizada'], 200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json(['mensaje' => 'No se puedo actualizar la contrasena'], 500);
         }
     }
 }

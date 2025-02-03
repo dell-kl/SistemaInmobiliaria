@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
         //dentro de este entorno, vamos a especificar el orden en que se crean.
         $this->call([
             RolesSeeder::class,
+            PermisoSeeder::class,
+            AuthorizationSeeder::class,
             UsersSeeder::class,
             ProfilesSeeder::class,
             TypePropertiesSeeder::class,
