@@ -39,7 +39,10 @@
                             </div>
                         </div>
 
-                        @livewire('campos-ubicacion-propiedad')
+                        @livewire('campos-ubicacion-propiedad', [
+                            'direccionPropiedad' => $propiedad['properties_address'],
+                            'idParroquia' => $propiedad['obtener_ubicacion']['parroquias_id'],
+                            'idCanton' => '1'])
                     </div>
 
                     <button 

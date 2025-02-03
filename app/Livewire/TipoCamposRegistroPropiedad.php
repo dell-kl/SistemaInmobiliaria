@@ -46,7 +46,23 @@ class TipoCamposRegistroPropiedad extends Component
 
     public function render()
     {
-        if ( isset($this->datosPropiedad) )
+        $this->llenarInformacion();
+
+        return view('livewire.tipo-campos-registro-propiedad');
+    }
+
+    private function llenarInformacion()
+    {
+        //con esto vamos a llenar la informacion de cada campo para la parte de editar.
+        if ( isset($this->datosPropiedad)
+        && !isset($this->habitaciones)
+        && !isset($this->banos)
+        && !isset($this->estacionamiento)
+        && !isset($this->area)
+        && !isset($this->altoProfundidad)
+        && !isset($this->disponibilidadProyecto)
+        && !isset($this->precioProyecto)
+        && !isset($this->descripcionProyecto))
         {
             //vamos a establcer los valores. 
             $this->habitaciones = $this->datosPropiedad["properties_rooms"];
@@ -60,12 +76,23 @@ class TipoCamposRegistroPropiedad extends Component
 
 
             //setear diferente manera la parte de nuestro videos. 
-            //$videos = $this->datosPropiedad["videos"];
+            $videos = $this->datosPropiedad["videos"];
 
-           // $this->codigosVideoYoutube = $this->datosPropiedad["properties_video_youtube"];
+            if ( count($videos) == 1 )
+            {
+                $this->codigosVideoYoutube =$videos[0]["videos_route"];
+            }
+            else 
+            {
+                $codigos = "";
+                foreach ($videos as $video)
+                {
+                    $codigos .= $video["videos_route"] . ",";
+                }
+                $this->codigosVideoYoutube = $codigos;
+            }
+           
         }
-
-        return view('livewire.tipo-campos-registro-propiedad');
     }
 
     protected function messages()
