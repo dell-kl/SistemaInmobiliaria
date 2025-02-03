@@ -6,6 +6,7 @@
     <title>@yield('title', 'Inmobiliaria')</title>
 
     {{-- Estilos globales --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="{{ Vite::asset('resources/css/app.css') }}">
     <link rel="stylesheet" href="{{ Vite::asset('resources/css/gestionInstituciones.css') }}">
     <link rel="stylesheet" href="{{ Vite::asset('resources/css/config.css') }}">
@@ -51,5 +52,7 @@
 
     {{-- Scripts adicionales --}}
     @stack('scripts')
+
+    @include('sweetalert::alert')
 </body>
 </html>
