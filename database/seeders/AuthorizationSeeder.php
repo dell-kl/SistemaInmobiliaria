@@ -21,22 +21,22 @@ class AuthorizationSeeder extends Seeder
          * ===========================
          */
         $permission_1 = new Authorization();
-        $permission_1->authorizations_rolId = 1;
+        $permission_1->authorizations_profilesId = 1;
         $permission_1->authorizations_permissionId = 1;
         $permission_1->save();
 
         $permission_1 = new Authorization();
-        $permission_1->authorizations_rolId = 1;
+        $permission_1->authorizations_profilesId = 1;
         $permission_1->authorizations_permissionId = 2;
         $permission_1->save();
 
         $permission_1 = new Authorization();
-        $permission_1->authorizations_rolId = 1;
+        $permission_1->authorizations_profilesId = 1;
         $permission_1->authorizations_permissionId = 3;
         $permission_1->save();
 
         $permission_1 = new Authorization();
-        $permission_1->authorizations_rolId = 1;
+        $permission_1->authorizations_profilesId = 1;
         $permission_1->authorizations_permissionId = 4;
         $permission_1->save();
 
@@ -46,22 +46,22 @@ class AuthorizationSeeder extends Seeder
          * ===========================
          */
         $permission_1 = new Authorization();
-        $permission_1->authorizations_rolId = 2;
+        $permission_1->authorizations_profilesId = 2;
         $permission_1->authorizations_permissionId = 1;
         $permission_1->save();
 
         $permission_1 = new Authorization();
-        $permission_1->authorizations_rolId = 2;
+        $permission_1->authorizations_profilesId = 2;
         $permission_1->authorizations_permissionId = 2;
         $permission_1->save();
 
         $permission_1 = new Authorization();
-        $permission_1->authorizations_rolId = 2;
+        $permission_1->authorizations_profilesId = 2;
         $permission_1->authorizations_permissionId = 3;
         $permission_1->save();
 
         $permission_1 = new Authorization();
-        $permission_1->authorizations_rolId = 2;
+        $permission_1->authorizations_profilesId = 2;
         $permission_1->authorizations_permissionId = 4;
         $permission_1->save();
 
@@ -72,25 +72,25 @@ class AuthorizationSeeder extends Seeder
          * ===========================
          */
         $permission_1 = new Authorization();
-        $permission_1->authorizations_rolId = 3;
+        $permission_1->authorizations_profilesId = 3;
         $permission_1->authorizations_permissionId = 4;
         $permission_1->save();
 
         $permission_1 = new Authorization();
-        $permission_1->authorizations_rolId = 3;
+        $permission_1->authorizations_profilesId = 3;
         $permission_1->authorizations_permissionId = 3;
         $permission_1->save();
 
 
-        /**
-         * ===========================
-         * CLIENTE
-         * ===========================
-         */
-        $permission_1 = new Authorization();
-        $permission_1->authorizations_rolId = 4;
-        $permission_1->authorizations_permissionId = 4;
-        $permission_1->save();
+        // /**
+        //  * ===========================
+        //  * CLIENTE
+        //  * ===========================
+        //  */
+        // $permission_1 = new Authorization();
+        // $permission_1->authorizations_profilesId = 4;
+        // $permission_1->authorizations_permissionId = 4;
+        // $permission_1->save();
 
     }
 }

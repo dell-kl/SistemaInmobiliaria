@@ -15,10 +15,6 @@ class Role extends Model
         return $this->hasMany(Profile::class, 'Profiles_rolesId', 'roles_id');
     }
 
-    public function authorizations() : HasMany
-    {
-        return $this->hasMany(Authorization::class, 'authorizations_rolId', 'roles_id');
-    }
 
     public function users()
     {

@@ -19,26 +19,19 @@
                         $imagenesGaleria = array_slice($propiedad["images"], 0, 5);
                     @endphp
 
-                    @livewire('galeria-imagenes', ['idPropiedad' => $propiedad["properties_id"], 'imagenes' => $imagenesGaleria])
-                    @livewire('tipo-campos-registro-propiedad', ['typeProjects' => $propiedad["obtener_tipo_propiedad"]["typeProperties_id"], 'datosPropiedad' => $propiedad])
+            <div class="m-4 d-flex gap-2 align-items-end">
+                @livewire('galeria-imagenes', ['idPropiedad' => $propiedad["properties_id"], 'imagenes' => $imagenesGaleria])
+                @livewire('tipo-campos-registro-propiedad', ['typeProjects' => $propiedad["obtener_tipo_propiedad"]["typeProperties_id"], 'datosPropiedad' => $propiedad])
+            </div>
 
+            <div class="campos-adicionales mt-4 d-flex gap-2">
+                @livewire('ubicacion-mapa', [
+                    'identificador' => "proyecto-{{ $identificadorPropiedad }}",
+                    'coordenadas' => $propiedad["obtener_coordenadas"][0]["coordinates_route"]
+                ])
+                @livewire('campos-ubicacion-propiedad')
+            </div>
 
-                    <div class="w-100 mt-4">
-                        <label for="nuevasImagenes" class="form-label">Agregar nuevas imágenes</label>
-                        <input class="form-control" type="file" id="nuevasImagenes" name="nuevasImagenes[]" multiple>
-                    </div>
-
-                    <div class="w-100 mt-4">
-                        <label for="eliminarImagenes" class="form-label">Eliminar imágenes existentes</label>
-                        <div class="d-flex flex-wrap gap-2">
-                            @foreach($propiedad["images"] as $imagen)
-                                <div class="position-relative">
-                                    <img src="{{ asset('storage/' . $imagen['pictures_route']) }}" alt="Imagen de la propiedad" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
-                                    <input type="checkbox" name="eliminarImagenes[]" value="{{ $imagen['pictures_id'] }}" class="position-absolute top-0 start-0 m-2">
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
 
                     <button type="submit" class="btn btn-warning text-bold fs-6 w-100 mt-4 fw-bold">🗃️ Actualizar</button>
                 </div>

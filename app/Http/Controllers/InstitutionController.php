@@ -27,7 +27,18 @@ class InstitutionController extends Controller
 
     public function create()
     {
-        return view('institutions.create');
+
+        /**
+         * VARIABLES PARA VERIFICAR PERMISOS Y ROL DEL USUARIO.
+         */
+
+        //informacion de la persona que se autentico.
+        $rolUsuario = JWTAuth::parseToken()->getPayload()->get('roles');
+        //permisos que tiene el usuario.. en base a ello mostraremos lo que puede y no puede hacer.
+        $permisos = JWTAuth::parseToken()->getPayload()->get('permisos');
+
+
+        return view('institutions.create', compact('rolUsuario', 'permisos'));
     }
 
     public function store(Request $request)
@@ -47,13 +58,33 @@ class InstitutionController extends Controller
 
     public function show(Institution $institution)
     {
+                /**
+         * VARIABLES PARA VERIFICAR PERMISOS Y ROL DEL USUARIO.
+         */
+
+        //informacion de la persona que se autentico.
+        $rolUsuario = JWTAuth::parseToken()->getPayload()->get('roles');
+        //permisos que tiene el usuario.. en base a ello mostraremos lo que puede y no puede hacer.
+        $permisos = JWTAuth::parseToken()->getPayload()->get('permisos');
+
+
         $institution->load('interests');
-        return view('institutions.show', compact('institution'));
+        return view('institutions.show', compact('institution', 'rolUsuario', 'permisos'));
     }
 
     public function edit(Institution $institution)
     {
-        return view('institutions.edit', compact('institution'));
+                /**
+         * VARIABLES PARA VERIFICAR PERMISOS Y ROL DEL USUARIO.
+         */
+
+        //informacion de la persona que se autentico.
+        $rolUsuario = JWTAuth::parseToken()->getPayload()->get('roles');
+        //permisos que tiene el usuario.. en base a ello mostraremos lo que puede y no puede hacer.
+        $permisos = JWTAuth::parseToken()->getPayload()->get('permisos');
+
+
+        return view('institutions.edit', compact('institution', 'rolUsuario', 'permisos'));
     }
 
     public function update(Request $request, Institution $institution)

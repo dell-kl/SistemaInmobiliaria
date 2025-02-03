@@ -37,6 +37,18 @@
                 <option value="0" {{ !$profile->profiles_state ? 'selected' : '' }}>Inactivo</option>
             </select>
         </div>
+
+        @php
+        @endphp
+        <div class="form-group">
+            <label>Permisos</label>
+            <select name="permissions_id[]" multiple class="form-control" required>
+                <option value="1" {{ in_array(['authorizations_permissionId' => "1"], $autorizacionesPerfil) ? "selected" : "" }}>CREAR</option>
+                <option value="2" {{ in_array(['authorizations_permissionId' => "2"], $autorizacionesPerfil) ? "selected" : "" }}>ELIMINAR</option>
+                <option value="3" {{ in_array(['authorizations_permissionId' => "3"], $autorizacionesPerfil) ? "selected" : "" }}>EDITAR</option>
+                <option value="4" {{ in_array(['authorizations_permissionId' => "4"], $autorizacionesPerfil) ? "selected" : "" }}>VER</option>
+            </select>
+        </div>
         <button type="submit" class="btn btn-success mt-3">Guardar</button>
         <a href="{{ route('profiles.index') }}" class="btn btn-secondary mt-3">Cancelar</a>
     </form>

@@ -36,6 +36,15 @@
                 @endforeach
             </select>
         </div>
+        <div class="form-group">
+            <label>Permisos</label>
+            <select name="permissions_id[]" multiple class="form-control" required>
+                @foreach($Listadopermisos as $permission)
+                    <option value="{{ $permission["permissions_id"] }}">{{ $permission["permissions_name"] }}</option>
+                @endforeach
+            </select>
+
+        </div>
         <button type="submit" class="btn btn-success mt-3">Guardar</button>
         <a href="{{ route('usuarios.index') }}" class="btn btn-secondary mt-3">Cancelar</a>
     </form>

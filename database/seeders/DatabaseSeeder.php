@@ -16,12 +16,12 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesSeeder::class,
             PermisoSeeder::class,
-            AuthorizationSeeder::class,
             UsersSeeder::class,
             ProfilesSeeder::class,
             TypePropertiesSeeder::class,
             CantonSeeder::class,
-            ParroquiaSeeder::class
+            ParroquiaSeeder::class,
+            AuthorizationSeeder::class,
         ]);
 
     }
