@@ -65,6 +65,7 @@ class GestionPropiedadController extends Controller
     public function actualizarPropiedad(Request $request)
     {
         try {
+
             //tomamos los datos y los comparamos con nuestra propiedad que vamos a querer actualizar.
             $datos = $request->all();
 

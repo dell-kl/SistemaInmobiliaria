@@ -135,6 +135,7 @@ public function store(Request $request)
 
     public function update(Request $request, $id)
     {
+       
         $request->validate([
             'users_name' => 'required|string|max:255',
             'users_email' => 'required|email|unique:users,users_email,' . $id . ',users_id',
@@ -142,14 +143,21 @@ public function store(Request $request)
             'users_phone' => 'required|string|max:15',
         ]);
 
-        $user = User::findOrFail($id);
-        $user->update([
-            'users_name' => $request->users_name,
-            'users_email' => $request->users_email,
-            'users_cedula' => $request->users_cedula,
-            'users_phone' => $request->users_phone,
-            'password' => $request->users_password ? Hash::make($request->users_password) : $user->users_password,
-        ]);
+        $user = User::where('users_id', '=', $id)->get()->first();
+        $user->users_name = $request->users_name;
+        $user->users_email = $request->users_email;
+        $user->users_cedula = $request->users_cedula;
+        $user->users_phone = $request->users_phone;
+        $user->save();
+
+        
+        // $user->update([
+        //     'users_name' => $request->users_name,
+        //     'users_email' => $request->users_email,
+        //     'users_cedula' => $request->users_cedula,
+        //     'users_phone' => $request->users_phone,
+        //     'password' => $request->users_password ? Hash::make($request->users_password) : $user->users_password,
+        // ]);
 
         return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado correctamente.');
     }

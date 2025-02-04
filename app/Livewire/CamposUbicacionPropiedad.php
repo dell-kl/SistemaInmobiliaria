@@ -66,6 +66,11 @@ class CamposUbicacionPropiedad extends Component
         ]);
     }
 
+    private function rellenarDatos()
+    {
+        
+    }
+
     public function validacionCampos($campo)
     {
         $this->validateOnly($campo);
