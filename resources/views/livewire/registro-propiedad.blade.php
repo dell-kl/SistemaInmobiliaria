@@ -28,7 +28,7 @@
                     </div>
                   </div>
                 </div>
-                <input type="submit" class="btn btn-registrar text-white mt-4 fs-5 fw-300" value="👉 Registrar Propiedad">
+                <input type="submit" class="btn btn-warning text-white ms-2 mt-4 fs-5 fw-300" value="🏠 Registrar Propiedad">
                 <script src="{{ Vite::asset('resources/js/cargaArchivo.js') }}"></script>
             </form>
         </div>

@@ -1,4 +1,4 @@
-<div class="h-screen max-w-screen flex justify-center items-center rounded" style="background-color:#e64d0012">
+<div class="max-w-screen flex justify-center items-center rounded" style="background-color:#e64d0012; height:55rem;">
 
     <div class="bg-slate-800 text-white rounded-lg w-full mx-5 md:w-[40rem]  space-y-6 p-10">
 

@@ -49,10 +49,9 @@
                 @if ( $rolUsuario !== "soporte_tecnico" && in_array(["authorizations_permissionId" => "1"], $permisos) )
                     <button
                         id="btnRegistrarPropiedad"
-                        class="btn flex flex-row items-center gap-2 boton-panel d-flex"
+                        class="btn btn-warning ms-3 flex flex-row items-center gap-2 boton-panel d-flex"
                         type="button"
                         data-bs-toggle="modal"
-                        style="background-color:#c09d22 !important;margin-left: 15px !important;"
                         data-bs-target="#staticBackdrop">
                         <img src="/icons/home.png" width="50"/>
                         Agregar Propiedad
@@ -96,9 +95,18 @@
 @push('scripts')
 
 <script>
-    document.getElementById('agregarPropiedadSeccion').addEventListener('click', (e) => {
-        document.getElementById('btnRegistrarPropiedad').click();
+
+
+    document.addEventListener('DOMContentLoaded', (e) => {
+        if ( document.getElementById('agregarPropiedadSeccion') )
+        {
+            document.getElementById('agregarPropiedadSeccion').addEventListener('click', (e) => {
+            document.getElementById('btnRegistrarPropiedad').click();
+            });
+        }
     });
+
+
 </script>
 
 <!-- Scripts para Bootstrap 5

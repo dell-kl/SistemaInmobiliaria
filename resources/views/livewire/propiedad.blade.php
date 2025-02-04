@@ -43,7 +43,7 @@
     </div>
     <div class="p-6 pt-3">
 
-        @if ( $rolUsuario !== "soporte_tecnico" && in_array(["authorizations_permissionId" => "3"], $permisos) )
+      @if ( $rolUsuario !== "soporte_tecnico" && in_array(["authorizations_permissionId" => "3"], $permisos) )
         <button
             class="btn-gestionar block w-full select-none rounded-lg py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none boton-panel"
             type="button"
