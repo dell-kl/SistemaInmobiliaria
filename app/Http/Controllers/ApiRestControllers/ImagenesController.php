@@ -64,6 +64,27 @@ class ImagenesController extends Controller{
         }
         return response()->json(['mensaje' => 'Parametro indefinido o vacio'], 500);
     }
+
+    public function eliminarImagen(Request $request)
+    {
+        try {
+            //code...
+            $imagen = Picture::where('pictures_id', $request->imagen_id)->get();
+
+            if ( !$imagen->isEmpty() )
+            {
+                $ruta = '/public/' . $imagen->first()->pictures_route;
+
+                dd($ruta);
+
+                return response()->json(['mensaje' => 'Imagen eliminada correctamente'], 200);
+            }
+
+            return response()->json(['mensaje' => 'Imagen no encontrada'], 404);
+        } catch (\Throwable $th) {
+            return response()->json(['mensaje' => 'Error al eliminar la imagen'], 500);
+        }
+    }
 }
 
 ?>

@@ -1,6 +1,7 @@
 <?php
 namespace App\Livewire;
 
+use RealRashid\SweetAlert\Facades\Alert;
 use Livewire\Component;
 
 class CarruselImagenes extends Component
@@ -23,6 +24,17 @@ class CarruselImagenes extends Component
     */
 
     public $tipoElemento = 1; // 1 para proyectos, 2 para planos, 3 para videos.
+
+    /**
+     * =======================================================================================
+     * Dentro de este punto tenemos que realizar para que se muestren los mensajes de alerta
+     * =======================================================================================
+     */
+
+    public $mensajeAlerta = "";
+    public $tituloAlerta = "";
+    public $codigo = 200;
+    public $mostrarAlerta = false;
 
     public function render()
     {
@@ -100,5 +112,35 @@ class CarruselImagenes extends Component
         $this->mostrarProyect = "d-block";
         $this->mostrarPlanos = "d-none";
         $this->mostrarVideos = "d-none";
+    }
+
+    /**
+     * ================================================================================
+     * METODOS DE AQUI NOS SERVIRA MUCHO PARA REALIZAR LA ELIMINACION DE LAS IMAGENES
+     * TANTO PARA LA PARTE DE LAS IMAGENES NORMALES Y DE LOS PLANOS...
+     * ================================================================================
+     */
+
+    public function eliminarImagenesProyecto($idImagen, $rutaImagen)
+    {
+        try {
+            $this->codigo = 200;
+            $this->mensajeAlerta = "Se ha eliminado la imagen correctamente";
+            $this->tituloAlerta = "Eliminacion Imagen";
+            $this->mostrarAlerta = true;
+        } catch (\Throwable $th) {
+            //throw $th;
+            $this->codigo = 500;
+            $this->mensajeAlerta = "No se pudo eliminar la imagen";
+            $this->tituloAlerta = "Eliminacion Imagen";
+            $this->mostrarAlerta = true;
+        }
+
+        $this->mostrar = "d-block";
+    }
+
+    public function eliminarImagenesPlanos($idImagen, $rutaImagen)
+    {
+
     }
 }

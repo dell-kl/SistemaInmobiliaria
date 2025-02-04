@@ -59,66 +59,70 @@ class VideosController extends Controller
     public function actualizar(Request $request)
     {
         try {
-            //code...
-            $propiedad = Property::where('properties_id', $request->propertyId)->first();
-            $videos = $propiedad->videos()->get();
 
-            if ( !empty($request->route) )
+            /**
+             * Algoritmo...
+             */
+
+            $listadoCodigos = $request->route;
+
+            //sacaremos los codigos almacenados en nuestra base de datos.
+            $videosPropiedad = Video::where('videos_propertiesId', $request->propertyId)->get();
+            $codigosDB = $videosPropiedad->select("videos_route")->toArray();
+
+            //tenemos que realizar una comprobacion de cual codigos son nuevos para poder almacenarlos.
+            $codigoNuevo =array_filter($listadoCodigos, function($value) use ($codigosDB) {
+                if (!in_array(['videos_route' => $value], $codigosDB))
+                {
+                    return $value;
+                }
+            });
+
+            if ( !empty($codigoNuevo) )
             {
-                $videosEncontrados = Video::whereIn('videos_route', $request->route)->get();
-
-                if ( $videosEncontrados->isEmpty() )
+                //tenemos que registrar el o los nuevos videos.
+                foreach($codigoNuevo as $codigo )
                 {
-                    //vamos a registrar los nuvos videos del request->route
-                    foreach($request->route as $ruta)
-                    {
-                        $video = new Video();
-                        $video->videos_route = $ruta;
-                        $video->videos_propertiesId = $request->propertyId;
-                        $video->save();
-                    }
-
-                    return response()->json(['mensaje' => 'Videos actualizados correctamente'], 200);
+                    $video = new Video();
+                    $video->videos_route = $codigo;
+                    $video->videos_propertiesId = $request->propertyId;
+                    $video->save();
                 }
-
-                $videosEncontrados = $videosEncontrados->where('videos_propertiesId', $request->propertyId);
-
-                if ( $videosEncontrados->count() == $videos->count() )
-                {
-                    $valor = array_diff(
-                        $request->route,
-                        $videos->select('videos_route')->pluck('videos_route')->toArray()
-                    );
-
-                    if ( !empty($valor) )
-                    {
-                        $video = new Video();
-                        $video->videos_route = array_values($valor)[0];
-                        $video->videos_propertiesId = $request->propertyId;
-                        $video->save();
-                    }
-
-                }
-                else if ( $videosEncontrados->count() < $videos->count() )
-                {
-                    //toca eliminar una de la base de datos.
-                    $valor = array_diff( $videos->select('videos_route')->pluck('videos_route')->toArray(), $request->route);
-                    Video::where(
-                    'videos_id',
-                 $videos[array_keys($valor)[0]]->videos_id
-                    )->delete();
-                }
-
             }
-            else
+
+
+            //buscar por codigos que son reemplados y tenemos que eliminarlos.
+            $codigosAEliminar = array_filter($codigosDB, function($value) use ($listadoCodigos) {
+
+                $codigo = $value["videos_route"];
+
+                if ( !in_array($codigo, $listadoCodigos) )
+                {
+                    return $value["videos_route"];
+                }
+
+            });
+
+            if ( !empty($codigosAEliminar) )
             {
-                //eliminar todos los videos.
-                Video::where('videos_propertiesId', $request->propertyId)->delete();
+                $videosFiltradosAEliminar = $videosPropiedad->filter(function($video) use ($codigosAEliminar) {
+
+                    $codigo = $video->videos_route;
+
+                    if ( in_array(['videos_route' => $codigo], $codigosAEliminar) )
+                    {
+                        return $video;
+                    }
+
+                });
+
+                foreach($videosFiltradosAEliminar as $video)
+                    Video::where('videos_id', $video->videos_id)->delete();
             }
 
             return response()->json(['mensaje' => 'Videos actualizados correctamente'], 200);
         } catch (\Throwable $th) {
-            return response()->json(['mensaje' => "Error de actualizacion de videos"], 500);
+            return response()->json(['mensaje' => $th->getMessage()], 500);
         }
     }
 }

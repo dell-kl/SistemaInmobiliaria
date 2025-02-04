@@ -67,7 +67,7 @@ Route::get('/ubicacion/listado', [UbicacionesController::class, 'obtenerUbicacio
  * ===========================================================================
  */
 Route::post('/imagenes/cargar', [ImagenesController::class, 'cargarImagen'])->middleware('autenticacion');
-
+Route::delete('/imagenes/eliminar', [ImagenesController::class, 'eliminarImagen'])->middleware('autenticacion');
 
 /**
  * ============================================================================
