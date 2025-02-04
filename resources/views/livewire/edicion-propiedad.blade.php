@@ -10,31 +10,38 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
+                    @php
+                    //nos vamos a sacar cada uno de los datos.
+                    $recursoPropiedad = [];
 
-                <div class="seccion-ubicacion mt-4 d-flex flex-row flex-wrap gap-2">
-
-                    {{-- @livewire('carrusel-imagenes', ['idPropiedad' => $propiedad["properties_id"]]); --}}
+                    $recursoPropiedad["images"] = $propiedad["images"];
+                    $recursoPropiedad["planos"] = $propiedad["planos"];
+                    $recursoPropiedad["videos"] = $propiedad["videos"];
+                    @endphp
+                    @livewire('carrusel-imagenes', ['idPropiedad' => $propiedad["properties_id"], 'recursosPropiedad' => $recursoPropiedad]);
                     @php
                         // Vamos a decir que solo vamos a tomar cinco imágenes para la parte previa de imágenes.
                         $imagenesGaleria = array_slice($propiedad["images"], 0, 5);
                     @endphp
 
-            <div class="m-4 d-flex gap-2 align-items-end">
+            <div class="m-4 d-flex gap-2 align-items-start">
                 @livewire('galeria-imagenes', ['idPropiedad' => $propiedad["properties_id"], 'imagenes' => $imagenesGaleria])
                 @livewire('tipo-campos-registro-propiedad', ['typeProjects' => $propiedad["obtener_tipo_propiedad"]["typeProperties_id"], 'datosPropiedad' => $propiedad])
             </div>
 
-            <div class="campos-adicionales mt-4 d-flex gap-2">
-                @livewire('ubicacion-mapa', [
-                    'identificador' => "proyecto-{{ $identificadorPropiedad }}",
-                    'coordenadas' => $propiedad["obtener_coordenadas"][0]["coordinates_route"]
-                ])
+            <div class="campos-adicionales m-4 d-flex gap-2" style="width: 100%">
+
+                <div class="mapa relative w-100">
+                    <div id="proyecto-{{$propiedad["properties_id"]}}" style="width:100%;height:100%;">
+                        <input type="hidden" class="proyecto-{{$propiedad["properties_id"]}}" value="{{$propiedad["obtener_coordenadas"][0]["coordinates_route"]}}" name="ubicacionMapa" id="campoUbicacionMapa">
+                    </div>
+                </div>
+
                 @livewire('campos-ubicacion-propiedad')
             </div>
 
+                    <button type="submit" class="btn btn-warning text-bold fs-6 w-100 mt-4 fw-bold" style="width: 16%;">🗃️ Actualizar</button>
 
-                    <button type="submit" class="btn btn-warning text-bold fs-6 w-100 mt-4 fw-bold">🗃️ Actualizar</button>
-                </div>
             </form>
         </div>
     </div>

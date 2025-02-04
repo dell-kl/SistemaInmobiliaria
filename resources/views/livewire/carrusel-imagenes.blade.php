@@ -3,7 +3,7 @@
     <button
         wire:click="cerrarCarrusel"
         type="button"
-        class="btn btn-warning boton-cerrar-carrusel fw-bold"
+        class="btn btn-warning fw-bold"
         style="position:absolute;right:23px;bottom:90%;border-radius:100%"
     >X</button>
 
@@ -42,14 +42,14 @@
             @if ( $tipoElemento === 1 )
                 @php
 
-                if ( $posicion == count($recursosPropiedad["images"]) )
-                {
-                    $posicion = count($recursosPropiedad["images"]) - 1 ;
-                }
+                    if ( $posicion == count($recursosPropiedad["images"]) )
+                    {
+                        $posicion = count($recursosPropiedad["images"]) - 1 ;
+                    }
 
-                //vamos a sacar la imagen en base a la posicion
-                $imagen = $recursosPropiedad["images"][$posicion]["pictures_route"];
-                $imagen = config('app.url') . '/storage/' . $imagen;
+                    //vamos a sacar la imagen en base a la posicion
+                    $imagen = $recursosPropiedad["images"][$posicion]["pictures_route"];
+                    $imagen = config('app.url') . '/storage/' . $imagen;
 
                 @endphp
                 <img
