@@ -64,7 +64,7 @@ class TipoCamposRegistroPropiedad extends Component
         && !isset($this->precioProyecto)
         && !isset($this->descripcionProyecto))
         {
-            //vamos a establcer los valores. 
+            //vamos a establcer los valores.
             $this->habitaciones = $this->datosPropiedad["properties_rooms"];
             $this->banos = $this->datosPropiedad["properties_bathrooms"];
             $this->estacionamiento = $this->datosPropiedad["properties_parking"];
@@ -75,23 +75,17 @@ class TipoCamposRegistroPropiedad extends Component
             $this->descripcionProyecto = $this->datosPropiedad["properties_description"];
 
 
-            //setear diferente manera la parte de nuestro videos. 
+            //setear diferente manera la parte de nuestro videos.
             $videos = $this->datosPropiedad["videos"];
 
-            if ( count($videos) == 1 )
+            $codigos = "";
+            foreach ($videos as $key=>$video)
             {
-                $this->codigosVideoYoutube =$videos[0]["videos_route"];
+                if ( count($videos)-1 == $key ) $codigos .= $video["videos_route"];
+                else $codigos .= $video["videos_route"] . ",";
             }
-            else 
-            {
-                $codigos = "";
-                foreach ($videos as $video)
-                {
-                    $codigos .= $video["videos_route"] . ",";
-                }
-                $this->codigosVideoYoutube = $codigos;
-            }
-           
+            $this->codigosVideoYoutube = $codigos;
+
         }
     }
 

@@ -45,9 +45,9 @@ h1.logo {
     transition: background-color 0.3s ease;
 } */
 
-.d-flex button:hover {
+/* .d-flex button:hover {
     background-color: var(--highlight-color);
-}
+} */
 
 /* Estilos de la tabla de usuarios */
 .table-responsive {

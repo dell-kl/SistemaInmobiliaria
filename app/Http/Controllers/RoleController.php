@@ -40,13 +40,15 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
-
         $request->validate([
             'roles_name' => 'required|string|max:255',
             'roles_estado' => 'required|boolean',
         ]);
 
-        Role::create($request->all());
+        $rol = new Role();
+        $rol->roles_name = $request->roles_name;
+        $rol->roles_estado = 1;
+        $rol->save();
 
         return redirect()->route('roles.index')->with('success', 'Rol creado correctamente.');
     }
@@ -84,13 +86,22 @@ class RoleController extends Controller
 
     public function update(Request $request, Role $role)
     {
-
         $request->validate([
             'roles_name' => 'required|string|max:255',
             'roles_estado' => 'required|boolean',
         ]);
 
-        $role->update($request->all());
+        $rol = Role::where('roles_id', '=', $request->roles_id)->get();
+
+        if (!$rol->isEmpty())
+        {
+            $rol = $rol->first();
+            $rol->roles_name = $request->roles_name;
+            $rol->roles_estado = $request->roles_estado;
+            $rol->save();
+        }
+
+        // $role->update($request->all());
 
         return redirect()->route('roles.index')->with('success', 'Rol actualizado correctamente.');
     }

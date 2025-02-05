@@ -1,6 +1,8 @@
 <?php
 namespace App\Livewire;
 
+use Illuminate\Support\Facades\Http;
+use RealRashid\SweetAlert\Facades\Alert;
 use Livewire\Component;
 
 class CarruselImagenes extends Component
@@ -24,8 +26,38 @@ class CarruselImagenes extends Component
 
     public $tipoElemento = 1; // 1 para proyectos, 2 para planos, 3 para videos.
 
+    /**
+     * =======================================================================================
+     * Dentro de este punto tenemos que realizar para que se muestren los mensajes de alerta
+     * =======================================================================================
+     */
+
+    public $mensajeAlerta = "";
+    public $tituloAlerta = "";
+    public $codigo = 200;
+    public $mostrarAlerta = false;
+
+
+    /**
+     * ========================================================================================
+     * AQUI VAMOS A SUBIR LA PARTE DEL TOKEN
+     * ========================================================================================
+     */
+
+    public $token;
+
+    /**
+     * ========================================================================================
+     * ESTA VARIABLE DE AQUI NOS SERVIRA PARA ALMACENAR LA IMAGEN QUE REEMPLAZA A LA QUE YA ESTA
+     * ========================================================================================
+     */
+
+    public $imagenReemplazo;
+
     public function render()
     {
+
+
         return view('livewire.carrusel-imagenes');
     }
 
@@ -100,5 +132,39 @@ class CarruselImagenes extends Component
         $this->mostrarProyect = "d-block";
         $this->mostrarPlanos = "d-none";
         $this->mostrarVideos = "d-none";
+    }
+
+    /**
+     * ================================================================================
+     * METODOS DE AQUI NOS SERVIRA MUCHO PARA REALIZAR LA ELIMINACION DE LAS IMAGENES
+     * TANTO PARA LA PARTE DE LAS IMAGENES NORMALES Y DE LOS PLANOS...
+     * ================================================================================
+     */
+
+    public function eliminarImagenesProyecto($idImagen, $rutaImagen)
+    {
+        try {
+            //aqui consumimos la api para mandar justamente la idImagen y su respectiva ruta.
+            $ruta = config("app.url_api") . "/api/imagenes/eliminar";
+
+            $respuesta = Http::delete($ruta, [
+                "imagen_id" => $idImagen,
+                "imagen_route" => $rutaImagen,
+                "token" => $this->token
+            ]);
+        } catch (\Throwable $th) {
+
+        }
+
+        // $this->mostrar = "d-block";
+    }
+
+    public function eliminarImagenesPlanos($idImagen, $rutaImagen)
+    {
+        try {
+            //code...
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 }

@@ -67,7 +67,8 @@ Route::get('/ubicacion/listado', [UbicacionesController::class, 'obtenerUbicacio
  * ===========================================================================
  */
 Route::post('/imagenes/cargar', [ImagenesController::class, 'cargarImagen'])->middleware('autenticacion');
-
+Route::delete('/imagenes/eliminar', [ImagenesController::class, 'eliminarImagen'])->middleware('autenticacion');
+Route::post("/imagenes/reemplazar", [ImagenesController::class, 'reemplazarImagen'])->middleware('autenticacion');
 
 /**
  * ============================================================================
@@ -130,4 +131,5 @@ Route::get('/permisos/listar', [PermisosController::class, 'listarPermisos']);
  * ============================================================================
  */
 
- Route::get('/autorizaciones/listar', [AutorizacionesController::class, 'listarAutorizaciones']);
+Route::get('/autorizaciones/listar', [AutorizacionesController::class, 'listarAutorizaciones']);
+Route::post('/autorizaciones/actualizar', [AutorizacionesController::class, 'editarAutorizaciones'])->middleware('autenticacion');

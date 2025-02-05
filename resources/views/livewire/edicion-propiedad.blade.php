@@ -18,8 +18,12 @@
                     $recursoPropiedad["planos"] = $propiedad["planos"];
                     $recursoPropiedad["videos"] = $propiedad["videos"];
                     @endphp
-                    
-                    @livewire('carrusel-imagenes', ['idPropiedad' => $propiedad["properties_id"], 'recursosPropiedad' => $recursoPropiedad]);
+
+                    @livewire('carrusel-imagenes', [
+                        'idPropiedad' => $propiedad["properties_id"],
+                        'recursosPropiedad' => $recursoPropiedad,
+                        'token' => $token
+                    ]);
 
                     @php
                         // Vamos a decir que solo vamos a tomar cinco imágenes para la parte previa de imágenes.
@@ -45,9 +49,9 @@
                             'idCanton' => '1'])
                     </div>
 
-                    <button 
-                    type="submit" 
-                    class="btn btn-warning text-bold fs-6 m-4 fw-bold" 
+                    <button
+                    type="submit"
+                    class="btn btn-warning text-bold fs-6 m-4 fw-bold"
                     style="width: 16%;"
                     >🗃️ Actualizar</button>
 
