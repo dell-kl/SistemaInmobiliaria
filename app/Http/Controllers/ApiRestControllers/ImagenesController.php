@@ -16,6 +16,7 @@ class ImagenesController extends Controller{
 
     public function cargarImagen(Request $request): JsonResponse
     {
+
         $imagenes = $request->file('FileIMG');
 
         if ( isset( $imagenes ) && isset($request->PropertyId) ) {
@@ -24,20 +25,21 @@ class ImagenesController extends Controller{
             {
                 // algoritmo....
 
-                $validator = Validator::make($request->all(), [
-                'FileIMG.*' => 'required|image|mimes:jpeg,png,jpg|max:2024'
-                ]);
+                // $validator = Validator::make($request->all(), [
+                // 'FileIMG.*' => 'required|image|mimes:jpeg,png,jpg|max:2024'
+                // ]);
 
-                if ($validator->fails())
-                {
-                    return response()->json(['mensaje' => "Archivo incompatible"], 400);
-                }
+                // if ($validator->fails())
+                // {
+                //     return response()->json(['mensaje' => "Archivo incompatible"], 400);
+                // }
 
                 //verificar si existe la propiedad primero, para despues guardar los datos.
                 if(!Property::where('properties_id', $request->PropertyId)->exists())
                 {
                     return response()->json(['mensaje' => 'Propiedad no encontrada'], 404);
                 }
+
 
                 /**
                  * Dentro de esta seccion guardamos a nuestra carpeta public todas las imagenes que se van cargando.

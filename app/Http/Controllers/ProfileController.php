@@ -7,6 +7,7 @@ use App\Models\Profile;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class ProfileController extends Controller
@@ -48,61 +49,9 @@ class ProfileController extends Controller
         return view('gestionPerfiles.edit', compact('profile', 'users', 'roles', 'rolUsuario', 'permisos', 'autorizacionesPerfil'));
     }
 
-    /**
-     * Una funcion de busqueda.. ponerla despues en la carpeta /tools para que quede mejor adaptada.
-     */
-    public function buscarDesincluidos($authorization, Request $request)
-    {
-        $item = array_filter($authorization, function($item) use ( $request ) {
-
-            if ( !in_array($item['authorizations_permissionId'], $request->permissions_id) )
-            {
-                return $item;
-            }
-        });
-
-        $item = array_values($item);
-
-        if ( !empty($item) )
-        {
-            foreach ($item as $value) {
-                $auth = new Authorization();
-                $auth->authorizations_id = $value["authorizations_id"];
-                $auth->authorizations_profilesId = $value["authorizations_profilesId"];
-                $auth->authorizations_permissionId = $value["authorizations_permissionId"];
-                $auth->delete();
-            }
-        }
-
-    }
-
-    public function buscarXIncluir($id, REquest $request)
-    {
-        $authorization = Authorization::where('authorizations_profilesId', $id)->get()->select('authorizations_permissionId')->toArray();
-
-        $item = array_filter($request->permissions_id, function($item)use ($authorization) {
-
-            if ( !in_array(['authorizations_permissionId' => $item], $authorization)) {
-                return $item;
-            }
-        });
-
-        if ( !empty($item) )
-        {
-            foreach ($item as $value) {
-                $authorization = new Authorization();
-                $authorization->authorizations_profilesId = $id;
-                $authorization->authorizations_permissionId = $value;
-                $authorization->save();
-            }
-        }
-    }
 
     public function update(Request $request, $id)
     {
-
-
-
         $request->validate([
             'Profiles_usersId' => 'required|exists:users,users_id',
             'Profiles_rolesId' => 'required|exists:roles,roles_id',
@@ -112,19 +61,12 @@ class ProfileController extends Controller
         $profile = Profile::findOrFail($id);
         $profile->update($request->all());
 
-        //verificar cual permiso ya no se encuentra o si ya hay mas permisos.
-        $authorization = Authorization::where('authorizations_profilesId', $id)->get()->toArray();
-        if ( count($request->permissions_id) < count($authorization) )
-        {
-            $this->buscarDesincluidos($authorization, $request);
-            // por los de incluir que sean distintos.
-            // $this->buscarXIncluir($id, $request);
-        }
-        else if ( count($request->permissions_id) > count($authorization) )
-        {
-            $this->buscarXIncluir($id, $request);
-        }
-
+        $permisos = $request->all()["permissions_id"];
+        Http::post(config('app.url_api') . '/api/autorizaciones/actualizar', [
+            'idPerfil' => $id,
+            'permisos' => $permisos,
+            'token' => JWTAuth::getToken()->get()
+        ]);
 
         return redirect()->route('profiles.index')->with('success', 'Perfil actualizado correctamente.');
     }

@@ -19,14 +19,14 @@ class PlanosController extends Controller
 
             if( !empty( $imagenes ) )
             {
-                $validator = Validator::make($request->all(), [
-                    'PlanIMG.*' => 'required|image|mimes:jpeg,png,jpg,webp|max:4080'
-                ]);
+                // $validator = Validator::make($request->all(), [
+                //     'PlanIMG.*' => 'required|image|mimes:jpeg,png,jpg,webp|max:4080'
+                // ]);
 
-                if ($validator->fails())
-                {
-                    return response()->json(['mensaje' => 'Formato no soportado'], 400);
-                }
+                // if ($validator->fails())
+                // {
+                //     return response()->json(['mensaje' => 'Formato no soportado'], 400);
+                // }
 
                 //verificar si existe la propiedad primero, para despues guardar los datos.
                 if(!Property::where('properties_id', $request->PropertyId)->exists())

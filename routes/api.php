@@ -131,4 +131,5 @@ Route::get('/permisos/listar', [PermisosController::class, 'listarPermisos']);
  * ============================================================================
  */
 
- Route::get('/autorizaciones/listar', [AutorizacionesController::class, 'listarAutorizaciones']);
+Route::get('/autorizaciones/listar', [AutorizacionesController::class, 'listarAutorizaciones']);
+Route::post('/autorizaciones/actualizar', [AutorizacionesController::class, 'editarAutorizaciones'])->middleware('autenticacion');
