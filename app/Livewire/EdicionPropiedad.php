@@ -10,6 +10,8 @@ class EdicionPropiedad extends Component
     public $identificadorPropiedad;
     public $propiedad;
 
+    public $token;
+
     public function render()
     {
         return view('livewire.edicion-propiedad');

@@ -68,5 +68,9 @@
     la informacion de la propiedad (Terreno, Casa, Departamento)
     --}}
 
-    @livewire('edicion-propiedad', ['identificadorPropiedad' => $property["properties_id"], 'propiedad' => $property])
+    @livewire('edicion-propiedad', [
+        'identificadorPropiedad' => $property["properties_id"],
+        'propiedad' => $property,
+        'token' => $token
+    ])
 </div>

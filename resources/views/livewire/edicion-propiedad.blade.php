@@ -19,7 +19,11 @@
                     $recursoPropiedad["videos"] = $propiedad["videos"];
                     @endphp
 
-                    @livewire('carrusel-imagenes', ['idPropiedad' => $propiedad["properties_id"], 'recursosPropiedad' => $recursoPropiedad]);
+                    @livewire('carrusel-imagenes', [
+                        'idPropiedad' => $propiedad["properties_id"],
+                        'recursosPropiedad' => $recursoPropiedad,
+                        'token' => $token
+                    ]);
 
                     @php
                         // Vamos a decir que solo vamos a tomar cinco imágenes para la parte previa de imágenes.

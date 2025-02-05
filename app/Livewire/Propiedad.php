@@ -14,6 +14,8 @@ class Propiedad extends Component
 
     public $permisos;
 
+    public $token;
+
     public function render()
     {
         return view('livewire.propiedad');

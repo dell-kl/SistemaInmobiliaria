@@ -1,6 +1,7 @@
 <?php
 namespace App\Livewire;
 
+use Illuminate\Support\Facades\Http;
 use RealRashid\SweetAlert\Facades\Alert;
 use Livewire\Component;
 
@@ -36,8 +37,27 @@ class CarruselImagenes extends Component
     public $codigo = 200;
     public $mostrarAlerta = false;
 
+
+    /**
+     * ========================================================================================
+     * AQUI VAMOS A SUBIR LA PARTE DEL TOKEN
+     * ========================================================================================
+     */
+
+    public $token;
+
+    /**
+     * ========================================================================================
+     * ESTA VARIABLE DE AQUI NOS SERVIRA PARA ALMACENAR LA IMAGEN QUE REEMPLAZA A LA QUE YA ESTA
+     * ========================================================================================
+     */
+
+    public $imagenReemplazo;
+
     public function render()
     {
+
+
         return view('livewire.carrusel-imagenes');
     }
 
@@ -124,23 +144,27 @@ class CarruselImagenes extends Component
     public function eliminarImagenesProyecto($idImagen, $rutaImagen)
     {
         try {
-            $this->codigo = 200;
-            $this->mensajeAlerta = "Se ha eliminado la imagen correctamente";
-            $this->tituloAlerta = "Eliminacion Imagen";
-            $this->mostrarAlerta = true;
+            //aqui consumimos la api para mandar justamente la idImagen y su respectiva ruta.
+            $ruta = config("app.url_api") . "/api/imagenes/eliminar";
+
+            $respuesta = Http::delete($ruta, [
+                "imagen_id" => $idImagen,
+                "imagen_route" => $rutaImagen,
+                "token" => $this->token
+            ]);
         } catch (\Throwable $th) {
-            //throw $th;
-            $this->codigo = 500;
-            $this->mensajeAlerta = "No se pudo eliminar la imagen";
-            $this->tituloAlerta = "Eliminacion Imagen";
-            $this->mostrarAlerta = true;
+
         }
 
-        $this->mostrar = "d-block";
+        // $this->mostrar = "d-block";
     }
 
     public function eliminarImagenesPlanos($idImagen, $rutaImagen)
     {
-
+        try {
+            //code...
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 }

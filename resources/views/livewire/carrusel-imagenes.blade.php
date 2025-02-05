@@ -71,7 +71,17 @@
                         wire:click="eliminarImagenesProyecto('{{ $idImagenProyecto }}', '{{$rutaRelativaImagen}}')"
                         type="button"
                         class="absolute end-0 top-0 right-0 pt-2 pr-2 fs-2">🗑️</button>
-                    <button title="reemplazar con otra imagen" type="button" class="absolute end-0 top-10 right-0 pr-2 fs-2">📷</button>
+
+                    <input
+                        type="file"
+                        name="imagenReemplazo"
+                        accept="image/*"
+                        class="d-none"/>
+                    <button
+                        title="reemplazar con otra imagen"
+                        type="button"
+                        class="absolute end-0 top-10 right-0 pr-2 fs-2"
+                    >📷</button>
                 </div>
             @endif
 

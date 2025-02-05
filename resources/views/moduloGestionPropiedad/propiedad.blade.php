@@ -7,6 +7,7 @@
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
+
     <!-- Panel de bienvenida -->
     <div class="dashboard-welcome">
 
@@ -66,7 +67,13 @@
                             @php
                                 $rutaImagen = !empty($propiedad["images"]) ? config('app.url') . '/storage/' . $propiedad["images"][0]["pictures_route"] : '/path/to/default/image.jpg';
                             @endphp
-                            @livewire('propiedad', ['property' => $propiedad, 'rutaImagen' => $rutaImagen, 'rolUsuario' => $rolUsuario, 'permisos' => $permisos])
+                            @livewire('propiedad', [
+                                'property' => $propiedad,
+                                'rutaImagen' => $rutaImagen,
+                                'rolUsuario' => $rolUsuario,
+                                'permisos' => $permisos,
+                                'token' => $token
+                            ])
                         @endforeach
                     @endif
                 </div>
