@@ -143,20 +143,16 @@ class CarruselImagenes extends Component
 
     public function eliminarImagenesProyecto($idImagen, $rutaImagen)
     {
-        try {
-            //aqui consumimos la api para mandar justamente la idImagen y su respectiva ruta.
-            $ruta = config("app.url_api") . "/api/imagenes/eliminar";
 
-            $respuesta = Http::delete($ruta, [
-                "imagen_id" => $idImagen,
-                "imagen_route" => $rutaImagen,
-                "token" => $this->token
-            ]);
-        } catch (\Throwable $th) {
+        //aqui consumimos la api para mandar justamente la idImagen y su respectiva ruta.
+        $ruta = config("app.url_api") . "/api/imagenes/eliminar";
 
-        }
+        $respuesta = Http::delete($ruta, [
+            "imagen_id" => $idImagen,
+            "imagen_route" => $rutaImagen,
+            "token" => $this->token
+        ]);
 
-        // $this->mostrar = "d-block";
     }
 
     public function eliminarImagenesPlanos($idImagen, $rutaImagen)
