@@ -12,21 +12,22 @@
     <div>
         <label for="users_email" class="block font-medium text-white text-xl">Correo Electrónico</label>
         <div class="mt-2">
-            <input id="users_email" name="email" type="email" wire:model.live="email" placeholder="Ingresa tu correo electrónico" autocomplete="email" required class="ps-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+            <input
+                id="users_email"
+                name="email"
+                type="email"
+                wire:input="validarEntrada('email')"
+                wire:model.live="email"
+                placeholder="Ingresa tu correo electrónico"
+                autocomplete="email"
+                required class="ps-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
         </div>
 
-        @php
-        $mensajeCorreo = "";
-
-        if ( $email === "" )
-        {
-            $mensajeCorreo = "Debe ingresar un correo electrónico";
-        }
-        @endphp
-
         <div>
-            <span class="text-red-500 text-sm">{{ $mensajeCorreo }}</span>
-
+            @error('email')
+            @php $permitirSesion = "denegado"; @endphp
+            <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
         </div>
     </div>
 
@@ -38,22 +39,23 @@
             </div>
         </div>
         <div class="mt-2">
-            <input id="password" name="password" type="password" wire:model.live="password" placeholder="Ingresa tu contraseña" autocomplete="current-password" required class="ps-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+            <input
+                id="password"
+                name="password"
+                type="password"
+                wire:input="validarEntrada('password')"
+                wire:model.live="password"
+                placeholder="Ingresa tu contraseña"
+                autocomplete="current-password"
+                required
+                class="ps-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
         </div>
 
-        @php
-        $mensajePassword = "";
-
-        if ( $password === "" )
-        {
-            $mensajePassword = "Debe ingresar una contraseña";
-        }
-        @endphp
-
         <div>
-
-            <span class="text-red-500 text-sm">{{ $mensajePassword }}</span>
-
+            @error('password')
+                @php $permitirSesion = "denegado"; @endphp
+                <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
         </div>
     </div>
 
@@ -72,6 +74,7 @@
         @endif
 
     </div>
+
 
 </form>
     </div>

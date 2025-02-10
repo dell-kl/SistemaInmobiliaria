@@ -19,16 +19,28 @@ class FormularioSesion extends Component
         'password' => 'required|string|max:15|min:5',
     ];
 
+    protected $messages = [
+        'email.required' => 'Debes ingresar un correo electronico',
+        'password.required' => 'Debes ingresar la contraseña',
+        'email.email' => 'Debes ingresar un correo electronico valido',
+        'password.min' => 'Debes ingresar una contraseña valida',
+    ];
 
     public function render()
     {
 
-        if ( $this->email != "" && $this->password != "" )
-        {
-           $this->permitirSesion = "autorizado";
-        }
 
         return view('livewire.formulario-sesion');
     }
 
+    public function validarEntrada($entrada)
+    {
+        $resultado = $this->validate();
+
+        if ( !empty($resultado) )
+        {
+            $this->permitirSesion = "autorizado";
+        }
+
+    }
 }

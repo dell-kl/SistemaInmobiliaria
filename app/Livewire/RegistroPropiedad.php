@@ -7,20 +7,16 @@ use Livewire\Component;
 
 class RegistroPropiedad extends Component
 {
+    public $autorizarRegistro = false;
 
-    /**
-     * Validacion de los campos para registrar nuestra propiedad.
-     */
+    public $verificarFormularios = [
+        "imgProyecto" => false,
+        "datosProyecto" => false,
+        "imgPlanos" => false,
+        "coordenadas" => false,
+        "datosUbicacion" => false
+    ];
 
-
-    public $banos = "";
-    public $estacionamiento = 0;
-    public $area = "";
-    public $altoProfunidad = "";
-    public $disponibilidad = "";
-    public $precio = 0;
-    public $descripcion = "";
-    public $codigoVideo = "";
 
 
     public function render()
@@ -28,14 +24,36 @@ class RegistroPropiedad extends Component
         return view('livewire.registro-propiedad');
     }
 
-    //vamos a mostrar un mensaje de carga general.
-    public function placeholder()
+
+    /**
+     * Aqui agregaremos un metodo que escucha por un evento...
+     * Este de aqui nos avisara si todos los datos ya fueron respectivamente llenados dentro
+     * del formulario para permitir el acceso al registro de la propiedad.
+     */
+    #[On('formulario-registro')]
+    public function ListeningDispatchingForms($datos)
     {
-        return <<<'HTML'
-        <div>
-            <!-- Loading spinner... -->
-            <p>Cargando Contenido ...</p>
-        </div>
-        HTML;
+        try {
+            //code...
+            $this->verificarFormularios[$datos['tipo']] = $datos['valor'];
+
+            if (
+                $this->verificarFormularios["imgProyecto"]
+                // &&
+                // $this->verificarFormularios["datosProyecto"] &&
+                // $this->verificarFormularios["imgPlanos"] &&
+                // $this->verificarFormularios["coordenadas"] &&
+                // $this->verificarFormularios["datosUbicacion"]
+            )
+            {
+                $this->autorizarRegistro = true;
+            }
+
+            $this->render();
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
+        }
+
     }
 }

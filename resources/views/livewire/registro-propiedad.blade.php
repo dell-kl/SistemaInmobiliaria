@@ -1,4 +1,5 @@
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
     <div class="modal-dialog bg-white">
       <div class="modal-content">
         <div class="flex flex-row justify-between px-4 pt-4">
@@ -28,7 +29,13 @@
                     </div>
                   </div>
                 </div>
-                <input type="submit" class="btn btn-warning text-white ms-2 mt-4 fs-5 fw-300" value="🏠 Registrar Propiedad">
+
+                @if ( $autorizarRegistro )
+                    <input type="submit" class="btn btn-warning text-white ms-2 mt-4 fs-5 fw-300" value="🏠 Registrar Propiedad">
+                @else
+                    <button type="button" class="ms-2 mt-4 btn bg-gray-100" disabled>🚫 Registrar Propiedad</button>
+                @endif
+
                 <script src="{{ Vite::asset('resources/js/cargaArchivo.js') }}"></script>
             </form>
         </div>

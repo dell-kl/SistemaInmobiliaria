@@ -2,9 +2,8 @@
 
 namespace App\Livewire;
 
-use App\Models\Property;
-use Livewire\Attributes\Rule;
 use Livewire\Component;
+use Illuminate\Support\Facades\Validator;
 
 class TipoCamposRegistroPropiedad extends Component
 {
@@ -32,7 +31,7 @@ class TipoCamposRegistroPropiedad extends Component
 
     public $codigosVideoYoutube;
 
-    protected $rules = [
+    public $validaciones = [
         'habitaciones' => 'required|numeric|min:1|max:5',
         'banos' => ['required', 'regex:/^[0-4]$|^baño y medio$/i'],
         'estacionamiento' => 'required|numeric|min:0|max:4',
@@ -42,6 +41,47 @@ class TipoCamposRegistroPropiedad extends Component
         'precioProyecto' => 'required|numeric',
         'descripcionProyecto' => 'required|max:150',
         'codigosVideoYoutube' => ['required', 'regex:/^([a-zA-Z0-9_-]{11})(,[a-zA-Z0-9_-]{11})*$/']
+    ];
+
+    public $mensajesPersonalizados = [
+        'habitaciones.required' => 'Campo requerido y numerico',
+        'habitaciones.numeric' => 'Debe ser un numero',
+        'habitaciones.min' => 'Desde una habitacion para adelante',
+        'habitaciones.max' => 'Maximo 5 habitaciones',
+
+        'banos.required' => 'Se acepta hasta 4 baños y la expresion "baño y medio"',
+        'banos.regex' => 'Se acepta hasta 4 baños y la expresion "baño y medio"',
+
+        'estacionamiento.required' => 'Campo requerido y numerico',
+        'estacionamiento.numeric' => 'Debe ser un numero',
+        'estacionamiento.min' => 'Desde un estacionamiento para adelante',
+        'estacionamiento.max' => 'Maximo 4 estacionamientos',
+
+        'area.required' => 'Campo requerido',
+        'altoProfundidad.required' => 'Campo requerido',
+        'disponibilidadProyecto.required' => 'Debes escoger una disponibilidad del proyecto',
+
+
+        'precioProyecto.required' => 'Campo requerido y numerico',
+        'precioProyecto.numeric' => 'Debe ser un numero',
+
+        'descripcionProyecto.required' => 'Campo requerido',
+        'descripcionProyecto.max' => 'Maximo 150 caracteres',
+
+        'codigosVideoYoutube.required' => 'Campo requerido',
+        'codigosVideoYoutube.regex' => 'Introduce codigo de youtube valido, si es mas de uno separalo por comas.'
+    ];
+
+    public $tiposCampos = [
+        'habitaciones' => $this->habitaciones,
+        'banos' => $this->banos,
+        'estacionamiento' => $this->estacionamiento,
+        'area' => $this->area,
+        'altoProfundidad' => $this->altoProfundidad,
+        'disponibilidadProyecto' => $this->disponibilidadProyecto,
+        'precioProyecto' => $this->precioProyecto,
+        'descripcionProyecto' => $this->descripcionProyecto,
+        'codigosVideosYoutube' => $this->codigosVideoYoutube
     ];
 
     public function render()
@@ -89,54 +129,37 @@ class TipoCamposRegistroPropiedad extends Component
         }
     }
 
-    protected function messages()
-    {
-        return [
-            'habitaciones.required' => 'Campo requerido y numerico',
-            'habitaciones.numeric' => 'Debe ser un numero',
-            'habitaciones.min' => 'Desde una habitacion para adelante',
-            'habitaciones.max' => 'Maximo 5 habitaciones',
-
-            'banos.required' => 'Se acepta hasta 4 baños y la expresion "baño y medio"',
-            'banos.regex' => 'Se acepta hasta 4 baños y la expresion "baño y medio"',
-
-            'estacionamiento.required' => 'Campo requerido y numerico',
-            'estacionamiento.numeric' => 'Debe ser un numero',
-            'estacionamiento.min' => 'Desde un estacionamiento para adelante',
-            'estacionamiento.max' => 'Maximo 4 estacionamientos',
-
-            'area.required' => 'Campo requerido',
-            'altoProfundidad.required' => 'Campo requerido',
-            'disponibilidadProyecto.required' => 'Debes escoger una disponibilidad del proyecto',
-
-
-            'precioProyecto.required' => 'Campo requerido y numerico',
-            'precioProyecto.numeric' => 'Debe ser un numero',
-
-            'descripcionProyecto.required' => 'Campo requerido',
-            'descripcionProyecto.max' => 'Maximo 150 caracteres',
-
-            'codigosVideoYoutube.required' => 'Campo requerido',
-            'codigosVideoYoutube.regex' => 'Introduce codigo de youtube valido, si es mas de uno separalo por comas.'
-        ];
-    }
-
 
     //este metodo de aqui lo vamos a ejecutar en nuestro boton cuando se de click para registrar dicha propiedad.
-    public function actualizarValidaciones($campo)
+    public function actualizarValidaciones()
     {
+        $validaciones = Validator::make([
+            ''
+        ], [
 
-        $this->validateOnly($campo);
+        ], $this->mensajesPersonalizados);
 
-    }
+        dd($validaciones->fails());
 
-    public function actualizacionCampo($campo)
-    {
-        dd($campo);
+        $resultado = $this->validate();
+
+        if ( !empty($resultado) )
+        {
+            $this->actualizarFormulario(true);
+        }
     }
 
     public function EventUpdateTypeProject($type)
     {
         $typeProjects = intval( $type );
     }
+
+    //vamos a crear un evento que se disparara a nuestro componente padre.
+    public function actualizarFormulario($valor)
+    {
+        $this
+            ->dispatch('formulario-registro', ['tipo' => 'datosProyecto', 'valor' => $valor] )
+            ->to(RegistroPropiedad::class);
+    }
+
 }
