@@ -31,18 +31,6 @@ class TipoCamposRegistroPropiedad extends Component
 
     public $codigosVideoYoutube;
 
-    public $validaciones = [
-        'habitaciones' => 'required|numeric|min:1|max:5',
-        'banos' => ['required', 'regex:/^[0-4]$|^baño y medio$/i'],
-        'estacionamiento' => 'required|numeric|min:0|max:4',
-        'area' => 'required',
-        'altoProfundidad' => 'required',
-        'disponibilidadProyecto' => 'required',
-        'precioProyecto' => 'required|numeric',
-        'descripcionProyecto' => 'required|max:150',
-        'codigosVideoYoutube' => ['required', 'regex:/^([a-zA-Z0-9_-]{11})(,[a-zA-Z0-9_-]{11})*$/']
-    ];
-
     public $mensajesPersonalizados = [
         'habitaciones.required' => 'Campo requerido y numerico',
         'habitaciones.numeric' => 'Debe ser un numero',
@@ -135,11 +123,37 @@ class TipoCamposRegistroPropiedad extends Component
             'codigosVideosYoutube' => $this->codigosVideoYoutube
         ];
 
-        
+        $roles = [
+            'habitaciones' => 'required|numeric|min:1|max:5',
+            'banos' => ['required', 'regex:/^[0-4]$|^baño y medio$/i'],
+            'estacionamiento' => 'required|numeric|min:0|max:4',
+            'area' => 'required',
+            'altoProfundidad' => 'required',
+            'disponibilidadProyecto' => 'required',
+            'precioProyecto' => 'required|numeric',
+            'descripcionProyecto' => 'required|max:150',
+            'codigosVideoYoutube' => ['required', 'regex:/^([a-zA-Z0-9_-]{11})(,[a-zA-Z0-9_-]{11})*$/']
+        ];
 
-        $validaciones = Validator::make($data, $this->validaciones, $this->mensajesPersonalizados);
+        if ( $this->typeProjects == 2)
+        {
+            unset($data['estacionamiento']);
+            unset($roles['estacionamiento']);
+        }
+        else if ( $this->typeProjects == 3)
+        {
+            unset($data['habitaciones']);
+            unset($data['banos']);
+            unset($data['estacionamiento']);
 
-        dd($validaciones->fails());
+            unset($roles['habitaciones']);
+            unset($roles['banos']);
+            unset($roles['estacionamiento']);
+        }
+
+        $validaciones = Validator::make($data, $roles, $this->mensajesPersonalizados);
+
+        // dd($validaciones->fails());
 
         // $resultado = $this->validate();
 
