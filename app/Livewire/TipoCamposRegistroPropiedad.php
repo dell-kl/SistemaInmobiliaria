@@ -72,17 +72,7 @@ class TipoCamposRegistroPropiedad extends Component
         'codigosVideoYoutube.regex' => 'Introduce codigo de youtube valido, si es mas de uno separalo por comas.'
     ];
 
-    public $tiposCampos = [
-        'habitaciones' => $this->habitaciones,
-        'banos' => $this->banos,
-        'estacionamiento' => $this->estacionamiento,
-        'area' => $this->area,
-        'altoProfundidad' => $this->altoProfundidad,
-        'disponibilidadProyecto' => $this->disponibilidadProyecto,
-        'precioProyecto' => $this->precioProyecto,
-        'descripcionProyecto' => $this->descripcionProyecto,
-        'codigosVideosYoutube' => $this->codigosVideoYoutube
-    ];
+
 
     public function render()
     {
@@ -133,20 +123,30 @@ class TipoCamposRegistroPropiedad extends Component
     //este metodo de aqui lo vamos a ejecutar en nuestro boton cuando se de click para registrar dicha propiedad.
     public function actualizarValidaciones()
     {
-        $validaciones = Validator::make([
-            ''
-        ], [
+        $data = [
+            'habitaciones' => $this->habitaciones,
+            'banos' => $this->banos,
+            'estacionamiento' => $this->estacionamiento,
+            'area' => $this->area,
+            'altoProfundidad' => $this->altoProfundidad,
+            'disponibilidadProyecto' => $this->disponibilidadProyecto,
+            'precioProyecto' => $this->precioProyecto,
+            'descripcionProyecto' => $this->descripcionProyecto,
+            'codigosVideosYoutube' => $this->codigosVideoYoutube
+        ];
 
-        ], $this->mensajesPersonalizados);
+        
+
+        $validaciones = Validator::make($data, $this->validaciones, $this->mensajesPersonalizados);
 
         dd($validaciones->fails());
 
-        $resultado = $this->validate();
+        // $resultado = $this->validate();
 
-        if ( !empty($resultado) )
-        {
-            $this->actualizarFormulario(true);
-        }
+        // if ( !empty($resultado) )
+        // {
+        //     $this->actualizarFormulario(true);
+        // }
     }
 
     public function EventUpdateTypeProject($type)
