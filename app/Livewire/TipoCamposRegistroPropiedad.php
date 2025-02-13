@@ -32,6 +32,8 @@ class TipoCamposRegistroPropiedad extends Component
 
     public $codigosVideoYoutube;
 
+    public $tipoProceso = "crear";
+
     protected $rules = [
         'habitaciones' => 'required|numeric|min:1|max:5',
         'banos' => ['required', 'regex:/^[0-4]$|^baño y medio$/i'],
@@ -39,7 +41,7 @@ class TipoCamposRegistroPropiedad extends Component
         'area' => 'required',
         'altoProfundidad' => 'required',
         'disponibilidadProyecto' => 'required',
-        'precioProyecto' => 'required|numeric',
+        'precioProyecto' => 'required|numeric|min:100',
         'descripcionProyecto' => 'required|max:150',
         'codigosVideoYoutube' => ['required', 'regex:/^([a-zA-Z0-9_-]{11})(,[a-zA-Z0-9_-]{11})*$/']
     ];
@@ -47,6 +49,11 @@ class TipoCamposRegistroPropiedad extends Component
     public function render()
     {
         $this->llenarInformacion();
+
+        if ( $this->precioProyecto < 0 )
+        {
+            $this->precioProyecto = 0;
+        }
 
         return view('livewire.tipo-campos-registro-propiedad');
     }
@@ -64,6 +71,8 @@ class TipoCamposRegistroPropiedad extends Component
         && !isset($this->precioProyecto)
         && !isset($this->descripcionProyecto))
         {
+            $this->tipoProceso = "editar";
+
             //vamos a establcer los valores.
             $this->habitaciones = $this->datosPropiedad["properties_rooms"];
             $this->banos = $this->datosPropiedad["properties_bathrooms"];
@@ -112,6 +121,7 @@ class TipoCamposRegistroPropiedad extends Component
 
             'precioProyecto.required' => 'Campo requerido y numerico',
             'precioProyecto.numeric' => 'Debe ser un numero',
+            'precioProyecto.min' => 'Desde 100 para adelante',
 
             'descripcionProyecto.required' => 'Campo requerido',
             'descripcionProyecto.max' => 'Maximo 150 caracteres',
@@ -125,7 +135,7 @@ class TipoCamposRegistroPropiedad extends Component
     //este metodo de aqui lo vamos a ejecutar en nuestro boton cuando se de click para registrar dicha propiedad.
     public function actualizarValidaciones($campo)
     {
-
+    
         $this->validateOnly($campo);
 
     }

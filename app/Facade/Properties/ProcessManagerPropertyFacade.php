@@ -42,6 +42,7 @@ class ProcessManagerPropertyFacade {
      * o que ocurre internamente.
      */
     public function procesoRegistrar($datos) {
+        
        $StatusPropiedad = $this->_propiedad->registrarPropiedad($datos);
 
        if ( $StatusPropiedad !== "INAUTORIZADO" && $StatusPropiedad !== "SIN REGISTRAR" )

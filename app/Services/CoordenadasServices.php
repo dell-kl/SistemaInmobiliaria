@@ -33,7 +33,7 @@ class CoordenadasServices
     }
 
     public function editarCoordenadas($idPropiedad, $coordenadas)
-    {
+    {        
         $status = "SIN EDITAR COORDENADAS";
 
         $respuestaCoordenadas = Http::post($this->url . "actualizar", [
@@ -42,6 +42,7 @@ class CoordenadasServices
             "token" => $this->token
         ]);
 
+     
         if ( $respuestaCoordenadas->successful() )
         {
             $status = "EDITADO COORDENADAS";

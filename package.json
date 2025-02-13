@@ -3,9 +3,9 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite --host=192.168.100.85",
-        "web": "php artisan serve --host=192.168.100.85",
-        "api": "php artisan serve --port=9000 --host=192.168.100.85"
+        "dev": "vite --host=192.168.43.126",
+        "web": "php artisan serve --host=192.168.43.126",
+        "api": "php artisan serve --port=9000 --host=192.168.43.126"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.20",

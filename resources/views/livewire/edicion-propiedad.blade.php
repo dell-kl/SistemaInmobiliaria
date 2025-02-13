@@ -37,9 +37,18 @@
 
                     <div class="campos-adicionales m-4 d-flex gap-2" style="width: 100%">
 
+                        @php 
+                        $coordenadas = "";
+
+                        if ( isset ($propiedad["obtener_coordenadas"][0]["coordinates_route"]) )
+                        {
+                            $coordenadas = $propiedad["obtener_coordenadas"][0]["coordinates_route"];
+                        }
+                        @endphp
+
                         <div class="mapa relative w-100">
                             <div id="proyecto-{{$propiedad["properties_id"]}}" style="width:100%;height:100%;">
-                                <input type="hidden" class="proyecto-{{$propiedad["properties_id"]}}" value="{{$propiedad["obtener_coordenadas"][0]["coordinates_route"]}}" name="ubicacionMapa" id="campoUbicacionMapa">
+                                <input type="hidden" class="proyecto-{{$propiedad["properties_id"]}}" value="{{ $coordenadas }}" name="ubicacionMapa" id="campoUbicacionMapa">
                             </div>
                         </div>
 

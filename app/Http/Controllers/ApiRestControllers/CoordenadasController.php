@@ -54,13 +54,27 @@ class CoordenadasController extends Controller
     {
         try {
             //code...
-
             $propiedad = Property::where('properties_id', $request->propertyId)->first();
 
-            $coordenada = $propiedad->obtenerCoordenadas()->first();
+            $coordenada = $propiedad->obtenerCoordenadas();
 
-            Coordinate::updateOrCreate(['coordinates_id' => $coordenada->coordinates_id],
-             ['coordinates_route' => $request->coodenadas]);
+            $coordenadas = new Coordinate();
+
+            if ( !$coordenada->get()->isEmpty() )
+            {
+                //distinto de vacion... 
+                $coordenadas = Coordinate::where('coordinates_id', $coordenada->get()->first()->coordinates_id);
+                $coordenadas->first()->coordinates_route = $request->coodenadas;
+                $coordenadas->first()->save();
+            }
+            else 
+            {
+                //agregado.
+
+                $coordenadas->coordinates_route = $request->coodenadas;
+                $coordenadas->coordinates_propertiesId = $request->propertyId;
+                $coordenadas->save();
+            }
 
             return response()->json(['mensaje' => 'coordenadas actualizada'], 200);
 

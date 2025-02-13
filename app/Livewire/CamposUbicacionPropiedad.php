@@ -25,7 +25,7 @@ class CamposUbicacionPropiedad extends Component
     //seccion para la parte de la validacion de los campos.
     protected $rules = [
         'idCanton' => 'required|min:1|regex:/^[1-9]+$/',
-        'idParroquia' => 'required|min:1|regex:/^[1-9]+$/',
+        'idParroquia' => 'required|min:1',
         'direccionPropiedad' => 'required',
     ];
 

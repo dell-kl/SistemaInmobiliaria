@@ -91,8 +91,10 @@
                     <select name="EstadoProyecto" wire:blur="actualizarValidaciones('disponibilidadProyecto')" wire:model.lazy="disponibilidadProyecto" class="form-select @error('disponibilidadProyecto') border border-danger @enderror" id="floatingSelect" aria-label="Floating label select example">
                       <option selected>-- Disponibilidad --</option>
                       <option value="1" {{ $disponibilidad == "1" ? 'selected' : '' }}>Disponible</option>
+                      @if ( $tipoProceso === "editar" )
                       <option value="2" {{ $disponibilidad == "2" ? 'selected' : '' }}>Reservado</option>
                       <option value="3" {{ $disponibilidad == "3" ? 'selected' : '' }}>No Disponible</option>
+                     @endif
                     </select>
                     <label for="floatingSelect">Dale la disponibilidad al proyecto</label>
                     @error('disponibilidadProyecto') <span class="text-danger">{{ $message }}</span> @enderror

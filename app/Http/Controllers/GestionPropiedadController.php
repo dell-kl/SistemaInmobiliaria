@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Validator;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -19,6 +20,22 @@ class GestionPropiedadController extends Controller
 
     //inyeccion de nuestro facade principal para la mayoria de los procesos...
     private $_processManagerPropertyFacade;
+
+    //validadores.
+    public $validador = [
+        'numeroHabitaciones' => 'required',
+        'numeroBanios' => 'required',
+        'numeroEstacionamiento' => 'required',
+        'AreaProyecto' => 'required',
+        'AltoProyecto' => 'required',
+        'PrecioProyecto' => 'required',
+        'DescripcionProyecto' => 'required',
+        'VideosProyecto' => 'required',
+        'ubicacionMapa' => 'required',
+        'IM_canton' => 'required|min:1',
+        'ParroquiaProyecto' => 'required|min:1',
+        'DireccionProyecto' => 'required'
+    ];
 
     public function __construct(
         ProcessManagerPropertyFacade $processManagerPropertyFacade
@@ -78,7 +95,31 @@ class GestionPropiedadController extends Controller
     //actualizacion de nuestra propiedad.
     public function actualizarPropiedad(Request $request)
     {
+        
+        if ( $request->tipoProyecto == 3 )
+        {
+            unset($this->validador["numeroEstacionamiento"]);   
+            unset($this->validador["numeroBanios"]);   
+            unset($this->validador["numeroHabitaciones"]);   
+            unset($this->validador["AltoProyecto"]);
+            $this->validador["ProfundidadProyecto"] = "required";
+        }
+        else if ( $request->tipoProyecto == 2 )
+        {
+            unset($this->validador["numeroEstacionamiento"]);
+        }
+
+        $resultado = Validator::make($request->all(),($this->validador));
+
+        if ( $resultado->fails() )
+        {
+            Alert::error('Editar Propiedad', 'Datos incorrectos o incompletos.')
+            ->autoclose(5000);
+            return redirect('/propiedades');
+        }
+
         $datos = $request->all();
+       
         $respuesta = $this->_processManagerPropertyFacade->procesoEditar($datos);
 
         if ( $respuesta == "EDITADO PROPIEDAD" )
@@ -98,6 +139,28 @@ class GestionPropiedadController extends Controller
      */
     public function registrarPropiedad(Request $request)
     {
+        if ( $request->tipoProyecto == 3 )
+        {
+            unset($this->validador["numeroEstacionamiento"]);   
+            unset($this->validador["numeroBanios"]);   
+            unset($this->validador["numeroHabitaciones"]);   
+            unset($this->validador["AltoProyecto"]);
+            $this->validador["ProfundidadProyecto"] = "required";
+        }
+        else if ( $request->tipoProyecto == 2 )
+        {
+            unset($this->validador["numeroEstacionamiento"]);
+        }
+
+        $resultado = Validator::make($request->all(),($this->validador));
+
+        if ( $resultado->fails() )
+        {
+            Alert::error('Registro Propiedad', 'Datos incorrectos o incompletos.')
+            ->autoclose(5000);
+            return redirect('/propiedades');
+        }
+
         $datos = $request->all();
 
         $resultado = $this->_processManagerPropertyFacade->procesoRegistrar($datos);
