@@ -38,9 +38,10 @@ class RegistroPropiedad extends Component
             $this->verificarFormularios[$datos['tipo']] = $datos['valor'];
 
             if (
-                $this->verificarFormularios["imgProyecto"]
+                // $this->verificarFormularios["imgProyecto"]
                 // &&
-                // $this->verificarFormularios["datosProyecto"] &&
+                $this->verificarFormularios["datosProyecto"]
+                // &&
                 // $this->verificarFormularios["imgPlanos"] &&
                 // $this->verificarFormularios["coordenadas"] &&
                 // $this->verificarFormularios["datosUbicacion"]

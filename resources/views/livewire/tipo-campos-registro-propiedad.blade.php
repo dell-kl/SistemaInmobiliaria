@@ -26,8 +26,6 @@
 
             <div class="flex flex-row flex-wrap gap-1">
 
-
-
                 <div class="form-floating mb-3  flex-1">
                     <input type="number" wire:blur="actualizarValidaciones('habitaciones')" wire:model.update="actualizacionCampo('habitaciones')" wire:model.live="habitaciones" name="numeroHabitaciones" value="{{ ( isset($datosPropiedad) ) ? $datosPropiedad['properties_rooms'] : '' }}" wire:key="1" class="form-control w-100  @error('habitaciones') border border-danger @enderror" id="floatingInput" placeholder="Inserta numero de habitaciones">
                     <label for="floatingInput">🛌 Numero Habitaciones</label>
