@@ -48,7 +48,6 @@
             <div class="m-auto pt-5">
 
                 @if ( $rolUsuario !== "soporte_tecnico" && in_array(["authorizations_permissionId" => "1"], $permisos) )
-
                     @livewire('registro-propiedad')
                 @endif
 

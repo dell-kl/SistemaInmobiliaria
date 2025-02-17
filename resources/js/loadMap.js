@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
             {
                 const coordenadas = document.querySelector(`#${idMapa} input[type=hidden]`).value;
 
+
                 const lat = coordenadas.split(",")[0];
                 const lng = coordenadas.split(",")[1];
 

@@ -3,16 +3,16 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 class UbicacionMapa extends Component
 {
     public string $identificador;
     public string $coordenadas;
 
-
     public function verificarCoordenadas()
     {
-        dd($this->coordenadas);
+        dd('datos....');
     }
 
     public function render()
