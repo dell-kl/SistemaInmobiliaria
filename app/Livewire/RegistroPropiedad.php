@@ -7,6 +7,9 @@ use Livewire\Component;
 
 class RegistroPropiedad extends Component
 {
+    //este codigo de aqui nos servira mucho para verificar si se debe seguir mostrando el panel o no...
+    public $mostrarPanel = false;
+
     public $autorizarRegistro = false;
 
     public $verificarFormularios = [
@@ -16,8 +19,6 @@ class RegistroPropiedad extends Component
         "coordenadas" => false,
         "datosUbicacion" => false
     ];
-
-
 
     public function render()
     {
@@ -34,27 +35,37 @@ class RegistroPropiedad extends Component
     public function ListeningDispatchingForms($datos)
     {
         try {
+
             //code...
             $this->verificarFormularios[$datos['tipo']] = $datos['valor'];
 
             if (
-                // $this->verificarFormularios["imgProyecto"]
-                // &&
+                $this->verificarFormularios["imgProyecto"]
+                &&
                 $this->verificarFormularios["datosProyecto"]
-                // &&
-                // $this->verificarFormularios["imgPlanos"] &&
-                // $this->verificarFormularios["coordenadas"] &&
-                // $this->verificarFormularios["datosUbicacion"]
+                &&
+                $this->verificarFormularios["imgPlanos"]
+                &&
+                $this->verificarFormularios["datosUbicacion"]
+                // $this->verificarFormularios["coordenadas"]
             )
             {
                 $this->autorizarRegistro = true;
             }
+            else
+            {
+                $this->autorizarRegistro = false;
+            }
 
-            $this->render();
         } catch (\Throwable $th) {
             //throw $th;
             dd($th);
         }
 
+    }
+
+    public function setearMostrarPanel($entrada)
+    {
+        $this->mostrarPanel = $entrada;
     }
 }

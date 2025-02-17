@@ -1,15 +1,16 @@
 <?php
-
 namespace App\Livewire;
 
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Livewire\Attributes\On;
 
 class SubidaArchivo extends Component
 {
     use WithFileUploads;
 
+    public $respuestaValidacion;
     public $identificador;
     public $tipoSubidaArchivo;
     public $widthProperty;
@@ -19,6 +20,14 @@ class SubidaArchivo extends Component
 
     public $mostrarBotonValidar = false;
 
+    /**
+     * ====================================
+     * VARIABLES PARA MOSTRAR LOADING O SUBIDA DE ARCHIVOS
+     * ====================================
+     */
+    public $mostrarSubidaArchivos = true;
+    public $mostrarCarga = false;
+
 
     /**
      * ====================================
@@ -26,7 +35,7 @@ class SubidaArchivo extends Component
      * ====================================
      */
 
-     public $imagenEliminar;
+    public $imagenEliminar;
 
     /**
      * ====================================
@@ -36,25 +45,8 @@ class SubidaArchivo extends Component
 
     public $imagenes = [];
 
-    protected $rules = [
-        'imagenes' => 'array|max:5',
-        'imagenes.*' => 'required|image|mimes:jpg,jpeg,png|max:1024',
-    ];
-
-    protected $messages = [
-        'imagenes.required' => 'Es un requisito realizar la subida de las imagenes para el proyecto',
-        'imagenes.max' => 'Actualmente no se permiten imagenes mayores a 1GB',
-        'imagenes.array' => 'Solamente es permitido subir 5 imagenes',
-        'imagenes.*.mimes' => 'Solo se permiten imagenes de tipo jpg, jpeg o png',
-        // 'imagenes.*.max' => 'Las imagenes no pueden pesar mas de 1GB'
-    ];
-
     public function render()
     {
-        if ( !empty($this->imagenes) ) {
-            $this->mostrarBotonValidar = true;
-        }
-
         return view('livewire.subida-archivo');
     }
 
@@ -64,10 +56,21 @@ class SubidaArchivo extends Component
         $this->dispatch("activarEntrada");
     }
 
-    public function validarImagenes()
+    /**
+     * Metodo para poder actualizar el respectivo registro de propiedad.
+     */
+    public function actualizarFormulario($valor)
     {
-        //vamos a realizar unas cuantas validaciones para la parte de nuestras imagenes.
-        $this->validateOnly('imagenes');
+        $payload = ['tipo' => 'imgProyecto', 'valor' => $valor];
+
+        if ( $this->tipoSubidaArchivo != 'imagenes' )
+        {
+            $payload['tipo'] = 'imgPlanos';
+        }
+
+        $this
+            ->dispatch('formulario-registro', $payload )
+            ->to(RegistroPropiedad::class);
     }
 
     public function borrarImagen($rutaTemp)

@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Property;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 class TipoCamposRegistroPropiedad extends Component
 {
@@ -33,13 +34,10 @@ class TipoCamposRegistroPropiedad extends Component
     public $codigosVideoYoutube;
 
     protected $rules = [
-        'habitaciones' => 'required|numeric|min:1|max:5',
-        'banos' => ['required', 'regex:/^[0-4]$|^baño y medio$/i'],
-        'estacionamiento' => 'required|numeric|min:0|max:4',
         'area' => 'required',
         'altoProfundidad' => 'required',
         'disponibilidadProyecto' => 'required',
-        'precioProyecto' => 'required|numeric',
+        'precioProyecto' => 'required|numeric|min:100',
         'descripcionProyecto' => 'required|max:150',
         'codigosVideoYoutube' => ['required', 'regex:/^([a-zA-Z0-9_-]{11})(,[a-zA-Z0-9_-]{11})*$/']
     ];
@@ -112,6 +110,7 @@ class TipoCamposRegistroPropiedad extends Component
 
             'precioProyecto.required' => 'Campo requerido y numerico',
             'precioProyecto.numeric' => 'Debe ser un numero',
+            'precioProyecto.min' => 'Ingresa un precio mayor o igual a 100',
 
             'descripcionProyecto.required' => 'Campo requerido',
             'descripcionProyecto.max' => 'Maximo 150 caracteres',
@@ -122,15 +121,43 @@ class TipoCamposRegistroPropiedad extends Component
     }
 
 
-    //este metodo de aqui lo vamos a ejecutar en nuestro boton cuando se de click para registrar dicha propiedad.
     public function actualizarValidaciones()
     {
+        if ( $this->typeProjects == 1 || $this->typeProjects == 2 ) {
+
+            $this->rules["habitaciones"] = 'required|numeric|min:1|max:5';
+            $this->rules["banos"] = ['required', 'regex:/^[0-4]$|^baño y medio$/i'];
+
+            if ( $this->typeProjects == 1 ) {
+                $this->rules["estacionamiento"] = 'required|numeric|min:1|max:4';
+            }
+
+        }
+
+        try {
+            if ( $this->typeProjects == 1 || $this->typeProjects == 2 ) $this->validateOnly('habitaciones');
+            if ( $this->typeProjects == 1 || $this->typeProjects == 2 ) $this->validateOnly('banos');
+            if ( $this->typeProjects == 1 ) $this->validateOnly('estacionamiento');
+
+            $this->validateOnly('area');
+            $this->validateOnly('altoProfundidad');
+            $this->validateOnly('disponibilidadProyecto');
+            $this->validateOnly('precioProyecto');
+            $this->validateOnly('descripcionProyecto');
+            $this->validateOnly('codigosVideoYoutube');
+            //code...
+        } catch (\Throwable $th) {
+            //throw $th;
+            $this->actualizarFormulario(false);
+        }
+
         $resultado = $this->validate();
 
         if ( !empty($resultado) )
         {
             $this->actualizarFormulario(true);
         }
+
     }
 
     public function EventUpdateTypeProject($type)
@@ -143,5 +170,11 @@ class TipoCamposRegistroPropiedad extends Component
         $this
             ->dispatch('formulario-registro', ['tipo' => 'datosProyecto', 'valor' => $valor] )
             ->to(RegistroPropiedad::class);
+    }
+
+    #[On('desactivar-formulario')]
+    public function desactivarFormulario()
+    {
+        $this->actualizarFormulario(false);
     }
 }

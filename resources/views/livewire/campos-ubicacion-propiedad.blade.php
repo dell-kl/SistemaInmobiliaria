@@ -3,7 +3,7 @@
 
     <div class="flex flex-row flex-wrap gap-1 pb-2">
         <div class="form-floating flex-1">
-            <select class="form-select @error('idCanton') border border-danger @enderror" wire:blur="validacionCampos('idCanton')" id="floatingSelect" name="IM_canton" aria-label="Floating label select example" wire:model.lazy="idCanton">
+            <select class="form-select @error('idCanton') border border-danger @enderror" wire:blur="validacionCampos" id="floatingSelect" name="IM_canton" aria-label="Floating label select example" wire:model.lazy="idCanton">
                 <option selected value="0">-- Cantones Disponibles --</option>
 
                 @if ( !empty($cantones) )
@@ -21,7 +21,7 @@
 
     <div class="flex flex-row flex-wrap gap-1 pb-2">
         <div class="form-floating flex-1">
-            <select name="ParroquiaProyecto" wire:blur="validacionCampos('idParroquia')" wire:model.lazy="idParroquia" class="form-select  @error('idParroquia') border border-danger @enderror" id="floatingSelect" aria-label="Floating label select example">
+            <select name="ParroquiaProyecto" wire:blur="validacionCampos" wire:model.lazy="idParroquia" class="form-select  @error('idParroquia') border border-danger @enderror" id="floatingSelect" aria-label="Floating label select example">
                 <option selected value="0">-- Parroquias del Canton --</option>
 
                 @if ( !empty($parroquias) )
@@ -44,7 +44,7 @@
     <p class="pb-2 text-gray-400 text-capitalize">Puedes dar una direccion descriptiva del proyecto <strong> Ejm: La pulida / Fernando Corral y Carlos Freiler </strong> </p>
 
     <div class="form-floating mb-3">
-        <input type="text" wire:blur="validacionCampos('direccionPropiedad')" wire:model.lazy="direccionPropiedad" name="DireccionProyecto" value="{{ isset($datosPropiedad) ? $datosPropiedad["properties_address"] : "" }}" class="form-control w-100 @error('direccionPropiedad') border border-danger @enderror" id="floatingInput" placeholder="Ingresa sector propiedad">
+        <input type="text" wire:input="validacionCampos" wire:model.lazy="direccionPropiedad" name="DireccionProyecto" value="{{ isset($datosPropiedad) ? $datosPropiedad["properties_address"] : "" }}" class="form-control w-100 @error('direccionPropiedad') border border-danger @enderror" id="floatingInput" placeholder="Ingresa sector propiedad">
         <label for="floatingInput">🗺️ Direccion de la propiedad</label>
         @error('direccionPropiedad') <span class="text-danger">{{ $message }}</span> @enderror
     </div>

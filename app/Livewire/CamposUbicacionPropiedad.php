@@ -25,7 +25,7 @@ class CamposUbicacionPropiedad extends Component
     //seccion para la parte de la validacion de los campos.
     protected $rules = [
         'idCanton' => 'required|min:1|regex:/^[1-9]+$/',
-        'idParroquia' => 'required|min:1|regex:/^[1-9]+$/',
+        'idParroquia' => 'required|min:1',
         'direccionPropiedad' => 'required',
     ];
 
@@ -68,13 +68,36 @@ class CamposUbicacionPropiedad extends Component
 
     private function rellenarDatos()
     {
-        
+
     }
 
-    public function validacionCampos($campo)
+    public function validacionCampos()
     {
-        $this->validateOnly($campo);
+        try {
+            //code...
+            $this->validateOnly('idCanton');
+            $this->validateOnly('idParroquia');
+            $this->validateOnly('direccionPropiedad');
+        } catch (\Throwable $th) {
+            //throw $th;
+            $this->actualizarFormulario(false);
+        }
+
+        $resultado = $this->validate();
+
+        if ( !empty($resultado) )
+        {
+            $this->actualizarFormulario(true);
+        }
     }
+
+    public function actualizarFormulario($valor)
+    {
+        $this
+            ->dispatch('formulario-registro', ['tipo' => 'datosUbicacion', 'valor' => $valor] )
+            ->to(RegistroPropiedad::class);
+    }
+
 
     //esta opcion de aqui se va a ejecutar cuando seleccionemos un canto disponible.
     public function cantonOpcion() : void

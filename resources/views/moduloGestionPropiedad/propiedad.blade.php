@@ -48,18 +48,9 @@
             <div class="m-auto pt-5">
 
                 @if ( $rolUsuario !== "soporte_tecnico" && in_array(["authorizations_permissionId" => "1"], $permisos) )
-                    <button
-                        id="btnRegistrarPropiedad"
-                        class="btn btn-warning ms-3 flex flex-row items-center gap-2 boton-panel d-flex"
-                        type="button"
-                        data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop">
-                        <img src="/icons/home.png" width="50"/>
-                        Agregar Propiedad
-                    </button>
+
+                    @livewire('registro-propiedad')
                 @endif
-
-
 
                 <div class="m-auto propiedades-listado pt-4 flex flex-row flex-wrap justify-content-center gap-2 items-center pb-2">
                     @if (!empty($propiedades))
@@ -94,7 +85,7 @@
                 </div>
             </div>
 
-            @livewire('registro-propiedad')
+
         </div>
     @endif
 @endsection
