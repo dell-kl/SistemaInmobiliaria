@@ -8,7 +8,7 @@ Para eso lo controlamos junto con el archivo RegistroPropiedad.php del livewire.
         class="btn btn-warning ms-3 flex flex-row items-center gap-2 boton-panel d-flex"
         type="button"
         data-bs-toggle="modal"
-        wire:click="setearMostrarPanel(true)"
+        wire:click="setearMostrarPanel(true, 'map')"
         data-bs-target="#staticBackdrop">
         <img src="/icons/home.png" width="50"/>
         Agregar Propiedad
@@ -37,16 +37,16 @@ Para eso lo controlamos junto con el archivo RegistroPropiedad.php del livewire.
                     <div class="flex flex-row flex-wrap">
 
                       @livewire('subida-archivo', ['tipoSubidaArchivo' => 'imagenes', 'widthProperty' => 'w-50', 'heightProperty' => 'h-100', 'mensaje' => 'Arrasta o Selecciona Imagenes del nuevo proyecto', 'subtitulo' => 'Carga Imagen Proyecto'])
-                      @livewire('tipo-campos-registro-propiedad')
+                      @livewire('tipo-campos-registro-propiedad', ['tipoFormulario' => 1])
                       <div class="w-100 mt-4">
                         <h2 class="fw-bold ps-2 fs-4">Planos y Localizacion Proyecto</h2>
                         <div class="flex flex-row" style="height: 45rem">
 
-                          @livewire('subida-archivo', [ 'tipoSubidaArchivo' => 'planos', 'widthProperty' => 'w-50', 'heightProperty' => 'h-100', 'mensaje' => 'Ingresa los planos del proyecto', 'subtitulo' => 'Carga Planos Proyecto'])
+                            @livewire('subida-archivo', [ 'tipoSubidaArchivo' => 'planos', 'widthProperty' => 'w-50', 'heightProperty' => 'h-100', 'mensaje' => 'Ingresa los planos del proyecto', 'subtitulo' => 'Carga Planos Proyecto'])
 
                             <div class="ubicacion-propiedad flex flex-col gap-2 mt-3">
                                 @livewire('ubicacion-mapa', ['identificador' => 'map'])
-                                @livewire('campos-ubicacion-propiedad')
+                                @livewire('campos-ubicacion-propiedad', ['tipoFormulario' => 1])
                             </div>
 
                           <script src="{{ Vite::asset('resources/js/cargaArchivo.js') }}"></script>

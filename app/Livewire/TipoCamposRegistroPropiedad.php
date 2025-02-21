@@ -9,6 +9,8 @@ use Livewire\Attributes\On;
 
 class TipoCamposRegistroPropiedad extends Component
 {
+    public $tipoFormulario; //por defecto 1 para registrar, 2 para editar.
+
     public $typeProjects = 1;
     public $datosPropiedad;
 
@@ -42,9 +44,12 @@ class TipoCamposRegistroPropiedad extends Component
         'codigosVideoYoutube' => ['required', 'regex:/^([a-zA-Z0-9_-]{11})(,[a-zA-Z0-9_-]{11})*$/']
     ];
 
+
+
     public function render()
     {
         $this->llenarInformacion();
+
 
         return view('livewire.tipo-campos-registro-propiedad');
     }
@@ -71,7 +76,6 @@ class TipoCamposRegistroPropiedad extends Component
             $this->disponibilidadProyecto = $this->datosPropiedad["properties_availability"];
             $this->precioProyecto = $this->datosPropiedad["properties_price"];
             $this->descripcionProyecto = $this->datosPropiedad["properties_description"];
-
 
             //setear diferente manera la parte de nuestro videos.
             $videos = $this->datosPropiedad["videos"];
@@ -167,9 +171,17 @@ class TipoCamposRegistroPropiedad extends Component
 
     public function actualizarFormulario($valor)
     {
+        $tipoEvento = 'formulario-registro';
+        $payload = ['tipo' => 'datosProyecto', 'valor' => $valor];
+
+        if ( $this->tipoFormulario == 2 )
+        {
+            $tipoEvento = 'formulario-edicion';
+        }
+
         $this
-            ->dispatch('formulario-registro', ['tipo' => 'datosProyecto', 'valor' => $valor] )
-            ->to(RegistroPropiedad::class);
+        ->dispatch($tipoEvento, $payload)
+        ->to(($this->tipoFormulario == 1) ? RegistroPropiedad::class : EdicionPropiedad::class);
     }
 
     #[On('desactivar-formulario')]

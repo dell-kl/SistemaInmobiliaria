@@ -25,7 +25,6 @@ class RegistroPropiedad extends Component
         return view('livewire.registro-propiedad');
     }
 
-
     /**
      * Aqui agregaremos un metodo que escucha por un evento...
      * Este de aqui nos avisara si todos los datos ya fueron respectivamente llenados dentro
@@ -61,11 +60,17 @@ class RegistroPropiedad extends Component
             //throw $th;
             dd($th);
         }
-
     }
 
-    public function setearMostrarPanel($entrada)
+
+    /**
+     * Este apartado de aqui nos ayudara mucho para generar el evento para la parte de las coordenadas, del tipo
+     * de registro.
+     */
+    public function setearMostrarPanel($entrada, $identificador = "")
     {
         $this->mostrarPanel = $entrada;
+        //generamos el respectivo evento hacia otra parte de nuestro sistema.
+        // $this->dispatch("registro-coordenadas.{$identificador}");
     }
 }

@@ -1,6 +1,5 @@
 <div class="carrusel-imagenes {{ $mostrar }}" id="carruselVista-{{$idPropiedad}}" style="position:fixed; z-index: 999; right: 0; left: 0; top: 0; bottom: 0;">
 
-
     <button
         wire:click="cerrarCarrusel"
         type="button"

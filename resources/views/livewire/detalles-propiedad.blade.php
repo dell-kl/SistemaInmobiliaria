@@ -174,7 +174,7 @@
 
                                 @php
                                 $idPropiedad = $propiedad["properties_id"];
-                                $coordenadasProyecto = $propiedad["obtener_coordenadas"][0]["coordinates_route"];
+                                $coordenadasProyecto = (empty($propiedad["obtener_coordenadas"])) ? "-0.21011,-78.49560" : $propiedad["obtener_coordenadas"][0]["coordinates_route"];
                                 @endphp
 
                                 {{-- Ubicacion en tiempo real de nuestro proyecto. --}}

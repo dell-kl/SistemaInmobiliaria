@@ -11,6 +11,8 @@ use Livewire\Component;
 
 class CamposUbicacionPropiedad extends Component
 {
+    public $tipoFormulario; //por defecto 1 para registrar, 2 para editar.
+
     public array $Listadocantones;
     public array $ListadoParroquias;
     public $idCanton;
@@ -66,11 +68,6 @@ class CamposUbicacionPropiedad extends Component
         ]);
     }
 
-    private function rellenarDatos()
-    {
-
-    }
-
     public function validacionCampos()
     {
         try {
@@ -93,9 +90,17 @@ class CamposUbicacionPropiedad extends Component
 
     public function actualizarFormulario($valor)
     {
+        $type = 'formulario-registro';
+        $payload = ['tipo' => 'datosUbicacion', 'valor' => $valor];
+
+        if ( $this->tipoFormulario == 2 )
+        {
+            $type = 'formulario-edicion';
+        }
+
         $this
-            ->dispatch('formulario-registro', ['tipo' => 'datosUbicacion', 'valor' => $valor] )
-            ->to(RegistroPropiedad::class);
+            ->dispatch($type, $payload )
+            ->to(($this->tipoFormulario == 1) ? RegistroPropiedad::class : EdicionPropiedad::class);
     }
 
 
