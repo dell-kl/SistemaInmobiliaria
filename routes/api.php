@@ -39,6 +39,7 @@ Route::group([
  * ============================================================================
  */
 Route::post('/usuario/verificar', [UsuarioController::class, 'encontrarUsuario']);
+Route::post('/usuario/crear', [UsuarioController::class, 'crearUsuario']);
 
 /**
  * ============================================================================
@@ -69,6 +70,7 @@ Route::get('/ubicacion/listado', [UbicacionesController::class, 'obtenerUbicacio
 Route::post('/imagenes/cargar', [ImagenesController::class, 'cargarImagen'])->middleware('autenticacion');
 Route::delete('/imagenes/eliminar', [ImagenesController::class, 'eliminarImagen'])->middleware('autenticacion');
 Route::post("/imagenes/reemplazar", [ImagenesController::class, 'reemplazarImagen'])->middleware('autenticacion');
+Route::post("/imagenes/solicitar", [ImagenesController::class, 'solicitarImagenesPropiedad'])->middleware('autenticacion');
 
 /**
  * ============================================================================

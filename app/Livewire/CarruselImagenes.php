@@ -56,8 +56,6 @@ class CarruselImagenes extends Component
 
     public function render()
     {
-
-
         return view('livewire.carrusel-imagenes');
     }
 
@@ -143,7 +141,6 @@ class CarruselImagenes extends Component
 
     public function eliminarImagenesProyecto($idImagen, $rutaImagen)
     {
-
         //aqui consumimos la api para mandar justamente la idImagen y su respectiva ruta.
         $ruta = config("app.url_api") . "/api/imagenes/eliminar";
 

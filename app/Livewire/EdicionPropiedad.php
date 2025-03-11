@@ -1,20 +1,17 @@
 <?php
-
 namespace App\Livewire;
 
-use App\Models\Property;
+use App\Services\ImagenesServices;
 use Livewire\Component;
+use Illuminate\Support\Facades\Http;
 use Livewire\Attributes\On;
 
 class EdicionPropiedad extends Component
 {
     public $identificadorPropiedad;
     public $propiedad;
-
     public $token;
-
     public $mostrarPanel = false;
-
     public $autorizarEdicion = true;
 
     public $verificarFormularios = [
@@ -24,6 +21,7 @@ class EdicionPropiedad extends Component
 
     public function render()
     {
+
         return view('livewire.edicion-propiedad');
     }
 
@@ -61,6 +59,27 @@ class EdicionPropiedad extends Component
     public function setearMostrarPanel($entrada)
     {
         $this->mostrarPanel = $entrada;
+    }
+
+    /**
+     * Este evento de aqui esta ligado con la parte del carrusel de imagenes ... del cual tiene unas opciones,
+     * que son 'eliminar' y 'editar' las imagenes respectivas de la propiedad...
+     */
+    #[On('actualizar-imagenes-propiedad')]
+    public function actualizarImagenesPropiedad(ImagenesServices $imagenes, $valor)
+    {
+        $url = config('app.url_api') . "/api/imagenes/solicitar";
+
+        if ( !empty($valor) )
+        {
+            $tipo = $valor["tipo"];
+
+            $respuesta = Http::post($url, [
+                "idPropiedad" => 1,
+                "tipo" => $tipo,
+                "token" => $this->token
+            ]);
+        }
     }
 
 }

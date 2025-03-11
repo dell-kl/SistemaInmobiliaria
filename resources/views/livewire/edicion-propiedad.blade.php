@@ -35,6 +35,9 @@
                         $recursoPropiedad["videos"] = $propiedad["videos"];
                         @endphp
 
+                        {{-- Este carrusel debe estar actualizandose en base a los eventos que se le vayan generando
+                        con el componenten hijo.. entonces debemos establecer una comunicacion entre dos componentes, PADRE e HIJO --}}
+
                         @livewire('carrusel-imagenes', [
                             'idPropiedad' => $propiedad["properties_id"],
                             'recursosPropiedad' => $recursoPropiedad,
@@ -52,12 +55,6 @@
                         </div>
 
                         <div class="campos-adicionales m-4 d-flex gap-2" style="width: 100%">
-
-                            {{-- <div class="mapa relative w-100">
-                                <div id="proyecto-{{$propiedad["properties_id"]}}" style="width:100%;height:100%;">
-                                    <input type="hidden" class="proyecto-{{$propiedad["properties_id"]}}" value="{{$propiedad["obtener_coordenadas"][0]["coordinates_route"]}}" name="ubicacionMapa" id="campoUbicacionMapa">
-                                </div>
-                            </div> --}}
 
                             @livewire('ubicacion-mapa', ['identificador' => "proyecto-{$propiedad["properties_id"]}", 'coordenadas' => (empty($propiedad["obtener_coordenadas"])) ? "-0.21011,-78.49560" : $propiedad["obtener_coordenadas"][0]["coordinates_route"]])
 

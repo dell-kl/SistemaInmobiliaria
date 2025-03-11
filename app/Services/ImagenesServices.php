@@ -45,6 +45,9 @@ class ImagenesServices {
         }
 
         return $status;
+    }
+
+    public function solicitarImagen(array $valor) {
 
     }
 }
