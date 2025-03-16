@@ -5,6 +5,7 @@ use App\Http\Controllers\InicioSesionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CreditoController;
+use App\Http\Controllers\GenerateQRController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\ProfileController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\UserController;
  Route::controller(InicioSesionController::class)->group(function() {
      Route::get('/login',  'index')->middleware('sesion')->name('login');
      Route::post('/auth', 'auth');
+     Route::post('/authQR', 'authQR');
      Route::get('/logout', 'logout');
      Route::get('/reset', 'reset');
      Route::post('/resetPost', 'resetPost');
@@ -80,3 +82,7 @@ Route::resource('roles', RoleController::class)->middleware('autenticacionWeb');
 Route::get('/obtener-interes/{institucionId}', [CreditoController::class, 'getInteres'])->name('obtener.interes');
 Route::get('/simular-credito/{id}', [CreditoController::class, 'show'])->name('home.simularCredito');
 
+/**
+ * Vista de qr
+ */
+Route::get('/obtener-qr', [GenerateQRController::class, 'vista']);

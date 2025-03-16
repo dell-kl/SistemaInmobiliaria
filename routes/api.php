@@ -31,7 +31,12 @@ Route::group([
     Route::post('/sesion', [SesionController::class, 'inicioSesion']);
     Route::post('/cerrar', [SesionController::class, 'cerrarSesion']);
     Route::post('/reset', [SesionController::class, 'reset']);
+
+    //sesion por autenticacion qr
+    Route::post('/qr', [SesionController::class, 'sesionXToken']);
 });
+
+Route::get('/qr', [SesionController::class, 'qrGet']);
 
 /**
  * ============================================================================
@@ -51,6 +56,7 @@ Route::post('/propiedades/registrar', [PropiedadesController::class, 'registrar'
 Route::get('/propiedades/ultimo', [PropiedadesController::class, 'ultimoRegistro']);
 Route::post('/propiedades/actualizar', [PropiedadesController::class, 'actualizar'])->middleware('autenticacion');
 Route::delete('/propiedades/eliminar', [PropiedadesController::class, 'eliminar'])->middleware('autenticacion');
+Route::post('/propiedades/eliminar', [PropiedadesController::class, 'eliminar'])->middleware('autenticacion');
 Route::post('/propiedades/listar/perfil', [PropiedadesController::class, 'listarPerfil'])->middleware('autenticacion');
 /**
  * ============================================================================
@@ -135,3 +141,5 @@ Route::get('/permisos/listar', [PermisosController::class, 'listarPermisos']);
 
 Route::get('/autorizaciones/listar', [AutorizacionesController::class, 'listarAutorizaciones']);
 Route::post('/autorizaciones/actualizar', [AutorizacionesController::class, 'editarAutorizaciones'])->middleware('autenticacion');
+
+

@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\ApiRestControllers;
 
+use App\Events\UserAuthenticatedQRBroadcast;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\SesionesServices;
@@ -20,11 +21,29 @@ class SesionController extends Controller {
         $this->sesionService = $sesiones;
     }
 
+    public function qrGet()
+    {
+        broadcast(new UserAuthenticatedQRBroadcast("token dentro de este alamcen."));
+    }
+
+    public function sesionXToken(Request $request) {
+        // el token de la sesion del usuario.
+        $token = $request->token;
+
+        // vamos a enviar un respectivo envio a nuestro sockets.
+        UserAuthenticatedQRBroadcast::dispatch($token);
+        // broadcast(new UserAuthenticatedQRBroadcast($token));
+        // usamos el token para poder de este modo iniciar sesion a este usuario.
+        // $tokenAutorizacion = "Bearer ". $token;
+        // return redirect('/propiedades')->withCookie('Authorization', $tokenAutorizacion);
+
+        return $token;
+    }
+
     public function inicioSesion(Request $request) : JsonResponse {
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email',
-            'password' => 'required|string|max:15',
-
+            'password' => 'required|string|max:15'
         ]);
 
         if ( $validator->fails()  )

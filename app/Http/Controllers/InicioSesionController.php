@@ -44,17 +44,25 @@ class InicioSesionController extends Controller
        }
     }
 
+    public function authQR(Request $request)
+    {
+        //verificar si hay el token.
+        $token = json_decode($request->_verificador, true)["mensaje"];
+
+        $tokenAutorizacion = "Bearer ". $token;
+        
+        return redirect('/propiedades')->withCookie('Authorization', $tokenAutorizacion);
+    }
+
     public function auth(Request $request)
     {
         //gestion respectivo del perfil del cliente...
         try
         {
-
             $respuesta = Http::post($this->ruta . "/api/auth/sesion", [
                 "email" => $request["email"],
                 "password" => $request["password"]
             ]);
-
 
             $body = json_decode($respuesta->body(), true);
 

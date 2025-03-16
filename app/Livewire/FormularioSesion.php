@@ -2,17 +2,24 @@
 
 namespace App\Livewire;
 
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\RoundBlockSizeMode;
+use Endroid\QrCode\Writer\PngWriter;
 use Livewire\Component;
 
 class FormularioSesion extends Component
 {
     //vamos a definir unos atributos que podemos empezar a realizar cambios.
-
     public $email = "";
 
     public $password = "";
 
     public  $permitirSesion = "denegado";
+
+    public $tipoAutenticacion = "Credenciales";
 
     protected $rules = [
         'email' => 'required|email',
@@ -28,8 +35,6 @@ class FormularioSesion extends Component
 
     public function render()
     {
-
-
         return view('livewire.formulario-sesion');
     }
 
@@ -42,5 +47,10 @@ class FormularioSesion extends Component
             $this->permitirSesion = "autorizado";
         }
 
+    }
+
+    public function verificarTipoAutenticacion($tipo)
+    {
+        $this->tipoAutenticacion = $tipo;
     }
 }
