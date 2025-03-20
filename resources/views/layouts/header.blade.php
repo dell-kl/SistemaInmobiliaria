@@ -103,18 +103,17 @@
                         </a>
                     </li>
                 @endif
-
                 @if ( $rolUsuario !== "soporte_tecnico"  )
-                <li>
-                    <a href="/citas"
-                        class="flex flex-col items-center p-3 rounded-xl bg-gray-100 hover:bg-blue-500 transition-all duration-300 group shadow-md border border-gray-200"
-                        style="text-decoration: none;">
-                        <i class="fas fa-chart-bar text-2xl mb-2 text-gray-600 group-hover:text-white"></i>
-                        <span class="text-sm text-gray-700 group-hover:text-white">Revisar Citas</span>
-                    </a>
-                </li>
-                @endif
-            </ul>
+<li>
+    <a href="{{ route('cites.index') }}"
+        class="flex flex-col items-center p-3 rounded-xl bg-gray-100 hover:bg-blue-500 transition-all duration-300 group shadow-md border border-gray-200"
+        style="text-decoration: none;">
+        <i class="fas fa-chart-bar text-2xl mb-2 text-gray-600 group-hover:text-white"></i>
+        <span class="text-sm text-gray-700 group-hover:text-white">Revisar Citas</span>
+    </a>
+</li>
+@endif
+</ul>
         </div>
     </nav>
 </header>

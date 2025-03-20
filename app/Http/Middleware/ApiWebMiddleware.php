@@ -16,7 +16,6 @@ class ApiWebMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-
         $request->headers->add(['Authorization' => $request->cookie('Authorization')] );
 
         $autenticacion = auth('web')->user();

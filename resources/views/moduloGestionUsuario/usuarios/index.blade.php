@@ -12,7 +12,7 @@
             <input type="text" name="search" class="form-control me-2" placeholder="Buscar usuario por cédula...">
             <button type="submit" class="btn btn-buscar text-white">Buscar</button>
         </form>
-        <a href="{{ route('usuarios.create') }}" class="btn btn-registrar text-white">
+        <a href="{{ route('usuarios.create') }}" class="btn btn-registrar text-black">
             <i class="fas fa-user-plus"></i> Registrar Usuario
         </a>
     </div>
