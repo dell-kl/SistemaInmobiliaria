@@ -86,3 +86,6 @@ Route::get('/simular-credito/{id}', [CreditoController::class, 'show'])->name('h
  * Vista de qr
  */
 Route::get('/obtener-qr', [GenerateQRController::class, 'vista']);
+
+
+
