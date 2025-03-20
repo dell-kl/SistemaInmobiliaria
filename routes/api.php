@@ -7,6 +7,7 @@
 use App\Http\Controllers\ApiRestControllers\AutorizacionesController;
 use App\Http\Controllers\ApiRestControllers\CoordenadasController;
 use App\Http\Controllers\ApiRestControllers\ImagenesController;
+use App\Http\Controllers\ApiRestControllers\NotificacionesController;
 use App\Http\Controllers\ApiRestControllers\PermisosController;
 use App\Http\Controllers\ApiRestControllers\PlanosController;
 use App\Http\Controllers\ApiRestControllers\PropiedadesController;
@@ -143,3 +144,10 @@ Route::get('/autorizaciones/listar', [AutorizacionesController::class, 'listarAu
 Route::post('/autorizaciones/actualizar', [AutorizacionesController::class, 'editarAutorizaciones'])->middleware('autenticacion');
 
 
+/**
+ * ============================================================================
+ * NOTIFICACIONES
+ * ============================================================================
+ */
+
+Route::post('/notificaciones/enviar/contacto', [NotificacionesController::class, 'enviarNotificacion']);

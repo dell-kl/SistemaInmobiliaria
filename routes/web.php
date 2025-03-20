@@ -8,6 +8,7 @@ use App\Http\Controllers\CreditoController;
 use App\Http\Controllers\GenerateQRController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InstitutionController;
+use App\Http\Controllers\NotificacionProcesoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -86,3 +87,9 @@ Route::get('/simular-credito/{id}', [CreditoController::class, 'show'])->name('h
  * Vista de qr
  */
 Route::get('/obtener-qr', [GenerateQRController::class, 'vista']);
+
+
+/**
+ * Capturar la parte de las notificaciones para que se pueda comunicar con el usuario.
+ */
+Route::post('/notificacion', [NotificacionProcesoController::class, 'obtenerDatos']);

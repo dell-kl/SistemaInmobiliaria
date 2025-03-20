@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Property;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Address;
@@ -18,10 +19,18 @@ class NotificacionCorreo extends Mailable
      */
 
     public $token;
+    public $tipo;
+    public $usuario;
+    public $propiedadNombre;
+    public $address;
 
-    public function __construct($token)
+    public function __construct($token, $tipo = "reseteo", $usuario, $propiedadNombre, $address)
     {
         $this->token = $token;
+        $this->tipo = $tipo;
+        $this->usuario = $usuario;
+        $this->propiedadNombre = $propiedadNombre;
+        $this->address = $address;
     }
 
     /**

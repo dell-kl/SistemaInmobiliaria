@@ -204,27 +204,31 @@
                                     Contáctata por el proyecto en <strong>{{ $propiedad['properties_address'] }}</strong>
                                 </h2>
 
-                                <form>
+                                <form method="POST" action="/notificacion">
+
+                                    @csrf
+
+                                    <input type="hidden" name="propiedad" value="{{ $propiedad['properties_description'] }}" />
+                                    <input type="hidden" name="direccion" value="{{ $propiedad['properties_address'] }}"/>
+
                                     <div class="form-floating mb-3">
-                                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                        <input type="email"
+                                        class="form-control"
+                                        name="email"
+                                        id="floatingInput"
+                                        placeholder="name@example.com">
                                         <label for="floatingInput">Direccion Email</label>
                                     </div>
 
 
                                     <div class="form-floating mb-3 w-100">
-                                        <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                                        <input
+                                        type="text"
+                                        name="name"
+                                        class="form-control"
+                                        id="floatingInput"
+                                        placeholder="name@example.com">
                                         <label for="floatingInput">Nombre</label>
-                                    </div>
-
-                                    <div class="form-floating mb-3 w-100">
-                                        <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com">
-                                        <label for="floatingInput">Numero Telefonico</label>
-                                    </div>
-
-
-                                    <div class="form-floating pb-2">
-                                        <textarea class="form-control" placeholder="Leave a comment here" style="height: 100px;" id="floatingTextarea"></textarea>
-                                        <label for="floatingTextarea">Escribe tu interés por este proyecto</label>
                                     </div>
 
                                     <button

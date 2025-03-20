@@ -50,7 +50,7 @@ class InicioSesionController extends Controller
         $token = json_decode($request->_verificador, true)["mensaje"];
 
         $tokenAutorizacion = "Bearer ". $token;
-        
+
         return redirect('/propiedades')->withCookie('Authorization', $tokenAutorizacion);
     }
 
@@ -137,16 +137,13 @@ class InicioSesionController extends Controller
                 "email" => $request->email
             ]);
 
-
             if ( $respuesta->getStatusCode() === 200 )
             {
-
                 $body = $respuesta->json();
                 $usuario = new User();
                 $usuario = $body["mensaje"];
 
                 //vamos a generar el email pero encriptado.
-
                 $token = Crypt::encrypt($usuario["users_email"]);
 
                 Mail::to($request->email)->send(new NotificacionCorreo($token));
