@@ -24,13 +24,29 @@ class NotificacionCorreo extends Mailable
     public $propiedadNombre;
     public $address;
 
-    public function __construct($token, $tipo = "reseteo", $usuario, $propiedadNombre, $address)
+    public $fecha;
+    public $nota;
+    public $comentario;
+    public function __construct(
+        $token,
+        $tipo = "reseteo",
+        $usuario = "",
+        $propiedadNombre = "",
+        $address = "",
+        $fecha = "",
+        $nota = "",
+        $comentario = ""
+    )
     {
         $this->token = $token;
         $this->tipo = $tipo;
         $this->usuario = $usuario;
         $this->propiedadNombre = $propiedadNombre;
         $this->address = $address;
+
+        $this->fecha = $fecha;
+        $this->nota = $nota;
+        $this->comentario = $comentario;
     }
 
     /**

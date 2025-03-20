@@ -20,7 +20,7 @@ class NotificacionProcesoController extends Controller
             "usuario_direccion" => $request->direccion
         ]);
 
-        redirect('/');
+        return redirect('/');
         // ->with('success', 'Se ha enviado correctamente la notificacion');
     }
 }

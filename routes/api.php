@@ -151,3 +151,4 @@ Route::post('/autorizaciones/actualizar', [AutorizacionesController::class, 'edi
  */
 
 Route::post('/notificaciones/enviar/contacto', [NotificacionesController::class, 'enviarNotificacion']);
+Route::post('/notificaciones/enviar/cita', [NotificacionesController::class, 'enviarCita']);

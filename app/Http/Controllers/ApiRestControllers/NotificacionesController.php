@@ -30,5 +30,27 @@ class NotificacionesController extends Controller
             return response()->json(['mensaje' => $th->getMessage()], 500);
         }
     }
+
+    public function enviarCita(Request $request)
+    {
+        try {
+            //code...
+            $notifficacion = new NotificacionCorreo(
+                "",
+                "cita",
+                $request->cita_cliente,
+                $request->cita_propiedad,
+                "",
+                $request->cita_fecha,
+                $request->cita_nota,
+                $request->cita_comentario
+            );
+            Mail::to($request->cita_email)->send($notifficacion);
+            return response()->json(['mensaje' => 'Se ha enviado correctamente la notificacion'], 200);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json(['mensaje' => $th->getMessage()], 500);
+        }
+    }
 }
 ?>
