@@ -4,6 +4,7 @@ use App\Http\Controllers\GestionPropiedadController;
 use App\Http\Controllers\InicioSesionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CiteController;
 use App\Http\Controllers\CreditoController;
 use App\Http\Controllers\GenerateQRController;
 use App\Http\Controllers\HomeController;
@@ -88,4 +89,11 @@ Route::get('/simular-credito/{id}', [CreditoController::class, 'show'])->name('h
 Route::get('/obtener-qr', [GenerateQRController::class, 'vista']);
 
 
+Route::get('/reportes', [App\Http\Controllers\ReportesController::class, 'index'])
+->middleware('autenticacionWeb')
+->name('reportes.index');
+//'reportes.index'
 
+
+Route::resource('cites', CiteController::class)
+->middleware('autenticacionWeb');

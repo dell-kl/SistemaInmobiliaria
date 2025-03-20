@@ -13,10 +13,15 @@ return new class extends Migration
     {
         Schema::create('cites', function (Blueprint $table) {
             $table->id('cites_id');
-            $table->unsignedBigInteger('Cites_profilesId');
-            $table->foreign('Cites_profilesId')->references('profiles_id')->on('profiles');
+            //$table->unsignedBigInteger('Cites_profilesId');
+           // $table->foreign('Cites_profilesId')->references('profiles_id')->on('profiles');
             $table->unsignedBigInteger('Cites_propertiesId');
             $table->foreign('Cites_propertiesId')->references('properties_id')->on('properties');
+            $table->string('client_name');
+            $table->string('client_email');
+            $table->text('notes')->nullable();
+            $table->text('comments')->nullable();
+            $table->date('appointment_date'); // Campo de fecha de la cita
             $table->timestamps();
         });
     }
